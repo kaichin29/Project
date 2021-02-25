@@ -1,0 +1,25 @@
+---
+title: "Welcome to Group 3"
+description: |
+  Welcome to our project webpage. This is created for the ISSS608 - Visual Analytics module in AY2020/21 Term 2. 
+author:
+  - name: Lim Kai Chin 
+    url: https://kaichinlim.netlify.app/
+    affiliation: School of Information Systems, Singapore Management University - Masters of IT in Business 
+    affiliation_url: https://smu.edu.sg
+date: 02-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Distill at:
+# https://rstudio.github.io/distill/blog.html
+
+```
+
+
+

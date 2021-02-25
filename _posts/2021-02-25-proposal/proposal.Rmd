@@ -1,0 +1,45 @@
+---
+title: "Project Proposal"
+description: |
+  Prime Mover (PM) Waiting Time in Yard 
+author:
+  - name: Li Zheng Long, Lim Kai Chin 
+    url: https://kaichinlim.netlify.app/
+date: 02-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Introduction 
+
+
+Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade1. PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port.2 For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence. 3 
+
+Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel.
+
+Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity.  
+
+**Total Time** is defined as the time difference between the two operation activities.  
+
+**Estimated Travel Time** is the duration between two locations based on distance matrix with fixed speed limit/hr. 
+
+**Non-Work Time** is the time taken for a change of driver, meal break, and PM breakdown (if any). 
+
+**Unproductive Time** is the difference between logoff and logon to the PM system (by the same driver). 
+
+**Estimated Wait Time** = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time 
+
+
+
+## Project Motivation
+
+The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.  
+
+
