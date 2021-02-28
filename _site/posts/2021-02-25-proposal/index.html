@@ -455,15 +455,8 @@ d-title {
   top: 0;
 }
 
-/* adjust viewport for navbar height */
-/* helps vertically center bootstrap (non-distill) content */
-.min-vh-100 {
-  min-height: calc(100vh - 100px) !important;
-}
-
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -571,21 +564,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
+            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
-            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
-              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
-              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description || ''}
+                  ${suggestion.description}
                 </div>
                 <div class="search-item-preview">
-                  ${img}
+                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
                 </div>
               </div>
             `;
@@ -608,10 +599,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
-
-.nav-search {
-  font-size: x-small;
-}
 
 /* Algolioa Autocomplete */
 
@@ -687,7 +674,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -915,11 +901,6 @@ d-article pre a:hover {
   text-decoration: underline;
 }
 
-d-article details {
-  grid-column: text;
-  margin-bottom: 0.8em;
-}
-
 @media(min-width: 768px) {
 
 d-article pre,
@@ -1074,17 +1055,6 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
-}
-
-/* Citation hover box */
-
-.tippy-box[data-theme~=light-border] {
-  background-color: rgba(250, 250, 250, 0.95);
-}
-
-.tippy-content > p {
-  margin-bottom: 0;
-  padding: 2px;
 }
 
 
@@ -1752,7 +1722,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    var elements = $(this).children().not('div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1867,20 +1837,6 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
-
-    // hoverable references
-    $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
-      window.tippy(this, {
-        allowHTML: true,
-        content: refHtml,
-        maxWidth: 500,
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'light-border',
-        placement: 'bottom-start'
-      });
-    });
 
     // clear polling timer
     clearInterval(tid);
@@ -2042,10 +1998,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!--/radix_placeholder_distill-->
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
-  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2110,24 +2062,24 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#data-source">Data Source</a></li>
 <li><a href="#application-libraries-packages">Application Libraries &amp; Packages</a></li>
 <li><a href="#task-breakdown">Task Breakdown</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade1. PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port.2 For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence. 3</p>
-<p>Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel.</p>
+<p>Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade.<sup>1</sup> PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port.<sup>2</sup> For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence.<sup>3</sup></p>
+<p>Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel.<sup>4</sup></p>
 <p>Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity.</p>
-<p><span class="math display">\[ Productivity = Total Containers Handled / Total Time \]</span> <span class="math display">\[Total Time = Sum (Est. Travel Time + Unproductive Time + Est. Wait Time + Non Work Time)\]</span></p>
+<p><span class="math display">\[ Productivity = Total Containers Handled / Total Time \]</span> <span class="math display">\[Total Time = Sum (Est. Travel Time + Est. Wait Time + Non Work Time)\]</span></p>
 <p><em>Total Time</em> is defined as the time difference between the two operation activities.</p>
 <p><em>Estimated Travel Time</em> is the duration between two locations based on distance matrix with fixed speed limit/hr.</p>
-<p><em>Non-Work Time</em> is the time taken for a change of driver, meal break, and PM breakdown (if any).</p>
-<p><em>Unproductive Time</em> is the difference between long-off and log-on to the PM system (by the same driver).</p>
 <p><em>Estimated Wait Time</em> = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time</p>
+<p><em>Non-Work Time</em> is the time taken for a change of driver, meal break, and PM breakdown (if any).</p>
 <h2 id="project-motivation">Project Motivation</h2>
 <p>The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.</p>
 <h2 id="review-of-existing-work">Review of Existing Work</h2>
-<p><em>PSA Internal Work</em> Current operation performances are tracked using Operation Indicators such as PM productivity and PM waiting time aggregated by duration, from shifts to monthly reports and breakdown by individual terminal and PM.</p>
-<p>Previous studies on PM operation efficiency typically focus on crane productivity by work schedule , and resource planning &amp; deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.</p>
+<p>Current operation performances are tracked using Operation Indicators such as PM productivity and PM waiting time aggregated by duration, from shifts to monthly reports and breakdown by individual terminal and PM.</p>
+<p>Previous studies on PM operation efficiency typically focus on crane productivity by work schedule<sup>5</sup> , and resource planning &amp; deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.<sup>6</sup></p>
 <h2 id="proposed-scope-and-methodology">Proposed Scope and Methodology</h2>
 <p>This study seeks to create an R Shiny app that allows for users to input parameters to suit their needs.</p>
 <ol type="1">
@@ -2136,18 +2088,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><p>Summary statistics for PM events</p>
 <ol type="i">
 <li>Histograms for wait time with parameters for each type of container</li>
-<li>Time series (across hours) for wait times with variable parameters for shift changes at 7am and 7pm</li>
+<li>Time series (across hours) for wait times with variable parameters</li>
 </ol>
-<p><img src="Examples/TimeSeries.png" /></p>
+<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TimeSeries.png" /></p>
 <ol start="3" type="i">
-<li>Average PM wait time by <em>cntr length</em> by time of day <img src="Examples/WaitTime1.png" /></li>
-<li>Average PM wait time by <em>equipment type</em> by time of day <img src="Examples/WaitTime2.png" /></li>
-<li>Tree maps for container types and movements <img src="Examples/TreeMap.png" width="500" /></li>
-<li>Bar charts of container types <img src="Examples/BarChart1.png" width="500" /> vii. Scatter Plots (Total duration of entry vs waiting time)</li>
+<li>Average PM wait time by <em>cntr length</em> by time of day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime1.png" /></li>
+<li>Average PM wait time by <em>equipment type</em> by time of day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime2.png" /></li>
+<li>Tree maps for container types and movements <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TreeMap.png" width="500" /></li>
+<li>Bar charts of container types <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BarChart1.png" width="500" /> vii. Scatter Plots (Total duration of entry vs waiting time)</li>
 </ol></li>
 <li><p>Performance of Terminals</p>
 <ol type="i">
-<li>Histograms for wait time with parameters for each type of container <img src="Examples/BoxPlot1.png" width="500" /></li>
+<li>Histograms for wait time with parameters for each type of container <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BoxPlot1.png" width="500" /></li>
 </ol></li>
 <li><p>Performance of type of containers (Dangerous Goods, Reefer, General Purpose) &amp; size of containers (20-footer, 40-footer, Oversized)<br />
 </p></li>
@@ -2157,8 +2109,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <ol type="a">
 <li>Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.</li>
 </ol>
-<p><img src="Examples/CDA1.png" /></p>
-<p><img src="Examples/CDA2.png" width="700" /></p>
+<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA1.png" /></p>
+<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA2.png" width="700" /></p>
 <ol start="2" type="a">
 <li>Distribution comparisons between categories of containers(e.g. using box plots, violin plots)</li>
 <li>Multivariate analysis using cross tabs</li>
@@ -2167,17 +2119,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 <h2 id="storyboard-and-visualisation-features">Storyboard and Visualisation Features</h2>
 <p>The Shiny app will be designed in this manner:</p>
-<p><strong>Introduction</strong>: To give context and background for the project <img src="Examples/Slide1.PNG" /></p>
-<p><strong>EDA - Time Series</strong>: To visualise the activities that are carried out across time periods <img src="Examples/Slide2.PNG" /></p>
-<p><strong>EDA - Treemaps</strong>: To visualise the proportion of different types of parameters (container type, equipment type) <img src="Examples/Slide3.PNG" /></p>
-<p><strong>EDA - Bar Charts</strong>: To visualise the counts and activities happening in a day <img src="Examples/Slide4.PNG" /></p>
-<p><strong>EDA - Histogram</strong>: To visualise the distribution of waiting times and driving times of the activities <img src="Examples/Slide5.PNG" /></p>
+<p><strong>Introduction</strong>: To give context and background for the project <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide1.PNG" /></p>
+<p><strong>EDA - Time Series</strong>: To visualise the activities that are carried out across time periods <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide2.PNG" /></p>
+<p><strong>EDA - Treemaps</strong>: To visualise the proportion of different types of parameters (container type, equipment type) <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide3.PNG" /></p>
+<p><strong>EDA - Bar Charts</strong>: To visualise the counts and activities happening in a day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide4.PNG" /></p>
+<p><strong>EDA - Histogram</strong>: To visualise the distribution of waiting times and driving times of the activities <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide5.PNG" /></p>
 <p><strong>CDA - ANOVA</strong>: To test for different variances and distributions</p>
-<p><strong>CDA - Parallel Coordinates</strong>: To visualise different patterns in the data <img src="Examples/Slide7.PNG" /></p>
-<p><strong>CDA - Violin / Box Plots</strong>: To visualise the confidence intervals <img src="Examples/Slide6.PNG" /></p>
+<p><strong>CDA - Parallel Coordinates</strong>: To visualise different patterns in the data <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide7.PNG" /></p>
+<p><strong>CDA - Violin / Box Plots</strong>: To visualise the confidence intervals <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide6.PNG" /></p>
 <p><strong>About</strong>: To provide definitions and FAQs</p>
 <h2 id="data-source">Data Source</h2>
-<p>The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift in 2019. There are approximately 65,000 records with 69 variables as follows:</p>
+<p>The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift. There are approximately 65,000 records with 69 variables. The dataset is reduced to the following 17 variables for the analysis:</p>
 <table>
 <colgroup>
 <col style="width: 4%" />
@@ -2204,338 +2156,88 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
-<td>[PM_N]</td>
-<td>PM Number/ID</td>
+<td>[EVENT_C]</td>
+<td><strong>EQOF</strong> = Equipment Offload from PM to Yard Crane <strong>EQMT</strong> = Equipment Mount to PM from Yard Crane</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
-<td>[CHASSIS_N]</td>
-<td>Trailer Number/ID</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td>[PM_DRIVER_IC_N]</td>
-<td>Driver Employee ID</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">6</td>
-<td>[HAULIER_PARTY_C]</td>
-<td>Haulier Party Code derived from Organization code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">7</td>
-<td>[ACTIVITY_SEQ_C]</td>
-<td>Operation event sequence</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">8</td>
-<td>[EVENT_C]</td>
-<td>Event Code <strong>DISC</strong> = Discharge from vessel <strong>LOAD</strong> = Load to vessel <strong>EQOF</strong> = Equipment Offload from PM to Yard Crane <strong>EQMT</strong> = Equipment Mount to PM from Yard Crane <strong>LOGN</strong> = driver logon to system <strong>LOGF</strong> = Driver Log off from system</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">9</td>
 <td>[EVENT_DT]</td>
 <td>Event Datetime</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">10</td>
+<tr class="odd">
+<td style="text-align: center;">5</td>
 <td>[EVENT_SHIFT_I]</td>
 <td>Shift indicator <strong>D</strong> =Day <strong>N</strong> = Night</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">11</td>
-<td>[PREV_EVENT_C]</td>
-<td>Previous Event Code</td>
-</tr>
 <tr class="even">
-<td style="text-align: center;">12</td>
-<td>[PREV_EVENT_DT]</td>
-<td>Previous Event Datetime</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">13</td>
-<td>[PREV_CNTR_EVENT_C]</td>
-<td>Previous Container Event Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">14</td>
-<td>[PREV_CNTR_EVENT_DT]</td>
-<td>Previous Container Event Datetime</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">15</td>
+<td style="text-align: center;">6</td>
 <td>[MOVE_OP_C]</td>
 <td>Move Operation Code filtered to “O” Ship Ops for this study</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">16</td>
-<td>[MOVE_TYPE_C]</td>
-<td>Move Type Code</td>
-</tr>
 <tr class="odd">
-<td style="text-align: center;">17</td>
-<td>[CNTR_N]</td>
-<td>Container Number</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">18</td>
+<td style="text-align: center;">7</td>
 <td>[LENGTH_Q]</td>
 <td>Container Length e.g 20 40 45 48 ft</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">19</td>
+<tr class="even">
+<td style="text-align: center;">8</td>
 <td>[CNTR_TYPE_C]</td>
 <td>Container Type <strong>RF</strong> = Reefer <strong>GP</strong> = General Purpose <strong>DG</strong> = Dangerous Goods <strong>OH</strong> = Over height Container UC = UnContainerized</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">20</td>
-<td>[CAT_C]</td>
-<td>Category Code</td>
-</tr>
 <tr class="odd">
-<td style="text-align: center;">21</td>
-<td>[PURP_C]</td>
-<td>Purpose Code</td>
+<td style="text-align: center;"></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">22</td>
-<td>[WT_Q]</td>
-<td>Weight of Container</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">23</td>
-<td>[HEIGHT_Q]</td>
-<td>Height of Container for OH and UC Container</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">24</td>
+<td style="text-align: center;">9</td>
 <td>[CNTR_ST_C]</td>
 <td>Container Status <strong>E</strong> = Empty , <strong>F</strong> = Full</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">25</td>
-<td>[CNTR_OPR_C]</td>
-<td>Container Operator Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">26</td>
+<td style="text-align: center;">10</td>
 <td>[DG_I]</td>
 <td>Dangerous Good Indicator</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">27</td>
+<tr class="even">
+<td style="text-align: center;">11</td>
 <td>[REEFER_I]</td>
 <td>Reefer Indicator</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">28</td>
+<tr class="odd">
+<td style="text-align: center;">12</td>
 <td>[UC_I]</td>
 <td>Uncontainerized Indicator</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">29</td>
+<tr class="even">
+<td style="text-align: center;">13</td>
 <td>[OVER_SIZE_I]</td>
 <td>Over Size Container Indicator</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">30</td>
-<td>[SHPMT_CNTR_ST_C]</td>
-<td>Shipment Container Status Code</td>
-</tr>
 <tr class="odd">
-<td style="text-align: center;">31</td>
-<td>[SPECIAL_DETAIL_X]</td>
+<td style="text-align: center;"></td>
+<td></td>
 <td></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">32</td>
-<td>[DIRECT_HDLG_I]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">33</td>
-<td>[REEFER_TEMP_Q]</td>
-<td>Reefer Temperature</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">34</td>
-<td>[DG_GROUP_C]</td>
-<td>DG Group Code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">35</td>
-<td>[DG_IMO_CLASS_C]</td>
-<td>DG IMO Class Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">36</td>
-<td>[IMP_HAULIER_C]</td>
-<td>Import Haulier Code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">37</td>
-<td>[EXP_HAULIER_C]</td>
-<td>Export Haulier Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">38</td>
-<td>[DISC_ABBR_VESSEL_M]</td>
-<td>Discharge Vessel Name</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">39</td>
-<td>[DISC_ABBR_VOYAGE_IN_N]</td>
-<td>Discharge Vessel Voyage inbound</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">40</td>
-<td>[LOAD_ABBR_VESSEL_M]</td>
-<td>Load Vessel Name</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">41</td>
-<td>[LOAD_ABBR_VOYAGE_OUT_N]</td>
-<td>Load Vessel Voyage Outbound</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">42</td>
-<td>[EQUIPMENT_N]</td>
-<td>Equipment ID</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">43</td>
+<td style="text-align: center;">14</td>
 <td>[EQUIPMENT_TYPE_C]</td>
 <td>Equipment Type Code (Quay Crane and Type of Yard Cranes)</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">44</td>
-<td>[OPR_USER_ID]</td>
-<td>Operator User ID</td>
-</tr>
 <tr class="odd">
-<td style="text-align: center;">45</td>
-<td>[PREV_EQUIPMENT_N]</td>
-<td>Previous Equipment ID</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">46</td>
-<td>[PREV_EQUIPMENT_TYPE_C]</td>
-<td>Previous Equipment Type Code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">47</td>
-<td>[PREV_OPR_USER_ID]</td>
-<td>Previous Operator User ID</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">48</td>
-<td>[LOCATION_C]</td>
-<td>Current Location Code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">49</td>
-<td>[LOCATION_TYPE_C]</td>
-<td>Current Location Type</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">50</td>
-<td>[PREV_LOCATION_C]</td>
-<td>Previous Location code</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">51</td>
-<td>[PREV_LOCATION_TYPE_C]</td>
-<td>Previous Location Type</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">52</td>
-<td>[DEPLOYED_ABBR_VESSEL_M]</td>
-<td>Deployed Vessel Name</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">53</td>
-<td>[DEPLOYED_ABBR_VOYAGE_N]</td>
-<td>Deployed Voyage Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">54</td>
-<td>[DEPLOYED_QC_N]</td>
-<td>Deployed QC number</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">55</td>
-<td>[DEPLOYED_LOCATION_C]</td>
-<td>Deployed Location Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">56</td>
-<td>[BOX_Q]</td>
-<td>Number of Containers</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">57</td>
+<td style="text-align: center;">15</td>
 <td>[PM_DISTANCE_Q]</td>
 <td>Distance travelled from previous location</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">58</td>
+<td style="text-align: center;">16</td>
 <td>[PM_TRAVEL_TIME_Q]</td>
 <td>Travel Time</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">59</td>
+<td style="text-align: center;">17</td>
 <td>[PM_WAIT_TIME_Q]</td>
 <td>Wait Time</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">60</td>
-<td>[PM_UNPRODUCTIVE_TIME_Q]</td>
-<td>Unproductive Time</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">61</td>
-<td>[PM_NON_WORK_TIME_Q]</td>
-<td>Non work Time</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">62</td>
-<td>[PM_PRODUCTIVE_TIME_Q]</td>
-<td>Productive Time</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">63</td>
-<td>[PM_TIME_DIFF_Q]</td>
-<td></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">64</td>
-<td>[BATCH_ID]</td>
-<td>Batch ID</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">65</td>
-<td>[LOGON_DT]</td>
-<td>Driver Logon datetime</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">66</td>
-<td>[LOGOFF_DT]</td>
-<td>Driver Logoff datetime</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">67</td>
-<td>[TRIP_ID]</td>
-<td>Trip ID</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">68</td>
-<td>[EVENT_TRIP_N]</td>
-<td>Event Trip number</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">69</td>
-<td>[PRODUCTIVE_MOVE_N]</td>
-<td>productive move number</td>
 </tr>
 </tbody>
 </table>
@@ -2605,6 +2307,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </tbody>
 </table>
+<h2 id="references">References</h2>
+<p><sup>1</sup> <a href="https://royalsocietypublishing.org/doi/10.1098/rsos.200386" class="uri">https://royalsocietypublishing.org/doi/10.1098/rsos.200386</a></p>
+<p><sup>2</sup> <a href="https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/" class="uri">https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/</a></p>
+<p><sup>3</sup> <a href="https://www.globalpsa.com/psa-international/" class="uri">https://www.globalpsa.com/psa-international/</a></p>
+<p><sup>4</sup> <a href="https://www.scs.org.sg/articles/how-arti-cial-intelligence-can-make-our-port-smarter" class="uri">https://www.scs.org.sg/articles/how-arti-cial-intelligence-can-make-our-port-smarter</a></p>
+<p><sup>5</sup> <a href="https://www.pomsmeetings.org/confpapers/005/005-0094.doc" class="uri">https://www.pomsmeetings.org/confpapers/005/005-0094.doc</a></p>
+<p><sup>6</sup> <a href="https://www.win.tue.nl/oowi/final%20project/archive/KoenStaats.pdf" class="uri">https://www.win.tue.nl/oowi/final%20project/archive/KoenStaats.pdf</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
