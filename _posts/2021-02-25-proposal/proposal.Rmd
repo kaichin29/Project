@@ -36,10 +36,9 @@ $$Total Time = Sum (Est. Travel Time + Est. Wait Time + Non Work Time)$$
 
 *Estimated Travel Time* is the duration between two locations based on distance matrix with fixed speed limit/hr. 
 
-*Estimated Wait Time* = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time 
-
 *Non-Work Time* is the time taken for a change of driver, meal break, and PM breakdown (if any). 
 
+*Estimated Wait Time* = Total Time – Non-Work Time – Est. Travel Time 
 
 ## Project Motivation
 
