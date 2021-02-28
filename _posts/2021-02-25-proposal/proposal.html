@@ -308,11 +308,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: underline;
   }
   
-  d-article details {
-    grid-column: text;
-    margin-bottom: 0.8em;
-  }
-  
   @media(min-width: 768px) {
   
   d-article pre,
@@ -467,17 +462,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
-  }
-  
-  /* Citation hover box */
-  
-  .tippy-box[data-theme~=light-border] {
-    background-color: rgba(250, 250, 250, 0.95);
-  }
-  
-  .tippy-content > p {
-    margin-bottom: 0;
-    padding: 2px;
   }
   
   
@@ -1145,7 +1129,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       var layout = $(this).attr('data-layout');
   
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      var elements = $(this).children().not('div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1260,20 +1244,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
-  
-      // hoverable references
-      $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
-        window.tippy(this, {
-          allowHTML: true,
-          content: refHtml,
-          maxWidth: 500,
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start'
-        });
-      });
   
       // clear polling timer
       clearInterval(tid);
@@ -1435,10 +1405,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   <!--/radix_placeholder_distill-->
   <script src="proposal_files/jquery-1.11.3/jquery.min.js"></script>
-  <script src="proposal_files/popper-2.6.0/popper.min.js"></script>
-  <link href="proposal_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="proposal_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="proposal_files/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="proposal_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="proposal_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="proposal_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -1504,6 +1470,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p><em>Estimated Wait Time</em> = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time</p>
 <h2 id="project-motivation">Project Motivation</h2>
 <p>The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.</p>
+<<<<<<< HEAD
 <h2 id="review-of-existing-work">Review of Existing Work</h2>
 <p><em>PSA Internal Work</em> Current operation performances are tracked using Operation Indicators such as PM productivity and PM waiting time aggregated by duration, from shifts to monthly reports and breakdown by individual terminal and PM.</p>
 <p>Previous studies on PM operation efficiency typically focus on crane productivity by work schedule , and resource planning &amp; deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.</p>
@@ -1983,6 +1950,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 </tbody>
 </table>
+=======
+<p>test</p>
+>>>>>>> 12c7d2b79a9b40777ac9d8e683e9f119ea659425
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
