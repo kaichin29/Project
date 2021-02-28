@@ -111,12 +111,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Project Proposal"]},{"type":"character","attributes":{},"value":["Prime Mover (PM) Waiting Time in Yard \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Li Zheng Long, Lim Kai Chin"]},{"type":"character","attributes":{},"value":["https://kaichinlim.netlify.app/"]}]}]},{"type":"character","attributes":{},"value":["02-25-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Project Proposal"]},{"type":"character","attributes":{},"value":["Prime Mover (PM) Waiting Time in Yard \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Li Zheng Long, Lim Kai Chin"]},{"type":"character","attributes":{},"value":["https://kaichinlim.netlify.app/"]}]}]},{"type":"character","attributes":{},"value":["02-25-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_float","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["proposal_files/anchor-4.2.2/anchor.min.js","proposal_files/bowser-1.9.3/bowser.min.js","proposal_files/distill-2.2.21/template.v2.js","proposal_files/jquery-1.11.3/jquery.min.js","proposal_files/popper-2.6.0/popper.min.js","proposal_files/tippy-6.2.7/tippy-bundle.umd.min.js","proposal_files/tippy-6.2.7/tippy-light-border.css","proposal_files/tippy-6.2.7/tippy.css","proposal_files/tippy-6.2.7/tippy.umd.min.js","proposal_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Examples/BarChart1.png","Examples/BoxPlot1.png","Examples/BoxPlot2.png","Examples/CDA1.png","Examples/CDA2.png","Examples/TimeSeries.png","Examples/TreeMap.png","Examples/WaitTime1.png","Examples/WaitTime2.png","proposal_files/anchor-4.2.2/anchor.min.js","proposal_files/bowser-1.9.3/bowser.min.js","proposal_files/distill-2.2.21/template.v2.js","proposal_files/jquery-1.11.3/jquery.min.js","proposal_files/popper-2.6.0/popper.min.js","proposal_files/tippy-6.2.7/tippy-bundle.umd.min.js","proposal_files/tippy-6.2.7/tippy-light-border.css","proposal_files/tippy-6.2.7/tippy.css","proposal_files/tippy-6.2.7/tippy.umd.min.js","proposal_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1477,17 +1477,512 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#project-motivation">Project Motivation</a></li>
+<li><a href="#review-of-existing-work">Review of Existing Work</a></li>
+<li><a href="#proposed-scope-and-methodology">Proposed Scope and Methodology</a></li>
+<li><a href="#storyboard-and-visualisation-features">Storyboard and Visualisation Features</a></li>
+<li><a href="#data-source">Data Source</a></li>
+<li><a href="#application-libraries-packages">Application Libraries &amp; Packages</a></li>
+<li><a href="#task-breakdown">Task Breakdown</a></li>
+</ul>
+</nav>
+</div>
 <h2 id="introduction">Introduction</h2>
 <p>Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade1. PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port.2 For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence. 3</p>
 <p>Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel.</p>
 <p>Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity.</p>
-<p><strong>Total Time</strong> is defined as the time difference between the two operation activities.</p>
-<p><strong>Estimated Travel Time</strong> is the duration between two locations based on distance matrix with fixed speed limit/hr.</p>
-<p><strong>Non-Work Time</strong> is the time taken for a change of driver, meal break, and PM breakdown (if any).</p>
-<p><strong>Unproductive Time</strong> is the difference between logoff and logon to the PM system (by the same driver).</p>
-<p><strong>Estimated Wait Time</strong> = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time</p>
+<p><span class="math display">\[ Productivity = Total Containers Handled / Total Time \]</span> <span class="math display">\[Total Time = Sum (Est. Travel Time + Unproductive Time + Est. Wait Time + Non Work Time)\]</span></p>
+<p><em>Total Time</em> is defined as the time difference between the two operation activities.</p>
+<p><em>Estimated Travel Time</em> is the duration between two locations based on distance matrix with fixed speed limit/hr.</p>
+<p><em>Non-Work Time</em> is the time taken for a change of driver, meal break, and PM breakdown (if any).</p>
+<p><em>Unproductive Time</em> is the difference between long-off and log-on to the PM system (by the same driver).</p>
+<p><em>Estimated Wait Time</em> = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time</p>
 <h2 id="project-motivation">Project Motivation</h2>
 <p>The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.</p>
+<h2 id="review-of-existing-work">Review of Existing Work</h2>
+<p><em>PSA Internal Work</em> Current operation performances are tracked using Operation Indicators such as PM productivity and PM waiting time aggregated by duration, from shifts to monthly reports and breakdown by individual terminal and PM.</p>
+<p>Previous studies on PM operation efficiency typically focus on crane productivity by work schedule , and resource planning &amp; deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.</p>
+<h2 id="proposed-scope-and-methodology">Proposed Scope and Methodology</h2>
+<p>This study seeks to create an R Shiny app that allows for users to input parameters to suit their needs.</p>
+<ol type="1">
+<li><p>Interactive dashboard that allows for Operations Managers to understand</p>
+<ol type="a">
+<li><p>Summary statistics for PM events</p>
+<ol type="i">
+<li>Histograms for wait time with parameters for each type of container</li>
+<li>Time series (across hours) for wait times with variable parameters for shift changes at 7am and 7pm</li>
+</ol>
+<p><img src="Examples/TimeSeries.png" /></p>
+<ol start="3" type="i">
+<li>Average PM wait time by <em>cntr length</em> by time of day <img src="Examples/WaitTime1.png" /></li>
+<li>Average PM wait time by <em>equipment type</em> by time of day <img src="Examples/WaitTime2.png" /></li>
+<li>Tree maps for container types and movements <img src="Examples/TreeMap.png" width="500" /></li>
+<li>Bar charts of container types <img src="Examples/BarChart1.png" width="500" /> vii. Scatter Plots (Total duration of entry vs waiting time)</li>
+</ol></li>
+<li><p>Performance of Terminals</p>
+<ol type="i">
+<li>Histograms for wait time with parameters for each type of container <img src="Examples/BoxPlot1.png" width="500" /></li>
+</ol></li>
+<li><p>Performance of type of containers (Dangerous Goods, Reefer, General Purpose) &amp; size of containers (20-footer, 40-footer, Oversized)<br />
+</p></li>
+<li><p>Performance of type of equipment (Quay crane, various types of Yard Cranes)</p></li>
+</ol></li>
+<li><p>Confirmatory data analysis</p>
+<ol type="a">
+<li>Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.</li>
+</ol>
+<p><img src="Examples/CDA1.png" /></p>
+<p><img src="Examples/CDA2.png" width="700" /></p>
+<ol start="2" type="a">
+<li>Distribution comparisons between categories of containers(e.g. using box plots, violin plots)</li>
+<li>Multivariate analysis using cross tabs</li>
+<li>Parallel coordinates analysis</li>
+</ol></li>
+</ol>
+<h2 id="storyboard-and-visualisation-features">Storyboard and Visualisation Features</h2>
+<p>-Insert dashboard-</p>
+<h2 id="data-source">Data Source</h2>
+<p>The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift in 2019. There are approximately 65,000 records with 69 variables as follows:</p>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">S/N</th>
+<th>Variable Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td>[SHIFT_D]</td>
+<td>Date of shift</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td>[TERMINAL_ID]</td>
+<td>Container Terminal ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td>[PM_N]</td>
+<td>PM Number/ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td>[CHASSIS_N]</td>
+<td>Trailer Number/ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td>[PM_DRIVER_IC_N]</td>
+<td>Driver Employee ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td>[HAULIER_PARTY_C]</td>
+<td>Haulier Party Code derived from Organization code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td>[ACTIVITY_SEQ_C]</td>
+<td>Operation event sequence</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td>[EVENT_C]</td>
+<td>Event Code <strong>DISC</strong> = Discharge from vessel <strong>LOAD</strong> = Load to vessel <strong>EQOF</strong> = Equipment Offload from PM to Yard Crane <strong>EQMT</strong> = Equipment Mount to PM from Yard Crane <strong>LOGN</strong> = driver logon to system <strong>LOGF</strong> = Driver Log off from system</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td>[EVENT_DT]</td>
+<td>Event Datetime</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td>[EVENT_SHIFT_I]</td>
+<td>Shift indicator <strong>D</strong> =Day <strong>N</strong> = Night</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td>[PREV_EVENT_C]</td>
+<td>Previous Event Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td>[PREV_EVENT_DT]</td>
+<td>Previous Event Datetime</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td>[PREV_CNTR_EVENT_C]</td>
+<td>Previous Container Event Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td>[PREV_CNTR_EVENT_DT]</td>
+<td>Previous Container Event Datetime</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td>[MOVE_OP_C]</td>
+<td>Move Operation Code filtered to “O” Ship Ops for this study</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td>[MOVE_TYPE_C]</td>
+<td>Move Type Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td>[CNTR_N]</td>
+<td>Container Number</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18</td>
+<td>[LENGTH_Q]</td>
+<td>Container Length e.g 20 40 45 48 ft</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td>[CNTR_TYPE_C]</td>
+<td>Container Type <strong>RF</strong> = Reefer <strong>GP</strong> = General Purpose <strong>DG</strong> = Dangerous Goods <strong>OH</strong> = Over height Container UC = UnContainerized</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td>[CAT_C]</td>
+<td>Category Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">21</td>
+<td>[PURP_C]</td>
+<td>Purpose Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">22</td>
+<td>[WT_Q]</td>
+<td>Weight of Container</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">23</td>
+<td>[HEIGHT_Q]</td>
+<td>Height of Container for OH and UC Container</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24</td>
+<td>[CNTR_ST_C]</td>
+<td>Container Status <strong>E</strong> = Empty , <strong>F</strong> = Full</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">25</td>
+<td>[CNTR_OPR_C]</td>
+<td>Container Operator Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">26</td>
+<td>[DG_I]</td>
+<td>Dangerous Good Indicator</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">27</td>
+<td>[REEFER_I]</td>
+<td>Reefer Indicator</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">28</td>
+<td>[UC_I]</td>
+<td>Uncontainerized Indicator</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">29</td>
+<td>[OVER_SIZE_I]</td>
+<td>Over Size Container Indicator</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">30</td>
+<td>[SHPMT_CNTR_ST_C]</td>
+<td>Shipment Container Status Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">31</td>
+<td>[SPECIAL_DETAIL_X]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">32</td>
+<td>[DIRECT_HDLG_I]</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">33</td>
+<td>[REEFER_TEMP_Q]</td>
+<td>Reefer Temperature</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">34</td>
+<td>[DG_GROUP_C]</td>
+<td>DG Group Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">35</td>
+<td>[DG_IMO_CLASS_C]</td>
+<td>DG IMO Class Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">36</td>
+<td>[IMP_HAULIER_C]</td>
+<td>Import Haulier Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">37</td>
+<td>[EXP_HAULIER_C]</td>
+<td>Export Haulier Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">38</td>
+<td>[DISC_ABBR_VESSEL_M]</td>
+<td>Discharge Vessel Name</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">39</td>
+<td>[DISC_ABBR_VOYAGE_IN_N]</td>
+<td>Discharge Vessel Voyage inbound</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">40</td>
+<td>[LOAD_ABBR_VESSEL_M]</td>
+<td>Load Vessel Name</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">41</td>
+<td>[LOAD_ABBR_VOYAGE_OUT_N]</td>
+<td>Load Vessel Voyage Outbound</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">42</td>
+<td>[EQUIPMENT_N]</td>
+<td>Equipment ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">43</td>
+<td>[EQUIPMENT_TYPE_C]</td>
+<td>Equipment Type Code (Quay Crane and Type of Yard Cranes)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">44</td>
+<td>[OPR_USER_ID]</td>
+<td>Operator User ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">45</td>
+<td>[PREV_EQUIPMENT_N]</td>
+<td>Previous Equipment ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">46</td>
+<td>[PREV_EQUIPMENT_TYPE_C]</td>
+<td>Previous Equipment Type Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">47</td>
+<td>[PREV_OPR_USER_ID]</td>
+<td>Previous Operator User ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">48</td>
+<td>[LOCATION_C]</td>
+<td>Current Location Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">49</td>
+<td>[LOCATION_TYPE_C]</td>
+<td>Current Location Type</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td>[PREV_LOCATION_C]</td>
+<td>Previous Location code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">51</td>
+<td>[PREV_LOCATION_TYPE_C]</td>
+<td>Previous Location Type</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">52</td>
+<td>[DEPLOYED_ABBR_VESSEL_M]</td>
+<td>Deployed Vessel Name</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">53</td>
+<td>[DEPLOYED_ABBR_VOYAGE_N]</td>
+<td>Deployed Voyage Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">54</td>
+<td>[DEPLOYED_QC_N]</td>
+<td>Deployed QC number</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">55</td>
+<td>[DEPLOYED_LOCATION_C]</td>
+<td>Deployed Location Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">56</td>
+<td>[BOX_Q]</td>
+<td>Number of Containers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">57</td>
+<td>[PM_DISTANCE_Q]</td>
+<td>Distance travelled from previous location</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">58</td>
+<td>[PM_TRAVEL_TIME_Q]</td>
+<td>Travel Time</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">59</td>
+<td>[PM_WAIT_TIME_Q]</td>
+<td>Wait Time</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">60</td>
+<td>[PM_UNPRODUCTIVE_TIME_Q]</td>
+<td>Unproductive Time</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">61</td>
+<td>[PM_NON_WORK_TIME_Q]</td>
+<td>Non work Time</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">62</td>
+<td>[PM_PRODUCTIVE_TIME_Q]</td>
+<td>Productive Time</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">63</td>
+<td>[PM_TIME_DIFF_Q]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">64</td>
+<td>[BATCH_ID]</td>
+<td>Batch ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">65</td>
+<td>[LOGON_DT]</td>
+<td>Driver Logon datetime</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">66</td>
+<td>[LOGOFF_DT]</td>
+<td>Driver Logoff datetime</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">67</td>
+<td>[TRIP_ID]</td>
+<td>Trip ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">68</td>
+<td>[EVENT_TRIP_N]</td>
+<td>Event Trip number</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">69</td>
+<td>[PRODUCTIVE_MOVE_N]</td>
+<td>productive move number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="application-libraries-packages">Application Libraries &amp; Packages</h2>
+<ul>
+<li>R Shiny</li>
+<li>ggplot</li>
+<li>tidyverse</li>
+<li>RMarkdown</li>
+<li>dplyr</li>
+<li>ggstatsplot</li>
+<li>infer</li>
+</ul>
+<h2 id="task-breakdown">Task Breakdown</h2>
+<p>The areas of responsibility are foreseen to be as follows.</p>
+<table>
+<colgroup>
+<col style="width: 84%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tasks</th>
+<th style="text-align: center;">Team Members Responsible</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Introduction and business problem definition</td>
+<td style="text-align: center;">KC</td>
+</tr>
+<tr class="even">
+<td>Data acquisition and preparation - cleaning &amp; anonymisation</td>
+<td style="text-align: center;">ZL</td>
+</tr>
+<tr class="odd">
+<td>Literature Review</td>
+<td style="text-align: center;">KC</td>
+</tr>
+<tr class="even">
+<td>Exploratory Data Analysis -Time Series -Scatter Plots (total duration of entry vs waiting time)</td>
+<td style="text-align: center;">ZL</td>
+</tr>
+<tr class="odd">
+<td>Exploratory Data Analysis - Treemaps (container types &amp; terminals) - Pie / Bar charts (activity counts) - Histograms (waiting time, driving time)</td>
+<td style="text-align: center;">KC</td>
+</tr>
+<tr class="even">
+<td>Confirmatory Data Analysis - Analysis of Variance (ANOVA) - Equal / Unequal variance - Normal / Not normal distribution</td>
+<td style="text-align: center;">ZL</td>
+</tr>
+<tr class="odd">
+<td>Confirmatory Data Analysis - Parallel coordinates analysis to visualise key relationships</td>
+<td style="text-align: center;">KC / ZL (Tbc)</td>
+</tr>
+<tr class="even">
+<td>Uncertainty - Median, confidence intervals via box plots / violin plots for waiting times - Error bars</td>
+<td style="text-align: center;">KC</td>
+</tr>
+<tr class="odd">
+<td>Insights and recommendations for actions</td>
+<td style="text-align: center;">KC</td>
+</tr>
+<tr class="even">
+<td>Limitations and conclusion</td>
+<td style="text-align: center;">ZL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -1496,6 +1991,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

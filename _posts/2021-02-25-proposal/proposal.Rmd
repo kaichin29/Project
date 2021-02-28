@@ -9,6 +9,9 @@ date: 02-25-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_float: true
+    toc_depth: 3
 ---
 
 
@@ -26,20 +29,180 @@ Upon a vessel’s arrival at a berth in the container terminal, containers are d
 
 Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity.  
 
-**Total Time** is defined as the time difference between the two operation activities.  
+$$ Productivity = Total Containers Handled / Total Time $$
+$$Total Time = Sum (Est. Travel Time + Unproductive Time + Est. Wait Time + Non Work Time)$$
 
-**Estimated Travel Time** is the duration between two locations based on distance matrix with fixed speed limit/hr. 
+*Total Time* is defined as the time difference between the two operation activities.  
 
-**Non-Work Time** is the time taken for a change of driver, meal break, and PM breakdown (if any). 
+*Estimated Travel Time* is the duration between two locations based on distance matrix with fixed speed limit/hr. 
 
-**Unproductive Time** is the difference between logoff and logon to the PM system (by the same driver). 
+*Non-Work Time* is the time taken for a change of driver, meal break, and PM breakdown (if any). 
 
-**Estimated Wait Time** = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time 
+*Unproductive Time* is the difference between long-off and log-on to the PM system (by the same driver). 
 
+*Estimated Wait Time* = Total Time – Non-Work Time – Unproductive Time – Est. Travel Time 
 
 
 ## Project Motivation
 
 The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.  
 
+
+## Review of Existing Work
+*PSA Internal Work*
+Current operation performances are tracked using Operation Indicators such as PM productivity and PM waiting time aggregated by duration, from shifts to monthly reports and breakdown by individual terminal and PM. 
+
+Previous studies on PM operation efficiency typically focus on crane productivity by work schedule , and resource planning & deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time. 
+
+
+## Proposed Scope and Methodology
+This study seeks to create an R Shiny app that allows for users to input parameters to suit their needs.
+
+1. Interactive dashboard that allows for Operations Managers to understand
+     a) Summary statistics for PM events 
+     
+          i. Histograms for wait time with parameters for each type of container
+         ii. Time series (across hours) for wait times with variable parameters for shift changes at 7am and 7pm
+         
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TimeSeries.png)
+         iii. Average PM wait time by *cntr length* by time of day
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime1.png)
+         iv. Average PM wait time by *equipment type* by time of day
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime2.png)
+         v. Tree maps for container types and movements 
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TreeMap.png){ width=500px}
+         vi. Bar charts of container types 
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BarChart1.png){ width=500px}
+                  vii. Scatter Plots (Total duration of entry vs waiting time) 
+
+
+     b) Performance of Terminals 
+         i. Histograms for wait time with parameters for each type of container
+         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BoxPlot1.png){ width=500px}
+      c) Performance of type of containers (Dangerous Goods, Reefer, General Purpose) & size of containers (20-footer, 40-footer, Oversized)  
+      d) Performance of type of equipment (Quay crane, various types of Yard Cranes)
+
+
+2.	Confirmatory data analysis          
+     a) Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.
+     
+      ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA1.png)
+      
+      ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA2.png){ width=700px}
+
+     b) Distribution comparisons between categories of containers(e.g. using box plots, violin plots)
+     c) Multivariate analysis using cross tabs
+     d) Parallel coordinates analysis
+
+ 
+## Storyboard and Visualisation Features
+
+-Insert dashboard-
+
+
+## Data Source
+The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift in 2019. There are approximately 65,000 records with 69 variables as follows:
+
+
+|     S/N    |     Variable   Name                |     Description                                                                                                                                                                                                                                      |
+|:------------:|------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     1      |     [SHIFT_D]                      |     Date   of shift                                                                                                                                                                                                                                  |
+|     2      |     [TERMINAL_ID]                  |     Container   Terminal ID                                                                                                                                                                                                                          |
+|     3      |     [PM_N]                         |     PM   Number/ID                                                                                                                                                                                                                                   |
+|     4      |     [CHASSIS_N]                    |     Trailer   Number/ID                                                                                                                                                                                                                              |
+|     5      |     [PM_DRIVER_IC_N]               |     Driver   Employee ID                                                                                                                                                                                                                             |
+|     6      |     [HAULIER_PARTY_C]              |     Haulier   Party Code derived from Organization code                                                                                                                                                                                              |
+|     7      |     [ACTIVITY_SEQ_C]               |     Operation   event sequence                                                                                                                                                                                                                       |
+|     8      |     [EVENT_C]                      |     Event   Code    **DISC** = Discharge from vessel    **LOAD** = Load to vessel    **EQOF** = Equipment Offload from PM to Yard Crane    **EQMT** = Equipment Mount to PM from Yard Crane    **LOGN** = driver logon to system    **LOGF** = Driver Log off from system    |
+|     9      |     [EVENT_DT]                     |     Event   Datetime                                                                                                                                                                                                                                 |
+|     10     |     [EVENT_SHIFT_I]                |     Shift   indicator     **D** =Day    **N** = Night                                                                                                                                                                                                        |
+|     11     |     [PREV_EVENT_C]                 |     Previous   Event Code                                                                                                                                                                                                                            |
+|     12     |     [PREV_EVENT_DT]                |     Previous   Event Datetime                                                                                                                                                                                                                        |
+|     13     |     [PREV_CNTR_EVENT_C]            |     Previous   Container Event Code                                                                                                                                                                                                                  |
+|     14     |     [PREV_CNTR_EVENT_DT]           |     Previous   Container Event Datetime                                                                                                                                                                                                              |
+|     15     |     [MOVE_OP_C]                    |     Move   Operation Code filtered to "O" Ship Ops for this study                                                                                                                                                                                    |
+|     16     |     [MOVE_TYPE_C]                  |     Move   Type Code                                                                                                                                                                                                                                 |
+|     17     |     [CNTR_N]                       |     Container   Number                                                                                                                                                                                                                               |
+|     18     |     [LENGTH_Q]                     |     Container   Length e.g 20 40 45 48 ft                                                                                                                                                                                                            |
+|     19     |     [CNTR_TYPE_C]                  |     Container   Type     **RF** = Reefer    **GP** = General Purpose   **DG** = Dangerous Goods    **OH** = Over height Container    UC = UnContainerized                                                                                                           |
+|     20     |     [CAT_C]                        |     Category   Code                                                                                                                                                                                                                                  |
+|     21     |     [PURP_C]                       |     Purpose   Code                                                                                                                                                                                                                                   |
+|     22     |     [WT_Q]                         |     Weight   of Container                                                                                                                                                                                                                            |
+|     23     |     [HEIGHT_Q]                     |     Height   of Container for OH and UC Container                                                                                                                                                                                                    |
+|     24     |     [CNTR_ST_C]                    |     Container   Status **E** = Empty , **F** = Full                                                                                                                                                                                                          |
+|     25     |     [CNTR_OPR_C]                   |     Container   Operator Code                                                                                                                                                                                                                        |
+|     26     |     [DG_I]                         |     Dangerous   Good Indicator                                                                                                                                                                                                                       |
+|     27     |     [REEFER_I]                     |     Reefer   Indicator                                                                                                                                                                                                                               |
+|     28     |     [UC_I]                         |     Uncontainerized   Indicator                                                                                                                                                                                                                      |
+|     29     |     [OVER_SIZE_I]                  |     Over   Size Container Indicator                                                                                                                                                                                                                  |
+|     30     |     [SHPMT_CNTR_ST_C]              |     Shipment   Container Status Code                                                                                                                                                                                                                 |
+|     31     |     [SPECIAL_DETAIL_X]             |                                                                                                                                                                                                                                                      |
+|     32     |     [DIRECT_HDLG_I]                |                                                                                                                                                                                                                                                      |
+|     33     |     [REEFER_TEMP_Q]                |     Reefer   Temperature                                                                                                                                                                                                                             |
+|     34     |     [DG_GROUP_C]                   |     DG   Group Code                                                                                                                                                                                                                                  |
+|     35     |     [DG_IMO_CLASS_C]               |     DG   IMO Class Code                                                                                                                                                                                                                              |
+|     36     |     [IMP_HAULIER_C]                |     Import   Haulier Code                                                                                                                                                                                                                            |
+|     37     |     [EXP_HAULIER_C]                |     Export   Haulier Code                                                                                                                                                                                                                            |
+|     38     |     [DISC_ABBR_VESSEL_M]           |     Discharge   Vessel Name                                                                                                                                                                                                                          |
+|     39     |     [DISC_ABBR_VOYAGE_IN_N]        |     Discharge   Vessel Voyage inbound                                                                                                                                                                                                                |
+|     40     |     [LOAD_ABBR_VESSEL_M]           |     Load   Vessel Name                                                                                                                                                                                                                               |
+|     41     |     [LOAD_ABBR_VOYAGE_OUT_N]       |     Load   Vessel Voyage Outbound                                                                                                                                                                                                                    |
+|     42     |     [EQUIPMENT_N]                  |     Equipment   ID                                                                                                                                                                                                                                   |
+|     43     |     [EQUIPMENT_TYPE_C]             |     Equipment   Type Code (Quay Crane and Type of Yard Cranes)                                                                                                                                                                                       |
+|     44     |     [OPR_USER_ID]                  |     Operator   User ID                                                                                                                                                                                                                               |
+|     45     |     [PREV_EQUIPMENT_N]             |     Previous   Equipment ID                                                                                                                                                                                                                          |
+|     46     |     [PREV_EQUIPMENT_TYPE_C]        |     Previous   Equipment Type Code                                                                                                                                                                                                                   |
+|     47     |     [PREV_OPR_USER_ID]             |     Previous   Operator User ID                                                                                                                                                                                                                      |
+|     48     |     [LOCATION_C]                   |     Current   Location Code                                                                                                                                                                                                                          |
+|     49     |     [LOCATION_TYPE_C]              |     Current   Location Type                                                                                                                                                                                                                          |
+|     50     |     [PREV_LOCATION_C]              |     Previous   Location code                                                                                                                                                                                                                         |
+|     51     |     [PREV_LOCATION_TYPE_C]         |     Previous   Location Type                                                                                                                                                                                                                         |
+|     52     |     [DEPLOYED_ABBR_VESSEL_M]       |     Deployed   Vessel Name                                                                                                                                                                                                                           |
+|     53     |     [DEPLOYED_ABBR_VOYAGE_N]       |     Deployed   Voyage Code                                                                                                                                                                                                                           |
+|     54     |     [DEPLOYED_QC_N]                |     Deployed   QC number                                                                                                                                                                                                                             |
+|     55     |     [DEPLOYED_LOCATION_C]          |     Deployed   Location Code                                                                                                                                                                                                                         |
+|     56     |     [BOX_Q]                        |     Number   of Containers                                                                                                                                                                                                                           |
+|     57     |     [PM_DISTANCE_Q]                |     Distance   travelled from previous location                                                                                                                                                                                                      |
+|     58     |     [PM_TRAVEL_TIME_Q]             |     Travel   Time                                                                                                                                                                                                                                    |
+|     59     |     [PM_WAIT_TIME_Q]               |     Wait   Time                                                                                                                                                                                                                                      |
+|     60     |     [PM_UNPRODUCTIVE_TIME_Q]       |     Unproductive   Time                                                                                                                                                                                                                              |
+|     61     |     [PM_NON_WORK_TIME_Q]           |     Non   work Time                                                                                                                                                                                                                                  |
+|     62     |     [PM_PRODUCTIVE_TIME_Q]         |     Productive   Time                                                                                                                                                                                                                                |
+|     63     |     [PM_TIME_DIFF_Q]               |                                                                                                                                                                                                                                                      |
+|     64     |     [BATCH_ID]                     |     Batch   ID                                                                                                                                                                                                                                       |
+|     65     |     [LOGON_DT]                     |     Driver   Logon datetime                                                                                                                                                                                                                          |
+|     66     |     [LOGOFF_DT]                    |     Driver   Logoff datetime                                                                                                                                                                                                                         |
+|     67     |     [TRIP_ID]                      |     Trip   ID                                                                                                                                                                                                                                        |
+|     68     |     [EVENT_TRIP_N]                 |     Event   Trip number                                                                                                                                                                                                                              |
+|     69     |     [PRODUCTIVE_MOVE_N]            |     productive   move number                                                                                                                                                                                                                         |
+
+
+## Application Libraries & Packages
+-	R Shiny
+-	ggplot
+-	tidyverse
+-	RMarkdown
+-	dplyr
+- ggstatsplot
+- infer
+
+
+
+## Task Breakdown
+The areas of responsibility are foreseen to be as follows.
+
+| Tasks                                                                                                                                             | Team Members Responsible |
+|---------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------:|
+| Introduction and business problem definition                                                                                                      | KC                       |
+| Data acquisition and preparation - cleaning & anonymisation                                                                                       | ZL                       |
+| Literature Review                                                                                                                                 | KC                       |
+| Exploratory Data Analysis -Time Series -Scatter Plots (total duration of entry vs waiting time)                                                   | ZL                       |
+| Exploratory Data Analysis - Treemaps (container types & terminals) - Pie / Bar charts (activity counts) - Histograms (waiting time, driving time) | KC                       |
+| Confirmatory Data Analysis - Analysis of Variance (ANOVA) - Equal / Unequal variance - Normal / Not normal distribution                           | ZL                       |
+| Confirmatory Data Analysis  - Parallel coordinates analysis to visualise key relationships                                                        | KC / ZL (Tbc)            |
+| Uncertainty - Median, confidence intervals via box plots / violin plots for waiting times - Error bars                                            | KC                       |
+| Insights and recommendations for actions                                                                                                          | KC                       |
+| Limitations and conclusion                                                                                                                        | ZL                       |
+|                                                                                                                                                   |                          |
+|                                                                                                                                                   |                          |
 
