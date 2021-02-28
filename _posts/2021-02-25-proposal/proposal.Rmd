@@ -202,10 +202,7 @@ The areas of responsibility are foreseen to be as follows.
 | Confirmatory Data Analysis  - Parallel coordinates analysis to visualise key relationships                                                        | KC / ZL (Tbc)            |
 | Uncertainty - Median, confidence intervals via box plots / violin plots for waiting times - Error bars                                            | KC                       |
 | Insights and recommendations for actions                                                                                                          | KC                       |
-| Limitations and conclusion                                                                                                                        | ZL                       |
-|                                                                                                                                                   |                          |
-|                                                                                                                                                   |                          |
+| Limitations and conclusion                                                                                                                        | ZL        
 
-=======
-test
->>>>>>> 12c7d2b79a9b40777ac9d8e683e9f119ea659425
+
+
