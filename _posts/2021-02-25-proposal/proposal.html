@@ -1483,16 +1483,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li>Histograms for wait time with parameters for each type of container</li>
 <li>Time series (across hours) for wait times with variable parameters</li>
 </ol>
-<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TimeSeries.png" /></p>
+<p><img src="Examples/TimeSeries.png" /></p>
 <ol start="3" type="i">
-<li>Average PM wait time by <em>cntr length</em> by time of day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime1.png" /></li>
-<li>Average PM wait time by <em>equipment type</em> by time of day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime2.png" /></li>
-<li>Tree maps for container types and movements <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TreeMap.png" width="500" /></li>
-<li>Bar charts of container types <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BarChart1.png" width="500" /> vii. Scatter Plots (Total duration of entry vs waiting time)</li>
+<li>Average PM wait time by <em>cntr length</em> by time of day <img src="Examples/WaitTime1.png" /></li>
+<li>Average PM wait time by <em>equipment type</em> by time of day <img src="Examples/WaitTime2.png" /></li>
+<li>Tree maps for container types and movements <img src="Examples/TreeMap.png" width="500" /></li>
+<li>Bar charts of container types <img src="Examples/BarChart1.png" width="500" /></li>
+<li>Scatter Plots (Total duration of entry vs waiting time)</li>
 </ol></li>
 <li><p>Performance of Terminals</p>
 <ol type="i">
-<li>Histograms for wait time with parameters for each type of container <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BoxPlot1.png" width="500" /></li>
+<li>Histograms for wait time with parameters for each type of container <img src="Examples/BoxPlot1.png" width="500" /></li>
 </ol></li>
 <li><p>Performance of type of containers (Dangerous Goods, Reefer, General Purpose) &amp; size of containers (20-footer, 40-footer, Oversized)<br />
 </p></li>
@@ -1502,8 +1503,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ol type="a">
 <li>Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.</li>
 </ol>
-<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA1.png" /></p>
-<p><img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA2.png" width="700" /></p>
+<p><img src="Examples/CDA1.png" /></p>
+<p><img src="Examples/CDA2.png" width="700" /></p>
 <ol start="2" type="a">
 <li>Distribution comparisons between categories of containers(e.g. using box plots, violin plots)</li>
 <li>Multivariate analysis using cross tabs</li>
@@ -1512,17 +1513,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </ol>
 <h2 id="storyboard-and-visualisation-features">Storyboard and Visualisation Features</h2>
 <p>The Shiny app will be designed in this manner:</p>
-<p><strong>Introduction</strong>: To give context and background for the project <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide1.PNG" /></p>
-<p><strong>EDA - Time Series</strong>: To visualise the activities that are carried out across time periods <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide2.PNG" /></p>
-<p><strong>EDA - Treemaps</strong>: To visualise the proportion of different types of parameters (container type, equipment type) <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide3.PNG" /></p>
-<p><strong>EDA - Bar Charts</strong>: To visualise the counts and activities happening in a day <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide4.PNG" /></p>
-<p><strong>EDA - Histogram</strong>: To visualise the distribution of waiting times and driving times of the activities <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide5.PNG" /></p>
+<p><strong>Introduction</strong>: To give context and background for the project <img src="Examples/Slide1.PNG" /></p>
+<p><strong>EDA - Time Series</strong>: To visualise the activities that are carried out across time periods <img src="Examples/Slide2.PNG" /></p>
+<p><strong>EDA - Treemaps</strong>: To visualise the proportion of different types of parameters (container type, equipment type) <img src="Examples/Slide3.PNG" /></p>
+<p><strong>EDA - Bar Charts</strong>: To visualise the counts and activities happening in a day <img src="Examples/Slide4.PNG" /></p>
+<p><strong>EDA - Histogram</strong>: To visualise the distribution of waiting times and driving times of the activities <img src="Examples/Slide5.PNG" /></p>
 <p><strong>CDA - ANOVA</strong>: To test for different variances and distributions</p>
-<p><strong>CDA - Parallel Coordinates</strong>: To visualise different patterns in the data <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide7.PNG" /></p>
-<p><strong>CDA - Violin / Box Plots</strong>: To visualise the confidence intervals <img src="C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide6.PNG" /></p>
+<p><strong>CDA - Parallel Coordinates</strong>: To visualise different patterns in the data <img src="Examples/Slide7.PNG" /></p>
+<p><strong>CDA - Violin / Box Plots</strong>: To visualise the confidence intervals <img src="Examples/Slide6.PNG" /></p>
 <p><strong>About</strong>: To provide definitions and FAQs</p>
 <h2 id="data-source">Data Source</h2>
-<p>The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift. There are approximately 65,000 records with 69 variables. The dataset is reduced to the following 17 variables for the analysis:</p>
+<p>The data source used is provided by PSA Singapore’s PM OPS anonymised dataset that contains PM operation event records in a generic 12 hr shift. There are approximately 65,000 records with 69 variables. The dataset is reduced to the following 17 variables for the analysis:</p>
 <table>
 <colgroup>
 <col style="width: 4%" />
@@ -1565,17 +1566,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <tr class="even">
 <td style="text-align: center;">6</td>
 <td>[MOVE_OP_C]</td>
-<td>Move Operation Code filtered to “O” Ship Ops for this study</td>
+<td>Move Operation Code</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">7</td>
 <td>[LENGTH_Q]</td>
-<td>Container Length e.g 20 40 45 48 ft</td>
+<td>Container Length e.g 20 40 45 ft</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">8</td>
 <td>[CNTR_TYPE_C]</td>
-<td>Container Type <strong>RF</strong> = Reefer <strong>GP</strong> = General Purpose <strong>DG</strong> = Dangerous Goods <strong>OH</strong> = Over height Container UC = UnContainerized</td>
+<td>Container Type <strong>RF</strong> = Reefer <strong>GP</strong> = General Purpose <strong>DG</strong> = Dangerous Goods <strong>OH</strong> = Over height Container <strong>UC</strong> = UnContainerized</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"></td>

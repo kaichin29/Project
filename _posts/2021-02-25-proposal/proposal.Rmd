@@ -62,21 +62,21 @@ This study seeks to create an R Shiny app that allows for users to input paramet
           i. Histograms for wait time with parameters for each type of container
          ii. Time series (across hours) for wait times with variable parameters
          
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TimeSeries.png)
+         ![](Examples/TimeSeries.png)
          iii. Average PM wait time by *cntr length* by time of day
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime1.png)
+         ![](Examples/WaitTime1.png)
          iv. Average PM wait time by *equipment type* by time of day
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/WaitTime2.png)
+         ![](Examples/WaitTime2.png)
          v. Tree maps for container types and movements 
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/TreeMap.png){ width=500px}
+         ![](Examples/TreeMap.png){ width=500px}
          vi. Bar charts of container types 
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BarChart1.png){ width=500px}
-                  vii. Scatter Plots (Total duration of entry vs waiting time) 
+         ![](Examples/BarChart1.png){ width=500px}
+        vii. Scatter Plots (Total duration of entry vs waiting time) 
 
 
      b) Performance of Terminals 
          i. Histograms for wait time with parameters for each type of container
-         ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/BoxPlot1.png){ width=500px}
+         ![](Examples/BoxPlot1.png){ width=500px}
       c) Performance of type of containers (Dangerous Goods, Reefer, General Purpose) & size of containers (20-footer, 40-footer, Oversized)  
       d) Performance of type of equipment (Quay crane, various types of Yard Cranes)
 
@@ -84,9 +84,9 @@ This study seeks to create an R Shiny app that allows for users to input paramet
 2.	Confirmatory data analysis          
      a) Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.
      
-      ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA1.png)
+      ![](Examples/CDA1.png)
       
-      ![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/CDA2.png){ width=700px}
+      ![](Examples/CDA2.png){ width=700px}
 
      b) Distribution comparisons between categories of containers(e.g. using box plots, violin plots)
      c) Multivariate analysis using cross tabs
@@ -98,35 +98,35 @@ This study seeks to create an R Shiny app that allows for users to input paramet
 The Shiny app will be designed in this manner:
 
 **Introduction**: To give context and background for the project
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide1.PNG)
+![](Examples/Slide1.PNG)
 
 
 **EDA - Time Series**: To visualise the activities that are carried out across time periods
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide2.PNG)
+![](Examples/Slide2.PNG)
 
 
 **EDA - Treemaps**: To visualise the proportion of different types of parameters (container type, equipment type)
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide3.PNG)
+![](Examples/Slide3.PNG)
 
 
 **EDA - Bar Charts**: To visualise the counts and activities happening in a day
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide4.PNG)
+![](Examples/Slide4.PNG)
 
 **EDA - Histogram**: To visualise the distribution of waiting times and driving times of the activities
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide5.PNG)
+![](Examples/Slide5.PNG)
 
 **CDA - ANOVA**: To test for different variances and distributions
 
 **CDA - Parallel Coordinates**: To visualise different patterns in the data
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide7.PNG)
+![](Examples/Slide7.PNG)
 
 **CDA - Violin / Box Plots**: To visualise the confidence intervals
-![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide6.PNG)
+![](Examples/Slide6.PNG)
 
 **About**: To provide definitions and FAQs 
 
 ## Data Source
-The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift. There are approximately 65,000 records with 69 variables. The dataset is reduced to the following 17 variables for the analysis:
+The data source used is provided by PSA Singapore’s PM OPS anonymised dataset that contains PM operation event records in a generic 12 hr shift. There are approximately 65,000 records with 69 variables. The dataset is reduced to the following 17 variables for the analysis:
 
 
 |     S/N    |     Variable   Name                |     Description                                                                                                                                                                                                                                      |
@@ -136,9 +136,9 @@ The data source used is provided by PSA Singapore’s PM OPS dataset that contai
 |     3      |     [EVENT_C]                      |         **EQOF** = Equipment Offload from PM to Yard Crane    **EQMT** = Equipment Mount to PM from Yard Crane      |
 |     4      |     [EVENT_DT]                     |     Event   Datetime                                                                                                                                                                                                                                 |
 |     5     |     [EVENT_SHIFT_I]                |     Shift   indicator     **D** =Day    **N** = Night                                                                                                                                                                                                |
-|     6     |     [MOVE_OP_C]                    |     Move   Operation Code filtered to "O" Ship Ops for this study                                                                                                                                                                                    |
-|     7     |     [LENGTH_Q]                     |     Container   Length e.g 20 40 45 48 ft                                                                                                                                                                                                            |
-|     8     |     [CNTR_TYPE_C]                  |     Container   Type     **RF** = Reefer    **GP** = General Purpose   **DG** = Dangerous Goods    **OH** = Over height Container    UC = UnContainerized                                                                                                           |
+|     6     |     [MOVE_OP_C]                    |     Move   Operation Code                                                                                                                                                                                     |
+|     7     |     [LENGTH_Q]                     |     Container   Length e.g 20 40 45 ft                                                                                                                                                                                                            |
+|     8     |     [CNTR_TYPE_C]                  |     Container   Type     **RF** = Reefer    **GP** = General Purpose   **DG** = Dangerous Goods    **OH** = Over height Container    **UC** = UnContainerized                                                                                                           |
                                                                                                                                              |
 |     9     |     [CNTR_ST_C]                    |     Container   Status **E** = Empty , **F** = Full                                                                                                                                                                                                  |
 |     10     |     [DG_I]                         |     Dangerous   Good Indicator                                                                                                                                                                                                                       |
