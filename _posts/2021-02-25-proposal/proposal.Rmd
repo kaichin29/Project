@@ -97,8 +97,35 @@ This study seeks to create an R Shiny app that allows for users to input paramet
  
 ## Storyboard and Visualisation Features
 
--Insert dashboard-
+The Shiny app will be designed in this manner:
 
+**Introduction**: To give context and background for the project
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide1.PNG)
+
+
+**EDA - Time Series**: To visualise the activities that are carried out across time periods
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide2.PNG)
+
+
+**EDA - Treemaps**: To visualise the proportion of different types of parameters (container type, equipment type)
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide3.PNG)
+
+
+**EDA - Bar Charts**: To visualise the counts and activities happening in a day
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide4.PNG)
+
+**EDA - Histogram**: To visualise the distribution of waiting times and driving times of the activities
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide5.PNG)
+
+**CDA - ANOVA**: To test for different variances and distributions
+
+**CDA - Parallel Coordinates**: To visualise different patterns in the data
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide7.PNG)
+
+**CDA - Violin / Box Plots**: To visualise the confidence intervals
+![](C:/ISSS608/Project/_posts/2021-02-25-proposal/Examples/Slide6.PNG)
+
+**About**: To provide definitions and FAQs 
 
 ## Data Source
 The data source used is provided by PSA Singapore’s PM OPS dataset that contains anonymised PM operation event records in a generic 12 hr shift in 2019. There are approximately 65,000 records with 69 variables as follows:
