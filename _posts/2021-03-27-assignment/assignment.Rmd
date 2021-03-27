@@ -17,7 +17,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r setup}
-packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot")
 
 for (p in packages){
     if(!require(p, character.only = T)){
@@ -27,14 +26,14 @@ for (p in packages){
 }
 
 # Reading the csv file
-PM <- read_csv("data/PMops.csv")
+PM <- read_delim("data/PM_201903.txt", delim = ",")
 
 # Inspecting the file structure
 str(PM)
 
 # Ensuring that data is in the correct format
-PM[,c(2:3,5:19)] <- lapply(PM[,c(2:3,5:19)],as.factor)
-PM$EVENT_DT <- as.POSIXct(PM$EVENT_DT)
+PM[,c(2:3,5:6,8:9,11:24,26:28)] <- lapply(PM[,c(2:3,5:6,8:9,11:24,26:28)],as.factor)
+PM[,c(7,34:35)] <- lapply(PM[,c(7,34:35)],as.POSIXct)
 PM$day <- as.Date(PM$EVENT_DT)
 
 str(PM)
@@ -57,7 +56,7 @@ str(PM)
 ## aggregating waiting time 
 ## CHANGE TO AGGREGATING BY TRUCK ID
 PM_group <- PM %>%
-  group_by(Terminal_ID, EVENT_C, EVENT_SHIFT_I, MOVE_OP_C, LENGTH_Q, CNTR_TYPE_C, CNTR_ST_C, DG, Reefer, UC_I, OVER_SIZE_I, EQUIPMENT_TYPE_C, day) %>%
+  group_by(PM_N, Terminal_ID, EVENT_C, EVENT_SHIFT_I, MOVE_OP_C, LENGTH_Q, CNTR_TYPE_C, CNTR_ST_C, DG, Reefer, UC_I, OVER_SIZE_I, EQUIPMENT_TYPE_C, day) %>%
   summarise_if(is.numeric, sum)
   
 head(PM_group)
