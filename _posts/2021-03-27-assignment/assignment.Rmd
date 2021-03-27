@@ -1,0 +1,67 @@
+---
+title: "assignment"
+description: |
+  A short description of the post.
+author:
+  - name: Lim Kai Chin
+    url: https://kaichinlim.netlify.app/
+date: 03-27-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r setup}
+packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot")
+
+for (p in packages){
+    if(!require(p, character.only = T)){
+        install.packages(p)
+    }
+    library(p, character.only = T)
+}
+
+# Reading the csv file
+PM <- read_csv("data/PMops.csv")
+
+# Inspecting the file structure
+str(PM)
+
+# Ensuring that data is in the correct format
+PM[,c(2:3,5:19)] <- lapply(PM[,c(2:3,5:19)],as.factor)
+PM$EVENT_DT <- as.POSIXct(PM$EVENT_DT)
+PM$day <- as.Date(PM$EVENT_DT)
+
+str(PM)
+## Merging Container specs 
+
+
+PM$DG <- fct_collapse(PM$DG_I, 
+                            DG = "Y",
+                            STD = c("N", "NULL"))
+PM$Reefer <- fct_collapse(PM$REEFER_I, 
+                            REEF = "Y",
+                            AMB = "N")
+PM$CNTR_spec <- paste(PM$LENGTH_Q,PM$DG,PM$Reefer, sep = "-")
+PM$CNTR_spec <- as.factor(PM$CNTR_spec)
+
+head(PM)
+str(PM)
+
+
+## aggregating waiting time 
+## CHANGE TO AGGREGATING BY TRUCK ID
+PM_group <- PM %>%
+  group_by(Terminal_ID, EVENT_C, EVENT_SHIFT_I, MOVE_OP_C, LENGTH_Q, CNTR_TYPE_C, CNTR_ST_C, DG, Reefer, UC_I, OVER_SIZE_I, EQUIPMENT_TYPE_C, day) %>%
+  summarise_if(is.numeric, sum)
+  
+head(PM_group)
+str(PM_group)
+
+```
+
