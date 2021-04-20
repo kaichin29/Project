@@ -1,24 +1,40 @@
-library(shiny)
-library(shinydashboard)
-library(tidyverse)
-library(ggstatsplot)
-library(ggplot2)
-library(readr)
-library(treemap)
-library(RColorBrewer)
-library(ggthemes)
-library(forcats)
-library(GGally)
-library(plotly)
-library(lubridate)
-library(d3treeR)
-library(knitr)
-library(htmlwidgets)
-library(htmltools)
-library(shinythemes)
-library(shinyWidgets)
-library(rlang)
-library(shinycssloaders)
+# Install devtools from CRAN
+install.packages("devtools")
+
+# Or the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("r-lib/devtools")
+
+
+devtools::install_github("timelyportfolio/d3treeR")
+
+packages = c('shiny',
+             'shinydashboard',
+             'tidyverse',
+             'ggstatsplot',
+             'ggplot2',
+             'readr',
+             'treemap',
+             'RColorBrewer',
+             'ggthemes',
+             'forcats',
+             'GGally',
+             'plotly',
+             'lubridate',
+             'knitr',
+             'htmlwidgets',
+             'htmltools',
+             'shinythemes',
+             'shinyWidgets',
+             'rlang',
+             'shinycssloaders',
+             'dplyr','qicharts2','ggQC','qcc','rmarkdown','gridExtra' )
+for(p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p, character.only = T)
+}
 
 ## loading the data
 PM_AGG <- read_csv("data/PM_AGG.csv")
