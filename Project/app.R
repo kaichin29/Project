@@ -52,7 +52,7 @@ options(spinner.type = 8)
 ui <- tagList(
     navbarPage(
         theme = shinytheme("cerulean"), 
-        "Shiny Themes",
+        "Understanding Prime Mover (PM) Waiting Time in Yard",
         tabPanel("Home",
                  sidebarPanel(
                      
@@ -60,14 +60,42 @@ ui <- tagList(
                  mainPanel(
                      tabsetPanel(
                          tabPanel("Introduction",
-                                  p("Write introduction here."),
-                                  p("Use the selectors on the sidebar to filter the dataset. You can select to subset the data based on a specific variable."),
+                                  h4("Introduction"),
+                                  p("Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade. PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port. For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence."),
                                   br(),
-                                  em("Please note that due to the size of the data set, the graphs will take some time to load.", style = "font-si10pt")
+                                  p("Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel."),
+                                  br(),
+                                  p("Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity."),
+                                  p("Productivity = Total Containers Handled / Total Time", align = "center"),
+                                  p("Total Time = Sum (Est. Travel Time + Est. Wait Time + Non Work Time)", align = "center"),
+                                  br(),
+                                  
+                                  p("Total Time is defined as the time difference between the two operation activities."),
+                                  p("Estimated Travel Time is the duration between two locations based on distance matrix with fixed speed limit/hr."),
+                                  p("Non-Work Time is the time taken for a change of driver, meal break, and PM breakdown (if any). "),
+                                  p("Estimated Wait Time = Total Time – Non-Work Time – Est. Travel Time"),
+                                  br(),
+                                  h4("Motivation"),
+                                  p("The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time."),
+                                  br(),
+
+
                                   ),
+                         
                          tabPanel("Glossary",
                                   h4("Key Definitions"),
+                                  p("The data source used is provided by PSA Singapore's PM Ops anoymised dataset that contains operation event records from March 2019. The variables contained within the dataset is explained in the table below."),
+                                  br(),
                                   img(src = "Glossary.PNG"),
+                                  ),
+                         
+                         tabPanel("User Guide",
+                                  h4("User Guide"),
+                                  p("Please use the variables in the side bar to change the plot arguments. Data can be filtered using the various checkboxes and dropdown lists in the main panel. "),
+                                  br(),
+                                  p("Please refer to the user guide for more details on how to use the Shiny application", a("Link", href="file://blabla.html")), 
+                                  em("Please note that due to the size of the data set, some graphs will take time to load.", style = "font-si9pt"),
+                                  em("Click link for full user guide",  style = "font-si9pt")
                                   )
                          )   
                  )
@@ -86,7 +114,7 @@ ui <- tagList(
                                          label =  "Choose your secondary variable:",
                                          choices = c("Day" = "day",
                                                       "Hour" = "hour"),
-                                         selected = "hour"),
+                                         selected = "day"),
                              
                              selectInput(inputId = "vsize", 
                                          label =  "Choose your independent variable:",
@@ -94,7 +122,7 @@ ui <- tagList(
                                                      "Travelling Time" = "PM_TRAVEL_TIME_Q"),
                                          selected = "PM_WAIT_TIME_Q"),
                              br(),
-                             actionButton("goTree", "Go!", class = "btn-success"),
+                             actionButton("goTree", "Apply Changes", class = "btn-success"),
                          ),
                          mainPanel(
                            fluidRow(
@@ -140,29 +168,29 @@ ui <- tagList(
                                                 label = "Select Terminal:",
                                                 choices = sort(unique(PM_AGG$Terminal)),
                                                 multiple = TRUE, 
-                                                options = list(`actions-box` = TRUE)
-                                                ),
+                                                options = list(`actions-box` = TRUE),
+                                                selected = sort(unique(PM_AGG$Terminal))),
                                     
                                     pickerInput(inputId = "filterMove_tree",
                                                 label = "Select Movement status:",
                                                 choices = sort(unique(PM_AGG$MOVE_OP_C)),
                                                 multiple = TRUE, 
-                                                options = list(`actions-box` = TRUE)
-                                                ),
+                                                options = list(`actions-box` = TRUE),
+                                                selected = sort(unique(PM_AGG$MOVE_OP_C))),
                                     
                                     pickerInput(inputId = "filterHour_tree",
                                                 label = "Select Hour:",
                                                 choices = sort(unique(PM_AGG$hour)),
                                                 multiple = TRUE, 
-                                                options = list(`actions-box` = TRUE)
-                                                ),
+                                                options = list(`actions-box` = TRUE),
+                                                selected = sort(unique(PM_AGG$hour))),
                                     
                                     pickerInput(inputId = "filterDay_tree",
                                                 label = "Select Day:",
                                                 choices = sort(unique(PM_AGG$day)),
                                                 multiple = TRUE, 
-                                                options = list(`actions-box` = TRUE)
-                                                )
+                                                options = list(`actions-box` = TRUE),
+                                                selected = sort(unique(PM_AGG$day)))
                                     ),
                              sliderTextInput(inputId = "filterDate_tree",
                                              label = "Choose a date range",
@@ -172,7 +200,7 @@ ui <- tagList(
                                              selected = c(as.Date('2019-03-03'), as.Date('2019-03-10'))
                                              ),
                              br(),
-                             withSpinner(plotOutput("treemap"))
+                             withSpinner(d3tree2Output("treemap"))
                          )
                          )
                  ),
@@ -225,7 +253,7 @@ ui <- tagList(
                                                           "Standardised axis" = "fixed"),
                                               selected = "free_y"),
                                   br(),
-                                  actionButton("goBar", "Go!", class = "btn-success"),
+                                  actionButton("goBar", "Apply Changes", class = "btn-success"),
                                   ),
                               mainPanel(
                                 fluidRow(
@@ -271,28 +299,32 @@ ui <- tagList(
                                                      label = "Select Terminal:",
                                                      choices = sort(unique(PM_AGG$Terminal)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$Terminal))
                                          ),
                                          
                                          pickerInput(inputId = "filterMove_bar",
                                                      label = "Select Movement status:",
                                                      choices = sort(unique(PM_AGG$MOVE_OP_C)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$MOVE_OP_C))
                                          ),
                                          
                                          pickerInput(inputId = "filterHour_bar",
                                                      label = "Select Hour:",
                                                      choices = sort(unique(PM_AGG$hour)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$hour))
                                          ),
                                          
                                          pickerInput(inputId = "filterDay_bar",
                                                      label = "Select Day:",
                                                      choices = sort(unique(PM_AGG$day)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$day))
                                          )
                                   ),
                                   sliderTextInput(inputId = "filterDate_bar",
@@ -353,7 +385,7 @@ ui <- tagList(
                                               "Choose a reference point",
                                               min = 0, max = 30, value = 15),
                                   br(),
-                                  actionButton("goHist", "Go!", class = "btn-success"),
+                                  actionButton("goHist", "Apply Changes", class = "btn-success"),
                                   
                               ),
                               mainPanel(
@@ -400,28 +432,32 @@ ui <- tagList(
                                                      label = "Select Terminal:",
                                                      choices = sort(unique(PM_AGG$Terminal)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$Terminal))
                                          ),
                                          
                                          pickerInput(inputId = "filterMove_hist",
                                                      label = "Select Movement status:",
                                                      choices = sort(unique(PM_AGG$MOVE_OP_C)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$MOVE_OP_C))
                                          ),
                                          
                                          pickerInput(inputId = "filterHour_hist",
                                                      label = "Select Hour:",
                                                      choices = sort(unique(PM_AGG$hour)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$hour))
                                          ),
                                          
                                          pickerInput(inputId = "filterDay_hist",
                                                      label = "Select Day:",
                                                      choices = sort(unique(PM_AGG$day)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$day))
                                          )
                                   ),
                                   sliderTextInput(inputId = "filterDate_hist",
@@ -471,7 +507,7 @@ ui <- tagList(
                                                                            "Hour" = "hour"),
                                                                selected = "Terminal"),
                                                    ),
-                                  actionButton("goScatter", "Go!", class = "btn-success")
+                                  actionButton("goScatter", "Apply Changes", class = "btn-success")
                                   
                               ),
                               
@@ -519,28 +555,32 @@ ui <- tagList(
                                                      label = "Select Terminal:",
                                                      choices = sort(unique(PM_AGG$Terminal)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$Terminal))
                                          ),
                                          
                                          pickerInput(inputId = "filterMove_scatter",
                                                      label = "Select Movement status:",
                                                      choices = sort(unique(PM_AGG$MOVE_OP_C)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$MOVE_OP_C))
                                          ),
                                          
                                          pickerInput(inputId = "filterHour_scatter",
                                                      label = "Select Hour:",
                                                      choices = sort(unique(PM_AGG$hour)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$hour))
                                          ),
                                          
                                          pickerInput(inputId = "filterDay_scatter",
                                                      label = "Select Day:",
                                                      choices = sort(unique(PM_AGG$day)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$day))
                                          )
                                   ),
                                   sliderTextInput(inputId = "filterDate_scatter",
@@ -596,7 +636,7 @@ ui <- tagList(
                                                              selected = "Terminal"),
                                                  ),
                                 br(),
-                                actionButton("goBox", "Go!", class = "btn-success"),
+                                actionButton("goBox", "Apply Changes", class = "btn-success"),
                                 
                               ),
                               
@@ -644,28 +684,32 @@ ui <- tagList(
                                                      label = "Select Terminal:",
                                                      choices = sort(unique(PM_AGG$Terminal)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$Terminal))
                                          ),
                                          
                                          pickerInput(inputId = "filterMove_box",
                                                      label = "Select Movement status:",
                                                      choices = sort(unique(PM_AGG$MOVE_OP_C)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$MOVE_OP_C))
                                          ),
                                          
                                          pickerInput(inputId = "filterHour_box",
                                                      label = "Select Hour:",
                                                      choices = sort(unique(PM_AGG$hour)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$hour))
                                          ),
                                          
                                          pickerInput(inputId = "filterDay_box",
                                                      label = "Select Day:",
                                                      choices = sort(unique(PM_AGG$day)),
                                                      multiple = TRUE, 
-                                                     options = list(`actions-box` = TRUE)
+                                                     options = list(`actions-box` = TRUE),
+                                                     selected = sort(unique(PM_AGG$day))
                                          )
                                   ),
                                   sliderTextInput(inputId = "filterDate_box",
@@ -681,9 +725,10 @@ ui <- tagList(
                               )
                               )
                  ),
-        tabPanel("Parato Analysis")
+        tabPanel("Parato Analysis"),
         ),
-        tabPanel("Control Chart Analysis")
+        tabPanel("Control Chart Analysis"),
+        tabPanel("Parato Analysis")
         
     )
 )
@@ -695,22 +740,9 @@ ui <- tagList(
 
 server <- function(input, output, session) {
     
-    
-    observeEvent(input$column, {
-        updatePickerInput(session, 
-                          "value", 
-                          paste("Select", input$column, "value(s)"),
-                          choices = sort(unique(PM_AGG[[input$column]]))
-                          )
-    })
-        
-        output$selected <- renderText({
-            paste0(input$column, ": ", paste(input$value, collapse = ", "))
-        })
-    
         
 
-    output$treemap <- renderPlot({
+    output$treemap <- renderD3tree2({
       
       input$goTree
       
@@ -731,9 +763,9 @@ server <- function(input, output, session) {
         
       input$goTree
       isolate(
-        tree <- treemap(PM_tree, index = c(input$tree_primary, input$tree_secondary), vSize = "count", vColor = input$vsize, palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
+        tree <- treemap(PM_tree, index = c(input$tree_primary, input$tree_secondary), vSize = "count", vColor = sum(input$vsize), palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
       )
-        return(tree)
+      return(d3tree2(tree, rootname = "Container Types"))
         
     })
     output$bar <- renderPlotly({  
