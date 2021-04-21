@@ -1,5 +1,5 @@
 # Install devtools from CRAN
-install.packages("devtools")
+#install.packages("devtools")
 
 # Or the development version from GitHub:
 # install.packages("devtools")
@@ -36,6 +36,7 @@ for(p in packages){
   library(p, character.only = T)
 }
 
+
 ## loading the data
 PM_AGG <- read_csv("data/PM_AGG.csv")
 
@@ -49,14 +50,18 @@ date_range <- seq(min_date, max_date, "days")
 
 options(spinner.type = 8)
 
+
+
+
+
 ui <- tagList(
+  
+  
     navbarPage(
         theme = shinytheme("cerulean"), 
         "Understanding Prime Mover (PM) Waiting Time in Yard",
         tabPanel("Home",
-                 sidebarPanel(
-                     
-                     ),
+               #  sidebarPanel(),
                  mainPanel(
                      tabsetPanel(
                          tabPanel("Introduction",
@@ -66,14 +71,15 @@ ui <- tagList(
                                   p("Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel."),
                                   br(),
                                   p("Therefore, PM productivity is of key interest to PSA as it is the main driver for the time taken to load and unload vessels. PM Productivity is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms which PSA uses to define PM productivity."),
-                                  p("Productivity = Total Containers Handled / Total Time", align = "center"),
-                                  p("Total Time = Sum (Est. Travel Time + Est. Wait Time + Non Work Time)", align = "center"),
-                                  br(),
-                                  
-                                  p("Total Time is defined as the time difference between the two operation activities."),
-                                  p("Estimated Travel Time is the duration between two locations based on distance matrix with fixed speed limit/hr."),
-                                  p("Non-Work Time is the time taken for a change of driver, meal break, and PM breakdown (if any). "),
-                                  p("Estimated Wait Time = Total Time – Non-Work Time – Est. Travel Time"),
+                                  #p("Productivity = Total Containers Handled / Total Time", align = "center")
+                                  withMathJax("$$Productivity = Total Containers Handled / Total Time$$"),
+                                  withMathJax("$$Total Time = Sum (Est.Travel Time + Est.Wait Time + Unproductive Time + Non-Work Time)$$"),
+                                                                    br(),
+                                  p(strong("Total Time "),"is defined as the time difference between the two operation activities."),
+                                  p(strong("Estimated Travel Time ")," is the duration between two locations based on distance matrix with fixed speed limit/hr."),
+                                  p(strong("Unproductive Time ")," is the time logoff by the same driver. "),
+                                  p(strong("Non-Work Time ")," is the time taken for a change of driver, meal break, and PM breakdown (if any). "),
+                                  p(strong("Estimated Waiting time ="), withMathJax("Total Time – (Non-Work Time + Unproductive Time + Est. Travel Time)")) ,
                                   br(),
                                   h4("Motivation"),
                                   p("The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time."),
@@ -200,7 +206,7 @@ ui <- tagList(
                                              selected = c(as.Date('2019-03-03'), as.Date('2019-03-10'))
                                              ),
                              br(),
-                             withSpinner(d3tree2Output("treemap"))
+                             #withSpinner(d3tree2Output("treemap"))
                          )
                          )
                  ),
@@ -725,15 +731,34 @@ ui <- tagList(
                               )
                               )
                  ),
-        tabPanel("Parato Analysis"),
+        #tabPanel("Pareto Analysis1"),
         ),
-        tabPanel("Control Chart Analysis"),
-        tabPanel("Parato Analysis")
+        tabPanel("Pareto Analysis",
+                 tabsetPanel(
+                   
+                   
+                   
+                   
+                   tabPanel("Overview"),
+                   tabPanel("Detail")
+                   )
+                 ),
+        
+        
+        
+        tabPanel("Control Chart Analysis",
+                 tabsetPanel(
+                   tabPanel("XBar & S "),
+                   tabPanel("I & MR"),
+                   tabPanel("C & U & P")
+                 )
+                 
+                 
+                 )
+        
         
     )
 )
-
-
 
 
 ##  server
@@ -741,33 +766,33 @@ ui <- tagList(
 server <- function(input, output, session) {
     
         
-
-    output$treemap <- renderD3tree2({
-      
-      input$goTree
-      
-      isolate(
-      PM_tree <- PM_AGG %>% 
-        filter(LENGTH_Q %in% input$filterLength_tree) %>%
-        filter(EVENT_SHIFT_I %in% input$filterShift_tree ) %>%
-        filter(DG %in% input$filterDG_tree ) %>%
-        filter(Reefer %in% input$filterReefer_tree ) %>%
-        filter(Terminal %in% input$filterTerminal_tree) %>%
-        filter(MOVE_OP_C %in% input$filterMove_tree ) %>%
-        filter(hour %in% input$filterHour_tree ) %>%
-        filter(day %in% input$filterDay_tree ) %>%
-        filter(date >= input$filterDate_tree[1] & date <= input$filterDate_tree[2])
-      )
-      PM_tree$count <- 1
-        
-        
-      input$goTree
-      isolate(
-        tree <- treemap(PM_tree, index = c(input$tree_primary, input$tree_secondary), vSize = "count", vColor = sum(input$vsize), palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
-      )
-      return(d3tree2(tree, rootname = "Container Types"))
-        
-    })
+# 
+#     output$treemap <- renderD3tree2({
+#       
+#       input$goTree
+#       
+#       isolate(
+#       PM_tree <- PM_AGG %>% 
+#         filter(LENGTH_Q %in% input$filterLength_tree) %>%
+#         filter(EVENT_SHIFT_I %in% input$filterShift_tree ) %>%
+#         filter(DG %in% input$filterDG_tree ) %>%
+#         filter(Reefer %in% input$filterReefer_tree ) %>%
+#         filter(Terminal %in% input$filterTerminal_tree) %>%
+#         filter(MOVE_OP_C %in% input$filterMove_tree ) %>%
+#         filter(hour %in% input$filterHour_tree ) %>%
+#         filter(day %in% input$filterDay_tree ) %>%
+#         filter(date >= input$filterDate_tree[1] & date <= input$filterDate_tree[2])
+#       )
+#       PM_tree$count <- 1
+#         
+#         
+#       input$goTree
+#       isolate(
+#         tree <- treemap(PM_tree, index = c(input$tree_primary, input$tree_secondary), vSize = "count", vColor = sum(input$vsize), palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
+#       )
+#       return(d3tree2(tree, rootname = "Container Types"))
+#         
+#     })
     output$bar <- renderPlotly({  
       
       input$goBar
