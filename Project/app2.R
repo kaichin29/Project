@@ -28,7 +28,7 @@ packages = c('shiny',
              'shinyWidgets',
              'rlang',
              'shinycssloaders',
-             'dplyr','qicharts2','ggQC','qcc','rmarkdown','gridExtra','ggpubr' )
+             'dplyr','qicharts2','ggQC','qcc','rmarkdown','gridExtra','shinyBS' )
 for(p in packages){
   if(!require(p, character.only = T)){
     install.packages(p)
@@ -81,6 +81,14 @@ sidebar <- dashboardSidebar(
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
    #          badgeLabel = "new", badgeColor = "green")
 
+    
+    radioGroupButtons(
+      inputId = "toggleKPI",
+      label = "KPI", 
+      choices = c("WaitTime", "TravelTime"),
+      status = "primary"
+    ),
+    
     dateRangeInput('dateRange',
                    label = 'Date range',
                    start = min_date , end = max_date
@@ -123,7 +131,7 @@ sidebar <- dashboardSidebar(
                         selected = sort(unique(ZL_DF$CNTR_TYPE_C))),
     
     prettyCheckboxGroup(inputId = "f_CNTR_ST_C",
-                        label =  "Empty or Fully-loaded Container:",
+                        label =  "Empty or Full Container:",
                         choices = sort(unique(ZL_DF$CNTR_ST_C)),
                         icon = icon("check-square-o"), 
                         status = "primary",
@@ -170,12 +178,32 @@ body <- dashboardBody(
                  
                    
                    tabPanel("Breakdown",
+                            fluidRow(
+
+                           column(1,dropdownButton(tags$h3("Set Threshold Duration"),
+                                          sliderInput(inputId = 'Duration_N',
+                                                      label = 'Duration',
+                                                      value = 30,
+                                                      min = 10,
+                                                      max = 60),
+                                          circle = TRUE, status = "warning",
+                                          icon = icon("gear"), width = "100px",
+                                          tooltip = tooltipOptions(title = "Set Threshold Duration"))
+                          
+                           ),
+                          # column(11,valueBoxOutput("paretotitle"))
+                          titlePanel(textOutput("paretotitle1"))
+                          
+                           ),
+                           fluidRow(   
+                             
                             box(withSpinner(plotlyOutput("pareto_2")),title = "Terminal", solidHeader = TRUE,collapsible = TRUE),
                             box(withSpinner(plotlyOutput("pareto_3")),title = "Operation Type", solidHeader = TRUE,collapsible = TRUE),
                             box(withSpinner(plotlyOutput("pareto_4")),title = "Container Length", solidHeader = TRUE,collapsible = TRUE),
                             box(withSpinner(plotlyOutput("pareto_5")),title = "Container Type", solidHeader = TRUE,collapsible = TRUE),
                             box(withSpinner(plotlyOutput("pareto_6")),title = "Equipment Type", solidHeader = TRUE,collapsible = TRUE)
                             )
+                           )
                  )
         ),
         tabPanel("Home",
@@ -251,13 +279,25 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
     
-
-  makeReactiveBinding("ZL_DF_longwait")
-  duration <- c(60)
+ 
+  #toggle KPI
+  KPI <- reactiveVal('ZL_DF$PM_WAIT_TIME_Q')
+  observeEvent(input$toggleKPI, {
   
+   if (input$toggleKPI == 'WaitTime'){
+     KPI(ZL_DF$PM_WAIT_TIME_Q)
+   }else{
+     KPI(ZL_DF$PM_TRAVEL_TIME_Q)
+     
+   }
+    
+  })
+  
+  #refresh filter
+  makeReactiveBinding("ZL_DF_longwait") 
   refreshData <- reactive ({
     
-    ZL_DF_longwait  <- subset(ZL_DF,ZL_DF$PM_WAIT_TIME_Q >= duration)%>%
+    ZL_DF_longwait  <- subset(ZL_DF,KPI() >= input$Duration_N)%>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
       filter(LENGTH_Q %in% input$f_LENGTH_Q ) %>%
@@ -356,7 +396,19 @@ server <- function(input, output, session) {
       ggplotly(paretochart(ZL_DF_longwait$EQUIPMENT_TYPE_C,title = FALSE))
     })
     
+    #title pareto
+    output$paretotitle <- renderValueBox({
+      valueBox(
+        paste0(">= ",input$Duration_N, "mins"),paste("Total Event by",input$toggleKPI , "Threshold - Pareto Chart"), icon = icon("clock"),
+        color = "yellow"
+      )
+    })  
     
+    
+    output$paretotitle1 <- renderText({
+     paste("Count of Event Exceeded Threshold of ",input$toggleKPI ,">= ",input$Duration_N, "mins", "- Pareto Chart")
+      
+    })
     
     
 
