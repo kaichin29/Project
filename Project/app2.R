@@ -28,7 +28,7 @@ packages = c('shiny',
              'shinyWidgets',
              'rlang',
              'shinycssloaders',
-             'dplyr','qicharts2','ggQC','qcc','rmarkdown','gridExtra','shinyBS' )
+             'dplyr','qicharts2','ggQC','qcc','rmarkdown','gridExtra','shinyBS','SixSigma' )
 for(p in packages){
   if(!require(p, character.only = T)){
     install.packages(p)
@@ -72,9 +72,26 @@ agg_base <-  ZL_DF %>%
                    Total_NON_WORK_TIME = sum(PM_NON_WORK_TIME_Q))%>%
     ungroup()
 
+####
+
+#Effect
+effect<-"Less Productivity"
+
+#Causes
+causes.head<-c("Measurement", "Material", "Methods", "Environment", "Manpower", "Equipment")
+
+#Individual Causes
+causes<-vector(mode = "list", length = length(causes.head))
+causes[1]<-list(c("Lab error", "Contamination"))
+causes[2]<-list(c("Raw Material", "Additive"))
+causes[3]<-list(c("Sampling", "Analytical Procedure"))
+causes[4]<-list(c("Rust near sample point"))
+causes[5]<-list(c("Poor analyst","No guidance"))
+causes[6]<-list(c("Leakage", "breakdown"))
 
 
 
+####
 sidebar <- dashboardSidebar(width=275,
   sidebarMenu(
    # menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
@@ -286,6 +303,8 @@ body <- dashboardBody(
                                   p(strong("Non-Work Time ")," is the time taken for a change of driver, meal break, and PM breakdown (if any). "),
                                   p(strong("Estimated Waiting time ="), withMathJax("Total Time – (Non-Work Time + Unproductive Time + Est. Travel Time)")) ,
                                   br(),
+                                  plotOutput("fishbone"),
+                                  
                                   h4("Motivation"),
                                   p("The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time."),
                                   br(),
@@ -969,7 +988,15 @@ server <- function(input, output, session) {
       )
       
     })
+   
+    #Fishbone Diagram
+    
+    output$fishbone <- renderPlot({ 
       
+      ss.ceDiag(effect,causes.head,causes,sub="ISSS608 Project",ss.col = c("","red"))
+    })
+    
+       
 }
 
 
