@@ -75,7 +75,7 @@ agg_base <-  ZL_DF %>%
 
 
 
-sidebar <- dashboardSidebar(
+sidebar <- dashboardSidebar(width=275,
   sidebarMenu(
    # menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
@@ -85,13 +85,14 @@ sidebar <- dashboardSidebar(
     radioGroupButtons(
       inputId = "toggleKPI",
       label = "KPI", 
-      choices = c("WaitTime", "TravelTime"),
+      choices = c("Wait Time", "Travel Time"),
       status = "primary"
     ),
     
     dateRangeInput('dateRange',
                    label = 'Date range',
                    start = min_date , end = max_date
+                   
     ),
     
     prettyCheckboxGroup(inputId = "f_Terminal",
@@ -160,6 +161,35 @@ body <- dashboardBody(
     navbarPage(
         theme = shinytheme("cerulean"), 
         "Understanding Prime Mover (PM) Waiting Time in Yard",
+
+        
+        tabPanel("Control Chart Analysis",
+                 tabsetPanel(
+                   tabPanel("XBar & S ",
+                            withSpinner(plotlyOutput("qic_Xbar")),
+                            withSpinner(plotlyOutput("qic_S"))  
+                            
+                            
+                   ),
+                   tabPanel("I & MR",
+                            dropdownButton(tags$h3("Set last number of records"),
+                                           sliderInput(inputId = 'Last_N',
+                                                       label = 'Last_N',
+                                                       value = 100,
+                                                       min = 10,
+                                                       max = 1000),
+                                           circle = TRUE, status = "warning",
+                                           icon = icon("gear"), width = "100px",
+                                           tooltip = tooltipOptions(title = "Set last number of records")),
+                            withSpinner(plotlyOutput("qic_i")),
+                            withSpinner(plotlyOutput("qic_mr"))
+                            ),
+                   tabPanel("C & U & P")
+                 )
+                 ),
+        
+        
+        
         tabPanel("Pareto Analysis",
                  tabsetPanel(
                    
@@ -192,7 +222,7 @@ body <- dashboardBody(
                           
                            ),
                           # column(11,valueBoxOutput("paretotitle"))
-                          titlePanel(textOutput("paretotitle1"))
+                          titlePanel(textOutput("paretotitle"))
                           
                            ),
                            fluidRow(   
@@ -251,21 +281,16 @@ body <- dashboardBody(
                                   )
                          )   
                  )
-        ),
+        )
         
-        tabPanel("Control Chart Analysis",
-                 tabsetPanel(
-                   tabPanel("XBar & S "),
-                   tabPanel("I & MR"),
-                   tabPanel("C & U & P")
-                 )
+
                  
                  
                  )
         
         
     )
-)
+#)
 
 # Put them together into a dashboardPage
 ui <- dashboardPage(
@@ -282,21 +307,26 @@ server <- function(input, output, session) {
  
   #toggle KPI
   KPI <- reactiveVal('ZL_DF$PM_WAIT_TIME_Q')
+ # KPIqic <- reactiveVal("PM_WAIT_TIME_Q")
   observeEvent(input$toggleKPI, {
   
-   if (input$toggleKPI == 'WaitTime'){
-     KPI(ZL_DF$PM_WAIT_TIME_Q)
+   if (input$toggleKPI == 'Wait Time'){
+     KPI('ZL_DF$PM_WAIT_TIME_Q')
+    # KPIqic("ZL_DF_qic$PM_WAIT_TIME_Q")
    }else{
-     KPI(ZL_DF$PM_TRAVEL_TIME_Q)
+     KPI('ZL_DF$PM_TRAVEL_TIME_Q')
+    # KPIqic('PM_TRAVEL_TIME_Q')
      
    }
     
   })
   
+
+  
+  
   #refresh filter
   makeReactiveBinding("ZL_DF_longwait") 
-  refreshData <- reactive ({
-    
+  refreshDataPareto <- reactive ({
     ZL_DF_longwait  <- subset(ZL_DF,KPI() >= input$Duration_N)%>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
@@ -307,8 +337,23 @@ server <- function(input, output, session) {
       filter(SHIFT_D >= input$dateRange[1] & SHIFT_D <= input$dateRange[2]) 
     
   })
-
   
+  makeReactiveBinding("ZL_DF_qic") 
+  refreshData_QIC <- reactive ({
+    ZL_DF_qic <- ZL_DF %>%
+      filter(Terminal %in% input$f_Terminal) %>%
+      filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
+      filter(LENGTH_Q %in% input$f_LENGTH_Q ) %>%
+      filter(EVENT_SHIFT_I %in% input$f_EVENT_SHIFT_I ) %>%
+      filter(CNTR_ST_C %in% input$f_CNTR_ST_C ) %>%
+      filter(CNTR_TYPE_C %in% input$f_CNTR_TYPE_C ) %>%
+      filter(SHIFT_D >= input$dateRange[1] & SHIFT_D <= input$dateRange[2]) 
+    
+  
+  })
+  
+
+  #filter pareto overview
     output$pareto_1 <- renderPlot({ 
       agg1 <- agg_base %>%
         filter(Terminal %in% input$f_Terminal) %>%
@@ -375,43 +420,274 @@ server <- function(input, output, session) {
     
     output$pareto_2 <- renderPlotly({
       
-    ZL_DF_longwait  <- refreshData()
+    ZL_DF_longwait  <- refreshDataPareto()
     ggplotly(paretochart(ZL_DF_longwait$Terminal,title = FALSE))
 
     })
     output$pareto_3 <- renderPlotly({
-      ZL_DF_longwait  <- refreshData()
+      ZL_DF_longwait  <- refreshDataPareto()
       ggplotly(paretochart(ZL_DF_longwait$MOVE_OP_C,title = FALSE))
     })
     output$pareto_4 <- renderPlotly({
-      ZL_DF_longwait  <- refreshData()
+      ZL_DF_longwait  <- refreshDataPareto()
       ggplotly(paretochart(ZL_DF_longwait$LENGTH_Q,title = FALSE))
     })
     output$pareto_5 <- renderPlotly({
-      ZL_DF_longwait  <- refreshData()
+      ZL_DF_longwait  <- refreshDataPareto()
       ggplotly(paretochart(ZL_DF_longwait$CNTR_TYPE_C,title = FALSE))
     })
     output$pareto_6 <- renderPlotly({
-      ZL_DF_longwait  <- refreshData()
+      ZL_DF_longwait  <- refreshDataPareto()
       ggplotly(paretochart(ZL_DF_longwait$EQUIPMENT_TYPE_C,title = FALSE))
     })
     
-    #title pareto
-    output$paretotitle <- renderValueBox({
-      valueBox(
-        paste0(">= ",input$Duration_N, "mins"),paste("Total Event by",input$toggleKPI , "Threshold - Pareto Chart"), icon = icon("clock"),
-        color = "yellow"
-      )
-    })  
-    
-    
-    output$paretotitle1 <- renderText({
+    #reactive title pareto
+    output$paretotitle <- renderText({
      paste("Count of Event Exceeded Threshold of ",input$toggleKPI ,">= ",input$Duration_N, "mins", "- Pareto Chart")
+  
+    })
+    
+##################control chart
+    
+    output$qic_Xbar <- renderPlotly({
+      
+      ZL_DF_qic  <- refreshData_QIC()
+      
+      if (input$toggleKPI == 'Wait Time'){
+        p1 <- qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar') 
+      }else{
+        p1 <- qic(PM_TRAVEL_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar') 
+        }
+      
+     # storing PIcharts into data.frame
+      df1 <- p1$data
+    
+      ggp1 <- ggplot(df1, aes(x = ymd(x) , y = y , group = 1, text = paste("Date:", x ,"\n","Avg PM" , input$toggleKPI,":", round(y, 2)))) +
+        theme_minimal() + 
+        geom_line(color = "steelblue", size = 0.5) +
+        geom_point(color = "steelblue", size = 1 ) +
+        geom_point(data = subset(df1, y >= ucl), color = "red", size = 1) +
+        geom_point(data = subset(df1, y <= lcl), color = "red", size = 1) +
+        geom_hline(aes(yintercept = cl),linetype= "dashed") +
+        geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.5,linetype= "dashed",summary(p1)) +
+        geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.5,linetype= "dashed",summary(p1)) +
+       # scale_y_continuous(breaks = round(seq(min(df1$y), max(df1$y), by = 0.1),1))+
+        #rename tooltip attribute text. 
+        labs(title = paste("Xbar Chart PM", input$toggleKPI) ,
+             y = paste("Avg ",input$toggleKPI,"(Mins)"), x = "Date")
+      
+      ggplotly(ggp1, tooltip=c("text")) %>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df1$lcl)*1.01,
+        xref = "x",
+        yref = "y",
+        text = paste("LCL=",round(mean(df1$lcl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df1$ucl*1.01),
+        xref = "x",
+        yref = "y",
+        text = paste("UCL=",round(mean(df1$ucl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df1$cl)*1.01,
+        xref = "x",
+        yref = "y",
+        text = paste("CL=",round(mean(df1$cl), 2)),
+        showarrow = F,
+        font = list(color = 'black',size = 10),
+        opacity = 0.5
+        
+      )
+      
+      
+      
+      
+    })
+    
+    output$qic_S <- renderPlotly({
+      
+      ZL_DF_qic  <- refreshData_QIC()
+
+      if (input$toggleKPI == 'Wait Time'){
+        p2 <- qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 's') 
+      }else{
+        p2 <- qic(PM_TRAVEL_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 's') 
+      }
+           # storing PIcharts into data.frame
+      df2 <- p2$data
+    
+      ggp2 <- ggplot(df2, aes(x = ymd(x) , y = y , group = 1,text = paste("Date:", x ,"\n","Avg PM" , input$toggleKPI,":", round(y, 2)))) +
+        theme_minimal() + 
+        geom_line(color = "steelblue", size = 0.5) +
+        geom_point(color = "steelblue", size = 1 ) +
+        geom_point(data = subset(df2, y >= ucl), color = "red", size = 1) +
+        geom_point(data = subset(df2, y <= lcl), color = "red", size = 1) +
+        geom_hline(aes(yintercept = cl),linetype= "dashed") +
+        geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.5,linetype= "dashed",summary(p2)) +
+        geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.5,linetype= "dashed",summary(p2)) +
+     #   scale_y_continuous(breaks = round(seq(min(df2$y), max(df2$y), by = 0.1),1))+
+        #rename tooltip attribute text. 
+        labs(title = paste("S-Chart PM", input$toggleKPI) ,
+             y = paste("Avg ",input$toggleKPI,"(Mins)"), x = "Date")
+
+      ggplotly(ggp2, tooltip=c("text")) %>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df2$lcl)*1.01,
+        xref = "x",
+        yref = "y",
+        text = paste("LCL=",round(mean(df2$lcl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df2$ucl*1.01),
+        xref = "x",
+        yref = "y",
+        text = paste("UCL=",round(mean(df2$ucl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=as.numeric(max_date)+1,
+        y=mean(df2$cl)*1.01,
+        xref = "x",
+        yref = "y",
+        text = paste("CL=",round(mean(df2$cl), 2)),
+        showarrow = F,
+        font = list(color = 'black',size = 10),
+        opacity = 0.5
+        
+      )
+      
+    }) 
+
+    
+    output$qic_i <- renderPlotly({
+      
+      
+    ZL_DF_tail <- tail(refreshData_QIC(), input$Last_N)
+      # 
+      P_I <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail,chart = 'i', )
+
+      DF_I = P_I$data
+     
+      ggp_I <- ggplot(DF_I, aes(x = x , y = y, text1 = y , text2 = x)  ) +
+        theme_minimal() + 
+        geom_line(color = "steelblue", size = 0.5) +
+        geom_point(color = "steelblue", size = 1 ) +
+        geom_point(data = subset(DF_I, y >= ucl), color = "red", size = 1) +
+        geom_point(data = subset(DF_I, y <= lcl), color = "red", size = 1) +
+        geom_hline(aes(yintercept = cl),linetype= "dashed") +
+        geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.5,linetype= "dashed",summary(P_I)) +
+        geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.5,linetype= "dashed",summary(P_I)) +
+        #scale_y_continuous(breaks = round(seq(min(DF_I$y), max(DF_I$y), by = 10),1))+
+        #rename tooltip attribute text. 
+        labs(title = "PM Wait Time - Individual I-Chart" ,
+             y = "WAIT_TIME(Mins)", x = "Operations no.")
+  
+      
+        ggplotly(ggp_I, tooltip=c("text2","text1"))  %>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_I$lcl)+2,
+        xref = "x",
+        yref = "y",
+        text = paste("LCL=",round(mean(DF_I$lcl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+
+      )%>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_I$ucl+2),
+        xref = "x",
+        yref = "y",
+        text = paste("UCL=",round(mean(DF_I$ucl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+
+      )%>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_I$cl)+2,
+        xref = "x",
+        yref = "y",
+        text = paste("CL=",round(mean(DF_I$cl), 2)),
+        showarrow = F,
+        font = list(color = 'black',size = 10),
+        opacity = 0.5
+
+      )
+      
+      
+    })
+    
+    output$qic_mr <- renderPlotly({
+      
+     
+      ZL_DF_tail <- tail(refreshData_QIC(), input$Last_N)
+      
+      P_MR <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'mr' )
+      
+      DF_MR = P_MR$data 
+      
+      ggp_MR <- ggplot(DF_MR, aes(x = x , y = y, text1 = y , text2 = x)  ) +
+        theme_minimal() + 
+        geom_line(color = "steelblue", size = 0.5) +
+        geom_point(color = "steelblue", size = 1 ) +
+        geom_point(data = subset(DF_MR, y >= ucl), color = "red", size = 1) +
+        geom_point(data = subset(DF_MR, y <= lcl), color = "red", size = 1) +
+        geom_hline(aes(yintercept = cl),linetype= "dashed") +
+        geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.5,linetype= "dashed",summary(P_MR))+
+        # scale_y_continuous(breaks = round(seq(min(DF_MR$y), max(DF_MR$y), by = 10),1))+
+        #rename tooltip attribute text. 
+        labs(title = "PM Wait Time - Moving Range MR-Chart" ,
+             y = "WAIT_TIME(Mins)", x = "Operations no.")+
+        #if (DF_MR$lcl >=0) {
+        geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.5,linetype="dashed",summary(P_MR)) 
+      # }
+      
+      
+     ggplotly(ggp_MR, tooltip=c("text2","text1"))  %>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_MR$lcl)+2,
+        xref = "x",
+        yref = "y",
+        text = paste("LCL=",round(mean(DF_MR$lcl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_MR$ucl+2),
+        xref = "x",
+        yref = "y",
+        text = paste("UCL=",round(mean(DF_MR$ucl), 2)),
+        showarrow = F,
+        font = list(color = 'red',size = 10),opacity = 0.5
+        
+      )%>% add_annotations(
+        x=input$Last_N,
+        y=mean(DF_MR$cl)+2,
+        xref = "x",
+        yref = "y",
+        text = paste("CL=",round(mean(DF_MR$cl), 2)),
+        showarrow = F,
+        font = list(color = 'black',size = 10),
+        opacity = 0.5
+        
+      )
+      
       
     })
     
     
-
+    
 }
 
 
