@@ -97,14 +97,14 @@ sidebar <- dashboardSidebar(width=275,
    # menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
    #          badgeLabel = "new", badgeColor = "green")
-
-    
+    useShinyjs(),
+    disabled(
     radioGroupButtons(
       inputId = "toggleKPI",
       label = "KPI", 
       choices = c("Wait Time", "Travel Time"),
       status = "primary"
-    ),
+    )),
     
     dateRangeInput('dateRange',
                    label = 'Date range',
@@ -165,8 +165,8 @@ sidebar <- dashboardSidebar(width=275,
                         outline = TRUE,
                         inline = TRUE,
                         selected = sort(unique(ZL_DF$EVENT_SHIFT_I))
-    )
-
+    ),
+    actionButton("goButton", "Apply")
 
   )
 )
@@ -230,6 +230,12 @@ body <- dashboardBody(
                             withSpinner(plotlyOutput("qic_p")),
                            br(),
                             withSpinner(plotlyOutput("qic_u"))
+                            
+                            ),
+                   tabPanel("Facets",
+                            withSpinner(plotlyOutput("qic_f"))
+                           # withSpinner(plotOutput("qic_f"))
+                            
                             
                             )
                  )
@@ -351,14 +357,27 @@ ui <- dashboardPage(
 ##  server
 
 server <- function(input, output, session) {
-    
+  
+  
  
   #toggle KPI
   KPI <- reactiveVal('ZL_DF$PM_WAIT_TIME_Q')
 
- # KPIqic <- reactiveVal("PM_WAIT_TIME_Q")
+# link both duration inputs
+  observeEvent(input$Duration_N, {
+    updateNumericInput(session, "Duration_N1", value=input$Duration_N)
+    
+  })
+
+  observeEvent(input$Duration_N1, {
+    updateNumericInput(session, "Duration_N", value=input$Duration_N1)
+    
+  })
+
+  #toggle between wait and travel    
   observeEvent(input$toggleKPI, {
   
+    
    if (input$toggleKPI == 'Wait Time'){
      KPI(ZL_DF$PM_WAIT_TIME_Q)
 
@@ -377,6 +396,8 @@ server <- function(input, output, session) {
   #refresh filter
   makeReactiveBinding("ZL_DF_longwait") 
   refreshDataPareto <- reactive ({
+    input$goButton 
+    isolate(
     ZL_DF_longwait  <- subset(ZL_DF,KPI() >= input$Duration_N)%>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
@@ -385,11 +406,13 @@ server <- function(input, output, session) {
       filter(CNTR_ST_C %in% input$f_CNTR_ST_C ) %>%
       filter(CNTR_TYPE_C %in% input$f_CNTR_TYPE_C ) %>%
       filter(SHIFT_D >= input$dateRange[1] & SHIFT_D <= input$dateRange[2]) 
-    
+    )
   })
   
   makeReactiveBinding("ZL_DF_qic") 
   refreshData_QIC <- reactive ({
+    input$goButton 
+    isolate(
     ZL_DF_qic <- ZL_DF %>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
@@ -398,7 +421,7 @@ server <- function(input, output, session) {
       filter(CNTR_ST_C %in% input$f_CNTR_ST_C ) %>%
       filter(CNTR_TYPE_C %in% input$f_CNTR_TYPE_C ) %>%
       filter(SHIFT_D >= input$dateRange[1] & SHIFT_D <= input$dateRange[2]) 
-    
+    )
   
   })
 
@@ -407,7 +430,9 @@ server <- function(input, output, session) {
   makeReactiveBinding("agg_merge")
   
   refreshData_CUP <- reactive ({
-    ZL_DF_longwait1  <- subset(ZL_DF,KPI() >= input$Duration_N1)%>%
+    input$goButton 
+    isolate({
+    ZL_DF_longwait1  <- subset(ZL_DF,KPI() >= input$Duration_N)%>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
       filter(LENGTH_Q %in% input$f_LENGTH_Q ) %>%
@@ -417,8 +442,7 @@ server <- function(input, output, session) {
       filter(SHIFT_D >= input$dateRange[1] & SHIFT_D <= input$dateRange[2]) 
     
     
-   # ZL_DF_longwait1  <- refreshData_CUP()
-    
+  
     
     agg_Count <-  ZL_DF_longwait1 %>%
       group_by(SHIFT_D) %>%
@@ -426,6 +450,8 @@ server <- function(input, output, session) {
       )%>%
       ungroup()
     
+    
+   
     agg_total <-  agg_base %>%
       filter(Terminal %in% input$f_Terminal) %>%
       filter(MOVE_OP_C %in% input$f_MOVE_OP_C) %>%
@@ -439,9 +465,10 @@ server <- function(input, output, session) {
       )%>%
       ungroup()
     
+   
     agg_merge <- merge( agg_Count, agg_total, by='SHIFT_D')
     
-    
+    })
     
   })
  
@@ -544,35 +571,46 @@ server <- function(input, output, session) {
     
     #reactive title 
     output$paretotitle <- renderText({
+      input$goButton 
+      isolate(
      paste("Total PM",input$toggleKPI ,">= ",input$Duration_N, "mins", "- Pareto Chart")
-
+)
     })
     
     output$I_MRtitle <- renderText({
+      
       paste("Latest",input$Last_N, "Events")
       
     })
     
     output$C_U_Ptitle <- renderText({
+      input$goButton 
+      isolate(
       paste("Occurrences of PM",input$toggleKPI ,">= ",input$Duration_N, "mins")
-      
+      )
     })
     
 ##################control chart
     
     output$qic_Xbar <- renderPlotly({
+      input$goButton 
+      isolate({
       
       ZL_DF_qic  <- refreshData_QIC()
       
+    
+      
       if (input$toggleKPI == 'Wait Time'){
+        
         p1 <- qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar') 
       }else{
+      
         p1 <- qic(PM_TRAVEL_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar') 
         }
       
      # storing PIcharts into data.frame
       df1 <- p1$data
-    
+      
       ggp1 <- ggplot(df1, aes(x = ymd(x) , y = y , group = 1, text = paste("Date:", x ,"\n","Avg PM" , input$toggleKPI,":", round(y, 2)))) +
         theme_minimal() + 
         geom_line(color = "steelblue", size = 0.5) +
@@ -617,23 +655,26 @@ server <- function(input, output, session) {
         
       )
       
-      
+      })
       
       
     })
     
     output$qic_S <- renderPlotly({
-      
-      ZL_DF_qic  <- refreshData_QIC()
 
+      input$goButton 
+      isolate({          
+      ZL_DF_qic  <- refreshData_QIC()
+      
+      
       if (input$toggleKPI == 'Wait Time'){
         p2 <- qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 's') 
       }else{
         p2 <- qic(PM_TRAVEL_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 's') 
       }
-           # storing PIcharts into data.frame
+          # storing PIcharts into data.frame
       df2 <- p2$data
-    
+      
       ggp2 <- ggplot(df2, aes(x = ymd(x) , y = y , group = 1,text = paste("Date:", x ,"\n","Avg PM" , input$toggleKPI,":", round(y, 2)))) +
         theme_minimal() + 
         geom_line(color = "steelblue", size = 0.5) +
@@ -679,6 +720,8 @@ server <- function(input, output, session) {
       )
       
     }) 
+      
+    })
 
     
     output$qic_i <- renderPlotly({
@@ -894,7 +937,7 @@ server <- function(input, output, session) {
       
       
      ggplotly(ggp_U, tooltip=c("text2","text1")) %>% add_annotations(
-        x=17987,
+        x=as.numeric(max_date)+1,
         y=mean(DF_U$lcl)+0.2,
         xref = "x",
         yref = "y",
@@ -903,7 +946,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=17987,
+        x=as.numeric(max_date)+1,
         y=mean(DF_U$ucl+0.2),
         xref = "x",
         yref = "y",
@@ -912,7 +955,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=17987,
+        x=as.numeric(max_date)+1,
         y=mean(DF_U$cl)+0.2,
         xref = "x",
         yref = "y",
@@ -989,11 +1032,49 @@ server <- function(input, output, session) {
       
     })
    
+    
+    output$qic_f <- renderPlotly({
+      input$goButton 
+      isolate({
+        
+        ZL_DF_qic  <- refreshData_QIC()
+      
+      p3 <-qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar',facets   =  EQUIPMENT_TYPE_C ~ EVENT_SHIFT_I)
+    #  p4 <-qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF,chart = 's', ylab = 'Avg PM_WAIT_TIME', xlab = 'Date',facets   =  EQUIPMENT_TYPE_C ~ EVENT_SHIFT_I)
+      
+    #  P_I <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'i',  ylab = 'PM_WAIT_TIME', xlab = 'Operations no.' )
+    #  P_MR <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'mr',  ylab = 'PM_WAIT_TIME', xlab = 'Operations no.' )
+     
+      df3 <- p3$data
+      print(df3)
+      ggp3 <- ggplot(df3, aes(x = x , y = y , group = 1, text = paste("x:", x ,"\n",input$toggleKPI,":", round(y, 2)))) +
+        theme_minimal() + 
+        geom_line(color = "steelblue", size = 0.3) +
+        geom_point(color = "steelblue", size = 1 ) +
+        geom_point(data = subset(df3, y >= ucl), color = "red", size = 1) +
+        geom_point(data = subset(df3, y <= lcl), color = "red", size = 1) +
+        geom_hline(aes(yintercept = CL),linetype= "dashed",summary(p3)) +
+        geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.15,linetype= "dashed",summary(p3)) +
+        geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.15,linetype= "dashed",summary(p3)) +
+        
+        facet_grid(facet1~facet2)+
+        #rename tooltip attribute text. 
+        labs(title = paste(input$toggleKPI,"- Chart") ,
+             y = paste(input$toggleKPI,"(Mins)"), x = "Date")
+      
+      ggplotly(ggp3, tooltip=c("text"))
+      
+      
+      })  
+      
+    })
+    
+    
     #Fishbone Diagram
     
     output$fishbone <- renderPlot({ 
       
-      ss.ceDiag(effect,causes.head,causes,sub="ISSS608 Project",ss.col = c("","red"))
+      ss.ceDiag(effect,causes.head,causes,sub="ISSS608 Visual Analytics Project",ss.col = c("","red"))
     })
     
        
