@@ -91,20 +91,19 @@ causes[6]<-list(c("Leakage", "breakdown"))
 
 
 
-####
+#### sidebar ####
 sidebar <- dashboardSidebar(width=275,
   sidebarMenu(
    # menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
    #          badgeLabel = "new", badgeColor = "green")
-    useShinyjs(),
-    disabled(
+  
     radioGroupButtons(
       inputId = "toggleKPI",
       label = "KPI", 
       choices = c("Wait Time", "Travel Time"),
       status = "primary"
-    )),
+    ),
     
     dateRangeInput('dateRange',
                    label = 'Date range',
@@ -170,7 +169,7 @@ sidebar <- dashboardSidebar(width=275,
 
   )
 )
-
+#### end of side bar####
 
 body <- dashboardBody(
   
