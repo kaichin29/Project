@@ -98,6 +98,8 @@ sidebar <- dashboardSidebar(width=275,
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
    #          badgeLabel = "new", badgeColor = "green")
   
+    
+    
     radioGroupButtons(
       inputId = "toggleKPI",
       label = "KPI", 
@@ -110,6 +112,8 @@ sidebar <- dashboardSidebar(width=275,
                    start = min_date , end = max_date
                    
     ),
+    
+    menuItem("Filters",tabName="Filters",icon = icon("filter"),
     
     prettyCheckboxGroup(inputId = "f_Terminal",
                         label =  "Terminal:",
@@ -164,8 +168,10 @@ sidebar <- dashboardSidebar(width=275,
                         outline = TRUE,
                         inline = TRUE,
                         selected = sort(unique(ZL_DF$EVENT_SHIFT_I))
-    ),
-    actionButton("goButton", "Apply")
+    )),
+    
+    actionButton("goButton", "Apply",width = 250,icon = icon("sync"))
+  
 
   )
 )
@@ -214,7 +220,7 @@ body <- dashboardBody(
                                                       sliderInput(inputId = 'Duration_N1',
                                                                   label = 'Duration',
                                                                   value = 30,
-                                                                  min = 10,
+                                                                  min = 0,
                                                                   max = 60),
                                                       circle = TRUE, status = "warning",
                                                       icon = icon("gear"), width = "100px",
@@ -232,6 +238,22 @@ body <- dashboardBody(
                             
                             ),
                    tabPanel("Facets",
+                            
+                            dropdownButton(size = 'xs',tags$h3("Facets Setting"),
+                                           selectInput(inputId="select_F1", label = h6("Facet1"), 
+                                                       choices = list("~Terminal" , "~MOVE_OP_C" ,"~EVENT_SHIFT_I","~CNTR_TYPE_C","~EQUIPMENT_TYPE_C","~LENGTH_Q","~CNTR_ST_C"), 
+                                                       selected = "~Terminal"),
+                                           selectInput(inputId="select_chart", label = h6("Control chart"), 
+                                                       choices = list("xbar" , "s" ), 
+                                                       selected = "xbar")#,
+                                          # actionButton("goButton", "Apply",icon = icon("sync"))
+                                           
+                                           
+                                           ,
+                                           circle = TRUE, status = "warning",
+                                           icon = icon("gear"), width = "200px",
+                                           tooltip = tooltipOptions(title = "Facets Setting")),
+                            
                             withSpinner(plotlyOutput("qic_f"))
                            # withSpinner(plotOutput("qic_f"))
                             
@@ -266,7 +288,7 @@ body <- dashboardBody(
                                           sliderInput(inputId = 'Duration_N',
                                                       label = 'Duration',
                                                       value = 30,
-                                                      min = 10,
+                                                      min = 0,
                                                       max = 60),
                                           circle = TRUE, status = "warning",
                                           icon = icon("gear"), width = "100px",
@@ -376,23 +398,29 @@ server <- function(input, output, session) {
   #toggle between wait and travel    
   observeEvent(input$toggleKPI, {
   
-    
    if (input$toggleKPI == 'Wait Time'){
      KPI(ZL_DF$PM_WAIT_TIME_Q)
 
-  
    }else{
      KPI(ZL_DF$PM_TRAVEL_TIME_Q)
 
-     
    }
     
   })
-  
-
-  
-  
+  # 
+  # f1 <- reactiveVal('Terminal')
+  # f2 <- reactiveVal('EVENT_SHIFT_I')
+  # 
+  # observeEvent(input$select_F1,{
+  #   f1(input$select_F1)
+  # })
+  # observeEvent(input$select_F2,{
+  #   f2(input$select_F2)
+  # })
+  # 
   #refresh filter
+  
+  
   makeReactiveBinding("ZL_DF_longwait") 
   refreshDataPareto <- reactive ({
     input$goButton 
@@ -472,12 +500,6 @@ server <- function(input, output, session) {
   })
  
 
-  
-  
-  
-  
-  
-   
     
 
   #filter pareto overview
@@ -1037,10 +1059,17 @@ server <- function(input, output, session) {
       isolate({
         
         ZL_DF_qic  <- refreshData_QIC()
-      
-      p3 <-qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = 'xbar',facets   =  EQUIPMENT_TYPE_C ~ EVENT_SHIFT_I)
-    #  p4 <-qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF,chart = 's', ylab = 'Avg PM_WAIT_TIME', xlab = 'Date',facets   =  EQUIPMENT_TYPE_C ~ EVENT_SHIFT_I)
-      
+
+
+
+if (input$toggleKPI == 'Wait Time'){
+  
+  p3 <-qic(PM_WAIT_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = input$select_chart ,facets   =  as.formula(input$select_F1) )
+}else{
+  p3 <-qic(PM_TRAVEL_TIME_Q,x = SHIFT_D ,data = ZL_DF_qic,chart = input$select_chart ,facets   =  as.formula(input$select_F1) )
+
+}
+   
     #  P_I <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'i',  ylab = 'PM_WAIT_TIME', xlab = 'Operations no.' )
     #  P_MR <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'mr',  ylab = 'PM_WAIT_TIME', xlab = 'Operations no.' )
      
@@ -1055,10 +1084,10 @@ server <- function(input, output, session) {
         geom_hline(aes(yintercept = CL),linetype= "dashed",summary(p3)) +
         geom_hline(aes(yintercept = aUCL),colour ="red",size = 0.15,linetype= "dashed",summary(p3)) +
         geom_hline(aes(yintercept = aLCL),colour ="red",size = 0.15,linetype= "dashed",summary(p3)) +
-        
-        facet_grid(facet1~facet2)+
+       facet_wrap(~facet1)+ 
+       # facet_grid(facet1~.)+
         #rename tooltip attribute text. 
-        labs(title = paste(input$toggleKPI,"- Chart") ,
+        labs(title = paste(input$toggleKPI,input$select_chart,"- Chart") ,
              y = paste(input$toggleKPI,"(Mins)"), x = "Date")
       
       ggplotly(ggp3, tooltip=c("text"))
