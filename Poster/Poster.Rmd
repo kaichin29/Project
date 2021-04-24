@@ -1,0 +1,64 @@
+---
+title: Understanding Prime Mover(PM) Productivity in Yard
+author:
+  - name: Li Zhenglong
+  - name: Lim Kai Chin
+affiliation: Singapore Management University
+
+column_numbers: 3
+poster_width: "23.39in"
+poster_height: "33.11in"
+title_textsize: "50pt"
+author_textsize: "32pt"
+affiliation_textsize: "32pt"
+body_textsize: "24pt"
+sectitle_textsize: "32pt"
+sectitle2_textsize: "28pt"
+
+
+#logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+#logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+output: 
+  posterdown::posterdown_html:
+    self_contained: false
+bibliography: packages.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+# Motivation and objectives
+issues and problems - A clear statement of the issues or/and problems your project addresses.
+Motivation - An explanation of why the issues and/or problems are interesting and what make them difficult to solve.
+
+# Approach
+Approach - A description of the techniques or algorithms you used to solve the problem.
+Datawrangling
+Data Transformation
+Data exploration
+
+Results - Screenshots and a working demo of the system you built.
+# EDA
+
+# CDA
+
+# Quality Improvement
+## Pareto Chart 
+## Control Chart
+
+
+
+
+
+
+# Future Work 
+An explanation of how the work could be extended.
+
+```{r}
+knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
+```
+
+# References
