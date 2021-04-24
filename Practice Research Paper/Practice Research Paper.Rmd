@@ -51,18 +51,18 @@ $$Total Time = Sum (Est.Travel Time + Est.Wait Time$$ $$ + Unproductive Time + N
 **Estimated Wait Time** is Total Time minus the summation of Est. Travel Time, Non-Work Time and Unproductive Time.   
 
 
-In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units([Leow, 2021](https://www.businesstimes.com.sg/transport/port-of-singapore-container-throughput-dips-09-in-2020)).  There are more than ninety thousand PM yard operations daily on a average using the sample Data. With the amount of transactions and connectivity, even a slight improvement in productivity can bring about large savings to the organisation, and the opportunity to increase output, thus providing growth to the organization.
+In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units([Leow, 2021](https://www.businesstimes.com.sg/transport/port-of-singapore-container-throughput-dips-09-in-2020)).  There are more than ninety thousand PM yard operations daily on a average based the sample Data. With the amount of transactions and connectivity, even a slight improvement in productivity can bring about large savings to the organisation, and the opportunity to increase output, thus providing growth to the organization.
 
 
 # I. Motivation and objectives
 
-Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify attributes to the performance indicator.
+Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes contributing to the PM productivity.
 
 
 
 # II. Review and critic on past work 
 
-Currently, PM operation's performances are tracked using Operation Indicators such as PM productivity and waiting time aggregated by duration, from daily shifts to monthly reports and segregate by individual terminals, equipments, containers and operation types. 
+Currently, PM operation's performances are tracked using Operation Indicators such as PM productivity and waiting time aggregated by duration, from daily shifts to monthly reports and segregate by individual terminals, equipment, containers and operation types. 
 
 Over the years, operational excellence have drive much improvements to various operation functions such as resource, yard and berth planning which has increased the PM productivity. However, daily operation managers are still largely relying on static excel reports, and in more recent years, using Data Visualizations tools such as Qlikview and Power Bi to perform their day to day analytic task on pre-summarized performance figures. Thus, it is difficult to drill down and pinpoint issues, and certainly laborious to monitor outcome of implemented process improvements.    
 
@@ -73,23 +73,36 @@ The first study conducted in 2006 only discusses crane productivity and not PM p
 
 # III. Design Framework
 
-Data filter: To allow users to filter and zoom into the data by “Date”, “Terminal”, “Equipment”, and “Container Types” to examine the patterns across time and space. This also allows users to flow from a high-level overview and narrow down to data on a higher granularity. 
+EDA
+CDA
 
-Use of tooltips: When users hover over the chart objects, the tooltips provide on-demand details without having too much information cluttered on the chart. 
+Pareto and control charts are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
-When we interpret the data, the Data visualization helps us to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting our train of thought. 
+By using a variety type of control charts with control limits of 3 standard deviations, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. Furthermore, the data obtained from the process can also be applied to predict future performances of the process.
 
-# IV. Demonstration
+The Data visualization in these four components are synchronized through a set of common data filters that allows manipulation of data visual and coordination of interaction between the different views. The linking of data presentation enables the user to maintain the filter integrity without having to reapply the selections each time when switching to another view. This allows the user to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
+
+
+
+**Use of tooltips: When users hover over the chart objects, the tooltips provide on-demand details without having too much information cluttered on the chart.** 
+
+
+
+# IV. Demonstration - findings
+
+
 
 # V. Discussion 
 
+
+
 # VI. Future Work
 
-To implement Check Sheet as part of the data collection plan to record cause of long waiting or travelling time events, contributing majority of lower productivity. This will be used to analyze further with pareto and control chart on the specific category.  
+It is important to note that whilst the control chart can identify non-random variation, it cannot identify its root cause. The analysis can only show us that PM waiting or traveling time have been reduced or stabilized after an implemented change. However, it cannot be established as the cause of the change.
 
-It is important to note that whilst the control chart can identify non-random variation, it cannot identify its root cause. The analysis can only show us that PM waiting time has been reduced or stabilized after an implemented change. However, it cannot be established as the cause of the change.
+To implement Check Sheet as part of the data collection plan to record cause of long waiting or travelling time events, contributing majority of lower productivity. This will be used to analyze further with pareto and control chart on the specific category. 
 
-The PM waiting time and traveling time are estimated base on distance travelled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the Pareto and Control charts to analyze the stability of current and future processes. 
+The PM waiting time and traveling time are estimated base on distance travelled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the **EDA, CDA**, Pareto and Control charts to analyze the stability of current and future processes. 
 
 # VII. References to be update
 
