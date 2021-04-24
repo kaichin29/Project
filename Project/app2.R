@@ -98,23 +98,24 @@ sidebar <- dashboardSidebar(width=275,
    # menuItem("Widgets", icon = icon("th"), tabName = "widgets",
    #          badgeLabel = "new", badgeColor = "green")
   
-    
-    
-    radioGroupButtons(
-      inputId = "toggleKPI",
-      label = "KPI", 
-      choices = c("Wait Time", "Travel Time"),
-      status = "primary"
-    ),
-    
-    dateRangeInput('dateRange',
-                   label = 'Date range',
-                   start = min_date , end = max_date
-                   
-    ),
-    
-    menuItem("Filters",tabName="Filters",icon = icon("filter"),
-    
+    menuItem("Home", tabName = "home", icon = icon("home")),
+
+    menuItem("App",tabName = "app",icon = icon("chart-bar"),
+             menuItem("Dashboard",tabName = "dashboard",icon = icon("chart-line")),         
+             menuItem("Filter",tabName = "filter",icon = icon("filter"),
+             radioGroupButtons(
+               inputId = "toggleKPI",
+               label = "KPI", 
+               choices = c("Wait Time", "Travel Time"),
+               status = "primary"
+             ),
+             
+             dateRangeInput('dateRange',
+                            label = 'Date range',
+                            start = min_date , end = max_date
+                            
+             ),         
+             
     prettyCheckboxGroup(inputId = "f_Terminal",
                         label =  "Terminal:",
                         choices = sort(unique(ZL_DF$Terminal)),
@@ -168,18 +169,32 @@ sidebar <- dashboardSidebar(width=275,
                         outline = TRUE,
                         inline = TRUE,
                         selected = sort(unique(ZL_DF$EVENT_SHIFT_I))
-    )),
+    ),
+    actionButton("goButton", "Apply",width = 225,icon = icon("sync"))
+             )           
+             
+    ),#end of submenu
     
-    actionButton("goButton", "Apply",width = 250,icon = icon("sync"))
+    menuItem("UserGuide", tabName = "userguide", icon = icon("question"))
+    
+ 
   
 
-  )
+  
+  ) 
 )
 #### end of side bar####
 
 body <- dashboardBody(
   
-  
+  tabItems(
+    tabItem(tabName = "home",
+            h2("home tab content")
+            ),
+    tabItem(tabName = "userguide",
+            h2("userguide tab content")
+    ),
+    tabItem(tabName = "dashboard",
     navbarPage(
         theme = shinytheme("cerulean"), 
         "Understanding Prime Mover (PM) Waiting Time in Yard",
@@ -364,8 +379,9 @@ body <- dashboardBody(
                  )
         
         
-    )
-#)
+    )) #tabitems for dashboard
+  
+)#tabitems
 
 # Put them together into a dashboardPage
 ui <- dashboardPage(
