@@ -6,14 +6,20 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-25T21:50:48+08:00"
+      "last_modified": "2021-04-20T21:18:32+08:00"
     },
     {
       "path": "index.html",
       "title": "My Blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-25T21:50:51+08:00"
+      "last_modified": "2021-04-20T21:18:32+08:00"
+    },
+    {
+      "path": "Poster.html",
+      "author": [],
+      "contents": "\r\nIntroduction\r\nMotivation and objectives\r\nissues and problems - A clear statement of the issues or/and problems your project addresses. Motivation - An explanation of why the issues and/or problems are interesting and what make them difficult to solve.\r\nApproach\r\nApproach - A description of the techniques or algorithms you used to solve the problem. Datawrangling Data Transformation Data exploration\r\nResults - Screenshots and a working demo of the system you built. # EDA\r\nCDA\r\nQuality Improvement\r\nPareto & Control Chart\r\nFuture Work - An explanation of how the work could be extended.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-04-24T21:12:13+08:00"
     }
   ],
   "collections": ["posts/posts.json"]

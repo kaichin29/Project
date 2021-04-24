@@ -1,0 +1,26 @@
+# Introduction
+
+# Motivation and objectives
+issues and problems - A clear statement of the issues or/and problems your project addresses.
+Motivation - An explanation of why the issues and/or problems are interesting and what make them difficult to solve.
+
+# Approach
+Approach - A description of the techniques or algorithms you used to solve the problem.
+Datawrangling
+Data Transformation
+Data exploration
+
+Results - Screenshots and a working demo of the system you built.
+# EDA
+
+# CDA
+
+# Quality Improvement
+Pareto & Control Chart
+
+
+
+
+
+
+# Future Work - An explanation of how the work could be extended.
