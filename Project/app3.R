@@ -43,7 +43,7 @@ PM_AGG <- read_csv("data/PM_AGG2.csv")
 ## filtering the data
 
 ## filtering variables
-max_date <- as.Date("2019-03-03")
+max_date <- as.Date("2019-03-10")
 min_date <- as.Date("2019-03-01")
 
 date_range <- seq(min_date, max_date, "days")
@@ -492,7 +492,51 @@ body <- dashboardBody(
                    id = "conditionedPlot2")
                    ),
 
-        
+        tabPanel("Pareto Analysis",
+                 tabsetPanel(
+                   
+                   tabPanel("Overview",
+                            
+                            
+                            box(plotOutput("pareto_1"),
+                                prettyRadioButtons(
+                                  inputId = "pareto_radio1",
+                                  label = "Measure",
+                                  choices = c("Total", "Average")
+                                )
+                            )
+                   ),
+                   
+                   
+                   
+                   tabPanel("Breakdown",
+                            fluidRow(
+                              br(),
+                              column(1,dropdownButton(size = 'xs',tags$h3("Set Threshold Duration"),
+                                                      sliderInput(inputId = 'Duration_N',
+                                                                  label = 'Duration',
+                                                                  value = 30,
+                                                                  min = 0,
+                                                                  max = 60),
+                                                      circle = TRUE, status = "warning",
+                                                      icon = icon("gear"), width = "100px",
+                                                      tooltip = tooltipOptions(title = "Set Threshold Duration"))
+                                     
+                              ),
+                              mainPanel(textOutput("paretotitle"))
+                              
+                            ),
+                            fluidRow(   
+                              
+                              box(withSpinner(plotlyOutput("pareto_2")),title = "Terminal", solidHeader = TRUE,collapsible = TRUE),
+                              box(withSpinner(plotlyOutput("pareto_3")),title = "Operation Type", solidHeader = TRUE,collapsible = TRUE),
+                              box(withSpinner(plotlyOutput("pareto_4")),title = "Container Length", solidHeader = TRUE,collapsible = TRUE),
+                              box(withSpinner(plotlyOutput("pareto_5")),title = "Container Type", solidHeader = TRUE,collapsible = TRUE),
+                              box(withSpinner(plotlyOutput("pareto_6")),title = "Equipment Type", solidHeader = TRUE,collapsible = TRUE)
+                            )
+                   )
+                 )
+        ),
         
         
         tabPanel("Control Chart Analysis",
@@ -570,55 +614,11 @@ body <- dashboardBody(
                             
                             )
                  )
-                 ),
-        
-        
-        
-        tabPanel("Pareto Analysis",
-                 tabsetPanel(
-                   
-                   tabPanel("Overview",
-                            
-                           
-                          box(plotOutput("pareto_1"),
-                            prettyRadioButtons(
-                              inputId = "pareto_radio1",
-                              label = "Measure",
-                              choices = c("Total", "Average")
-                            )
-                          )
-                            ),
-                   
-                 
-                   
-                   tabPanel("Breakdown",
-                            fluidRow(
-                              br(),
-                              column(1,dropdownButton(size = 'xs',tags$h3("Set Threshold Duration"),
-                                          sliderInput(inputId = 'Duration_N',
-                                                      label = 'Duration',
-                                                      value = 30,
-                                                      min = 0,
-                                                      max = 60),
-                                          circle = TRUE, status = "warning",
-                                          icon = icon("gear"), width = "100px",
-                                          tooltip = tooltipOptions(title = "Set Threshold Duration"))
-                          
-                           ),
-                          mainPanel(textOutput("paretotitle"))
-                          
-                           ),
-                           fluidRow(   
-                             
-                            box(withSpinner(plotlyOutput("pareto_2")),title = "Terminal", solidHeader = TRUE,collapsible = TRUE),
-                            box(withSpinner(plotlyOutput("pareto_3")),title = "Operation Type", solidHeader = TRUE,collapsible = TRUE),
-                            box(withSpinner(plotlyOutput("pareto_4")),title = "Container Length", solidHeader = TRUE,collapsible = TRUE),
-                            box(withSpinner(plotlyOutput("pareto_5")),title = "Container Type", solidHeader = TRUE,collapsible = TRUE),
-                            box(withSpinner(plotlyOutput("pareto_6")),title = "Equipment Type", solidHeader = TRUE,collapsible = TRUE)
-                            )
-                           )
                  )
-        )
+        
+        
+        
+
         
         
 
@@ -1053,7 +1053,7 @@ server <- function(input, output, session) {
              y = paste("Avg ",input$toggleKPI,"(Mins)"), x = "Date")
       
       ggplotly(ggp1, tooltip=c("text")) %>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df1$lcl)*1.01,
         xref = "x",
         yref = "y",
@@ -1062,7 +1062,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df1$ucl*1.01),
         xref = "x",
         yref = "y",
@@ -1071,7 +1071,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df1$cl)*1.01,
         xref = "x",
         yref = "y",
@@ -1117,7 +1117,7 @@ server <- function(input, output, session) {
              y = paste("Avg ",input$toggleKPI,"(Mins)"), x = "Date")
 
       ggplotly(ggp2, tooltip=c("text")) %>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df2$lcl)*1.01,
         xref = "x",
         yref = "y",
@@ -1126,7 +1126,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df2$ucl*1.01),
         xref = "x",
         yref = "y",
@@ -1135,7 +1135,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(df2$cl)*1.01,
         xref = "x",
         yref = "y",
@@ -1299,10 +1299,9 @@ server <- function(input, output, session) {
         labs(title = "Count C-Chart" ,
              y = "Count", x = "Date")
 
-      
-      
+   
      ggplotly(ggp_C, tooltip=c("text2","text1"))  %>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_C$lcl)*1.01,
         xref = "x",
         yref = "y",
@@ -1311,7 +1310,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_C$ucl*1.01),
         xref = "x",
         yref = "y",
@@ -1320,7 +1319,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_C$cl)*1.01,
         xref = "x",
         yref = "y",
@@ -1364,7 +1363,7 @@ server <- function(input, output, session) {
       
       
      ggplotly(ggp_U, tooltip=c("text2","text1")) %>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_U$lcl)+0.2,
         xref = "x",
         yref = "y",
@@ -1373,7 +1372,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_U$ucl+0.2),
         xref = "x",
         yref = "y",
@@ -1382,7 +1381,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_U$cl)+0.2,
         xref = "x",
         yref = "y",
@@ -1428,7 +1427,7 @@ server <- function(input, output, session) {
       
       
       ggplotly(ggp_P, tooltip=c("text2","text1"))  %>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_P$lcl+0.0002),
         xref = "x",
         yref = "y",
@@ -1437,7 +1436,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_P$ucl+0.0002),
         xref = "x",
         yref = "y",
@@ -1446,7 +1445,7 @@ server <- function(input, output, session) {
         font = list(color = 'red',size = 10),opacity = 0.5
         
       )%>% add_annotations(
-        x=as.numeric(max_date)+1,
+        x=as.numeric(input$dateRange[2]),
         y=mean(DF_P$cl)+0.0002,
         xref = "x",
         yref = "y",
@@ -1480,7 +1479,7 @@ if (input$toggleKPI == 'Wait Time'){
     #  P_MR <- qic(PM_WAIT_TIME_Q, data = ZL_DF_tail, chart = 'mr',  ylab = 'PM_WAIT_TIME', xlab = 'Operations no.' )
      
       df3 <- p3$data
-      print(df3)
+     # print(df3)
       ggp3 <- ggplot(df3, aes(x = x , y = y , group = 1, text = paste("x:", x ,"\n",input$toggleKPI,":", round(y, 2)))) +
         theme_minimal() + 
         geom_line(color = "steelblue", size = 0.3) +

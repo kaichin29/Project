@@ -31,8 +31,8 @@ knitr::opts_chunk$set(echo = FALSE)
 # Introduction
 
 # Motivation and objectives
-issues and problems - A clear statement of the issues or/and problems your project addresses.
-Motivation - An explanation of why the issues and/or problems are interesting and what make them difficult to solve.
+
+Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes contributing to the PM productivity.
 
 # Approach
 Approach - A description of the techniques or algorithms you used to solve the problem.
