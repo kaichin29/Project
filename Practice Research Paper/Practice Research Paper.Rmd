@@ -78,13 +78,10 @@ CDA
 
 Pareto and control charts are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
-By using a variety type of control charts with control limits of 3 standard deviations, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. Furthermore, the data obtained from the process can also be applied to predict future performances of the process.
+By using a variety type of control charts with control limits of 3 standard deviations, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. Furthermore, the data obtained from the process can also be applied to predict future performance of the processes.
 
-The Data visualization in these four components are synchronized through a set of common data filters that allows manipulation of data visual and coordination of interaction between the different views. The linking of data presentation enables the user to maintain the filter integrity without having to reapply the selections each time when switching to another view. This allows the user to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
+The Data visualization in these four components are synchronized through a set of common data filters that allows manipulation of data visual and coordination of interaction between the different views. The linked data presentation enables the user to maintain the filter selection integrity without having to reapply the settings each time when switching to another view. The mouse hover tooltip provides on-demand details without having too much information cluttered on the data visual. These allow users to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
 
-
-
-**Use of tooltips: When users hover over the chart objects, the tooltips provide on-demand details without having too much information cluttered on the chart.** 
 
 
 
