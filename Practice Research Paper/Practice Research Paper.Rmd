@@ -1,0 +1,124 @@
+---
+title: "Understanding Prime Mover(PM) Productivity in yard"
+author: 
+  - Li Zhenglong, Singapore Management University
+  - Lim Kai Chin, Singapore Management University
+
+abstract: |
+  The study objective is to seek insight from Prime Mover (PM) Operations from port operations to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.
+output:
+  pdf_document: default
+  rticles::acm_article: default
+classoption:
+- twocolumn 
+---
+
+```{r, echo=FALSE}
+#library("distill")
+#install.packages("rticles")
+#install.packages('tinytex')
+#https://cran.rstudio.com/bin/windows/Rtools/
+#https://ghostscript.com/download/gsdnld.html  https://rnbeads.org/data/installing_rnbeads.html
+#tinytex::install_tinytex() 
+#tinytex::tlmgr_install('pdfcrop')
+
+#install.packages('tinytex')
+#devtools::install_github('rstudio/rticles')
+
+# sample citing Lorem ipsum dolor sit[@meier2012] 
+```
+# Introduction 
+Maritime trade has been the backbone of international trade since the beginning of time. Today, maritime trade accounts for approximately 92% of world trade ([Xu,et al,2020](https://royalsocietypublishing.org/doi/10.1098/rsos.200386)). Singapore’s strategic location and political stability has allowed Singapore to command a strategic position as a maritime hub in the global arena. 
+
+**PSA Singapore**
+As the world’s busiest trans-shipment port, PSA Singapore handles about a fifth of the world’s transhipped containers ([Saini,2018](https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/)). As of 2019, the port attracts 130,000 vessel calls on average a year, while the maritime industry accounts for 7% of Singapore’s GDP and 170,000 jobs, and this figure is set to grow.([Turner,2019](https://www.ship-technology.com/features/why-is-singapore-port-so-successful/)).
+
+**Port Operations** 
+Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a prime mover (PM), which then transports the container to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel([Ku, 2018](https://www.scs.org.sg/articles/how-arti-cial-intelligence-can-make-our-port-smarter)).
+
+**PM Productivity** is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms used by PSA to define PM productivity. 
+$$ Productivity = Total Containers Handled / Total Time $$
+$$Total Time = Sum (Est.Travel Time + Est.Wait Time$$ $$ + Unproductive Time + Non-Work Time)$$
+
+**Total Time** is defined as the time difference between the two operation activities.  
+
+**Estimated Travel Time** is the duration between two locations based on distance matrix with fixed speed limit/hr. 
+
+**Unproductive Time** is the time logoff by the same driver. 
+
+**Non-Work Time** is the time taken for a change of driver, meal break, and PM breakdown (if any).
+
+**Estimated Wait Time** is Total Time minus the summation of Est. Travel Time, Non-Work Time and Unproductive Time.   
+
+
+In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units([Leow, 2021](https://www.businesstimes.com.sg/transport/port-of-singapore-container-throughput-dips-09-in-2020)).  There are more than ninety thousand PM yard operations daily on a average using the sample Data. With the amount of transactions and connectivity, even a slight improvement in productivity can bring about large savings to the organisation, and the opportunity to increase output, thus providing growth to the organization.
+
+
+# I. Motivation and objectives
+
+Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify attributes to the performance indicator.
+
+
+
+# II. Review and critic on past work 
+
+Currently, PM operation's performances are tracked using Operation Indicators such as PM productivity and waiting time aggregated by duration, from daily shifts to monthly reports and segregate by individual terminals, equipments, containers and operation types. 
+
+Over the years, operational excellence have drive much improvements to various operation functions such as resource, yard and berth planning which has increased the PM productivity. However, daily operation managers are still largely relying on static excel reports, and in more recent years, using Data Visualizations tools such as Qlikview and Power Bi to perform their day to day analytic task on pre-summarized performance figures. Thus, it is difficult to drill down and pinpoint issues, and certainly laborious to monitor outcome of implemented process improvements.    
+
+Other previous external studies on PM operation efficiency typically focus on crane productivity by work schedule([Li,Wu,Petering,Goh,Souza, 2006](https://www.pomsmeetings.org/confpapers/005/005-0094.doc)), and resource planning & deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.([Eindhoven University of Technology, 2010](https://www.win.tue.nl/oowi/final%20project/archive/KoenStaats.pdf)). 
+
+The first study conducted in 2006 only discusses crane productivity and not PM productivity. Additionally, the study is way overdue. The second study by Eindhoven University of Technology in 2010 was conducted in a sandbox environment to find the optimal number of PM per equipment in a single process flow, thus totally ignoring the complexities of live transactions and connectivity of PM operation. 
+
+
+# III. Design Framework
+
+Data filter: To allow users to filter and zoom into the data by “Date”, “Terminal”, “Equipment”, and “Container Types” to examine the patterns across time and space. This also allows users to flow from a high-level overview and narrow down to data on a higher granularity. 
+
+Use of tooltips: When users hover over the chart objects, the tooltips provide on-demand details without having too much information cluttered on the chart. 
+
+When we interpret the data, the Data visualization helps us to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting our train of thought. 
+
+# IV. Demonstration
+
+# V. Discussion 
+
+# VI. Future Work
+
+To implement Check Sheet as part of the data collection plan to record cause of long waiting or travelling time events, contributing majority of lower productivity. This will be used to analyze further with pareto and control chart on the specific category.  
+
+It is important to note that whilst the control chart can identify non-random variation, it cannot identify its root cause. The analysis can only show us that PM waiting time has been reduced or stabilized after an implemented change. However, it cannot be established as the cause of the change.
+
+The PM waiting time and traveling time are estimated base on distance travelled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the Pareto and Control charts to analyze the stability of current and future processes. 
+
+# VII. References to be update
+
+---
+references:
+- id: meier2012
+  title: Professinal Android 4 Application Development
+  author: 
+  - family: Meier
+    given: Reto
+  type: book
+  publisher: John Wiley & Sons, Inc.
+  issued:
+    year: 2012
+    month: 5
+- id: fenner2012a
+  title: One-click science marketing
+  author:
+  - family: Fenner
+    given: Martin
+  container-title: Nature Materials
+  volume: 11
+  URL: 'https://doi.org/10.1038/nmat3283'
+  DOI: 10.1038/nmat3283
+  issue: 4
+  publisher: Nature Publishing Group
+  page: 261-263
+  type: article-journal
+  issued:
+    year: 2012
+    month: 3
+---
