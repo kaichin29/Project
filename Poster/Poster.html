@@ -390,25 +390,22 @@ Box-violin plot showcases and compares data distribution between variables</p>
 <p>Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.</p>
 <div id="insights" class="section level3">
 <h3>4. Insights</h3>
+<p><img src="hist1.png" /></p>
+<p>Terminal V48_8 has a very long tail, with a significant number of PMs waiting past 15 minutes. Need to explore why Terminal V48_8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.</p>
+<p><img src="hist2.png" />
+Tuesdays, Wednesday, and Thursday have seen significantly longer tails without any significant volume increases. Need to explore what is the root cause.</p>
 </div>
 </div>
 </div>
 <div id="future-work" class="section level1">
 <h1>Future Work</h1>
 <ul>
-<li>Implement automated check sheet to flag occurrence of long waiting or traveling time event.
-<ul>
-<li>Enable easy tracking for such events for detailed analysis</li>
-</ul></li>
-<li>Take advantage of AGV implementation in new port to implement new IoT &amp; GPS sensor data to improve data accuracy.
-<ul>
-<li>Refresh dataset and refresh models using new equipment</li>
-</ul></li>
+<li>Implement automated check sheet to flag occurrence of long waiting or traveling time event.</li>
+<li>Take advantage of AGV implementation in new port to implement new IoT &amp; GPS sensor data to improve data accuracy.</li>
 <li>Conduct workshops with key stakeholders to improve application and expand functionality
 <ul>
 <li>Add data upload capability</li>
 <li>Introduce linear regression function with additional data from new equipment</li>
-<li>Requirement sourcing with key account holders</li>
 </ul></li>
 </ul>
 </div>
