@@ -1,5 +1,5 @@
 ---
-title: "Understanding Prime Mover(PM) Productivity in Yard"
+title: "Understanding Prime Mover(PM) Productivity in Yard (UPMPY)"
 author: Li Zhenglong, Lim Kai Chin
 
 abstract: |
@@ -176,7 +176,7 @@ By further faceting them using Terminal ID, we can see that there are significan
 
 ![](violin2.png)
 
-Cause and effect Diagram helps operation managers to identify potential factors/causes to an overall effect of low productivity logically and visually. 
+Cause and effect Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.  
  ![](fishbone.PNG)
 
 On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    

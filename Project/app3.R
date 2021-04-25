@@ -203,7 +203,7 @@ body <- dashboardBody(
   
     navbarPage(
         theme = shinytheme("cerulean"), 
-        "Understanding Prime Mover (PM) Waiting Time in Yard",
+        "Understanding Prime Mover (PM) Productivity in Yard (UPMPY)",
 
         tabPanel("Home",
                  #  sidebarPanel(),
@@ -230,7 +230,7 @@ body <- dashboardBody(
                               plotOutput("fishbone"),
                               
                               h4("Motivation"),
-                              p("The study objective is to seek insight from Prime Mover (PM) Operations records to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time."),
+                              p("Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes and processes contributing to the PM productivity."),
                               br(),
                               
                               
@@ -632,7 +632,7 @@ body <- dashboardBody(
 
 # Put them together into a dashboardPage
 ui <- dashboardPage(
-  dashboardHeader(title = "MyDashboard"),
+  dashboardHeader(title = "UPMPY"),
   sidebar,
   body
 )
