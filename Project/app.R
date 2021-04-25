@@ -64,10 +64,12 @@ library('gridExtra')
 library('shinyBS')
 library('SixSigma')
 library('d3treeR')
+library('ggExtra')
 
 ## loading the data
-PM_AGG <- read_csv("data/PM_AGG2.csv")
-
+PM_AGG <- read_csv("data/PM_AGG2.csv")%>%
+  filter(Terminal %in% c('V48_1','V48_4','V48_5'))%>%
+  filter(SHIFT_D %in% c('20190301','20190302','20190303','20190304','20190305','20190306','20190307','20190308','20190309','20190310'))
 ## filtering the data
 
 ## filtering variables
@@ -79,7 +81,8 @@ date_range <- seq(min_date, max_date, "days")
 options(spinner.type = 8)
 
 ## ZL data prep
-ZL_DF <- read_csv("data/pm 201903_ZL11.txt") 
+ZL_DF <- read_csv("data/pm 201903_ZL11.txt") %>%
+  filter(SHIFT_D %in% c('20190301','20190302','20190303','20190304','20190305','20190306','20190307','20190308','20190309','20190310'))
  # ZL_DF <- subset(ZL_Dataset, select = -c(3,4,5,10,13,14,16,21,22,23,25,27,28,34,35,36,36,37)) %>%
  #   filter(EVENT_C %in% c('EQMT','EQOF')) %>%
  #   filter(LENGTH_Q %in% c(20,40,45))%>%
