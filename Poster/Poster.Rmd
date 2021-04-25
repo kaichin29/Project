@@ -94,8 +94,7 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 
 
-</br>
-
+</br></br>
 # Quality Control Analysis 
 <center>
 ![](fishbone.PNG){width=50%}
