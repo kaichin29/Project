@@ -131,36 +131,62 @@ Although **ggplot2** is able to create a box-violin plot, **ggbetweenstats** fro
 
 ### Pareto Chart
 
-A pareto chart is a chart that displays both bars and a line graph. The values are represented in decreasing order by bars, and the cumulative total is represented by the line. 
+A pareto chart is one of the key tools used in quality management and six sigma methodologies. The chart displays both bars and a line graph with values represented in decreasing order by bars, and the cumulative total is represented by the line. 
 
 ### Control Chart
 
 The control chart enables users visualise the mean, upper limit, and lower limit over time. By comparing current data to control lines, users can visualise whether current data is within expected limits or if there are anomalies that need to be investigated.
 
 
-# V. Demonstration - use case
+# V. Demonstration 
 
+The final interactive plots in the Shiny application can help to identify a wide range of insights. 
+
+By using the bar chart, we can see that Terminal 4 is consistently processing more containers, both for 20 footers and 40 footers. Terminal 9 is processing the least, followed by Terminal 7. This may mean that Terminal 4 is the most heavily utilised or the most well developed terminal, which resulted in it being used the most. This may in turn lead to increased waiting time. Managment can perhaps think of ways to reduce the load on Terminal 4, potentially moving some volume to Terminal 7. 
+
+However, this is against the backdrop of the port being moved to Tuas, as such, the lower utilised terminals may be because of it being downsized or undergoing construction.   
+
+![](barchart1.png)
+
+Next, we look at using histograms for insights. Terminal 8 has a very long tail, which means that there are many records of PMs waiting for a long time. The red reference line is set at 15 minutes, which means that there are a significant number of PMs being stuck beyond 15 minutes. The tails of the distributiosn for the other terminals are much shorter. Exploring why Terminal 8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.  
+
+![](hist1.png)
+
+Considering the day of the week aspect, Tuesdays, Wednesday, and Thursday have seen significantly longer tails as compared to the other days of the week. This may be due to volume fluctuations, considering that the 3 days mentioned have greater volumes compared to the other days. Potentially, a larger volume to handle will contribute more to the waiting time. However, looking at the bar charts, only Friday sees a significant drop in volume. More has to be done to explore why the tail of the waiting time distribution extends so much during Tuesdays, Wednesdays and Thursdays.  
+
+![](hist3.png)
+
+
+![](hist2.png)
+
+Using a violin plot, we can see that there are significant differences between the means of the different container lengths at the highest aggregation level. Between 20 footers and 40 footers, we can see that the difference in means using the pairwise Dunn test is effectively 0, with a mean of 10.3 minutes waiting time and 8.33 minutes waiting time for 20 footers and 40 footers respectively.
+
+![](violin1.png)
+By further faceting them using Terminal ID, we can see that there are significant differences in the means across terminals. Further in depth analysis needs to be done to identify the root cause for the differences across terminals, as there is significant area for improvement. 
+
+![](violin1.png)
+
+
+
+On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    
+<!-- ![](.PNG){width=80%} -->
+
+Despite close to 70% of the total number of events are Ship Ops(O), Ship Ops only contributed to approximately 40% of the waiting time >= 30 minutes. We can see the priority given to Ship Ops events which are related to loading and discharging from customer's vessels to be on time for their next port of destination. 
+<!-- ![](.PNG){width=80%} -->
+
+While there are 46% of total PM events deployed to RTG yard cranes, 70% of the long traveling time (>= 30min) are contributed by deployment to RTG yard cranes. Further investigation and analysis are required to validate the causes such as due to longer planned travel routes or heavy traffic.
+<!-- ![](.PNG){width=80%} -->
+
+Focusing on Operation type, we observed  Ship Ops events have tighter upper and lower control limits, better stability, and lower waiting time compared to the other Operation types. Although there are small shifts from the average, the possible common causes could be due to different shifts or the way the data are being subgrouped. Inter-terminals ( I ) event has the widest control limit from 7 to 10 minutes making it less consistent and predictable.
+<!-- ![](.PNG){width=80%} -->
+
+From the I-chart, Operation no 53 is observed to have an unusual large shift from average with 34 min waiting time. Further investigation is required to find out reason of this special cause.
+<!-- ![](.PNG){width=80%} -->
 
 # VI. Discussion 
 
-What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
 
-<!-- ![](.PNG){width=80%} -->
-On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    
-
-<!-- ![](.PNG){width=80%} -->
-Despite close to 70% of the total number of events are Ship Ops(O), Ship Ops only contributed to approximately 40% of the waiting time >= 30 minutes. We can see the priority given to Ship Ops events which are related to loading and discharging from customer's vessels to be on time for their departure. 
-
-<!-- ![](.PNG){width=80%} -->
-While there are 46% of total PM events deployed to RTG yard cranes, 70% of the long traveling time (>= 30min) are contributed by deployment to RTG yard cranes. Further investigation and analysis are required to validate the causes, which could be due to longer planned travel routes or heavy traffic.
-
-<!-- ![](.PNG){width=80%} -->
-Focusing on Operation type, we observed  Ship Ops events have tighter upper and lower control limits, better stability, and lower waiting time compared to the other Operation types. Although there are small shifts from the average, the possible causes could be due to different shifts or the way the data are being subgrouped. Inter-terminals ( I ) event has the widest control limit from 7 to 10 minutes making it less consistent and predictable.
-
-<!-- ![](.PNG){width=80%} -->
-From the I-chart, Operation no 53 is observed to have an unusual large shift from average with 34 min waiting time. Further investigation is required to find out reason of this special cause.
-
-
+The various terminals vary significantly in performance and operational capacity. Therefore, there are significant avenues to identify star performers from these various terminals and implement key initiatives from these star performers. There are also operational discrepancies day-to-day, which shows that there are further productivity improvements that can be made, even day-to-day.
 
 # VII. Future Work
 
@@ -168,9 +194,9 @@ It is important to note that whilst the control chart can identify non-random va
 
 To implement Check Sheet as part of the data collection plan so as to record down when occurrence of long waiting or traveling time events happens. This will be used to analyze further in detail with Pareto and control chart on the specific targeted category. 
 
-The PM waiting time and traveling time are estimated base on distance traveled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the **EDA, CDA**, Pareto and Control charts to analyze key attributes and the stability of current and future processes. 
+The PM waiting time and traveling time are estimated base on distance traveled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the various charts for EDA, CDA, Pareto, and Control charts to analyze key attributes and the stability of current and future processes. 
 
-Apart from additional analysis being built into the application, more functions can be added. The application currently has a fixed dataset of 1 month. Future iterations of the application will include a data upload functionality to enable data refresh capability. This ensures that users can operate the application and refresh the dataset without external help, which will be key for continued utilisation of the application. Workshops and brainstorming sessions will be conducted with supervisors and managers of PM operations to identify lacking functions, and to ensure that the managers involved become key stakeholders in developing this application.    
+once GPS or IoT sensor data can be captured, additional functions can be added, including linear regression to predict wait time given certain variables, which will help managers plan their resources better. Apart from additional analysis being built into the application, more functions can be added. The application currently has a fixed dataset of 1 month. Future iterations of the application will include a data upload functionality to enable data refresh capability. This ensures that users can operate the application and refresh the dataset without external help, which will be key for continued utilisation of the application. Workshops and brainstorming sessions will be conducted with supervisors and managers of PM operations to identify lacking functions, and to ensure that the managers involved become key stakeholders in developing this application.    
 
 # VIII. References to be update
 
