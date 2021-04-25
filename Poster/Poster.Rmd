@@ -49,6 +49,11 @@ p{
 
 ```
 # Introduction
+Maritime trade is the backbone of international trade. Today, maritime trade accounts for approximately 92% of world trade. PSA Singapore handles about a fifth of the world’s transhipped containers.In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units, with more than 90k PM yard operations daily. With the amount of transactions, even a slight improvement in productivity can bring about large savings.
+
+
+Containers are discharged from and loaded onto a vessel once berthed. A typical discharging operation starts with a quay crane picking up a container from the vessel, placing it onto a prime mover (PM), which then transports it to a storage yard. At the yard, a yard crane picks up the container from the PM stores it at a designated spot. Loading operations involve the transporting of containers in the opposite direction.
+
 
 # Motivation and Objectives
 * Motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data.
@@ -96,6 +101,7 @@ p{
 **Scatter plot** allows for exploring correlation between PM Wait Time and Travel Time
 
 ![](violin1.png){width=400}
+
 **Box-violin plot** showcases and compares data distribution between variables
 
 
