@@ -55,7 +55,7 @@ library('shinythemes')
 library('shinyWidgets')
 library('rlang')
 library('shinycssloaders')
-library('dplyr')
+#library('dplyr')
 library('qicharts2')
 library('ggQC')
 library('qcc')
@@ -79,13 +79,14 @@ date_range <- seq(min_date, max_date, "days")
 options(spinner.type = 8)
 
 ## ZL data prep
-ZL_Dataset <- read_csv("data/pm 201903_ZL.txt") 
- ZL_DF <- subset(ZL_Dataset, select = -c(3,4,5,10,13,14,16,21,22,23,25,27,28,34,35,36,36,37)) %>%
-   filter(EVENT_C %in% c('EQMT','EQOF')) %>%
-   filter(LENGTH_Q %in% c(20,40,45))
- 
- # write.table(ZL_DF, file = "pm 201903_ZL11.txt", sep = ",",
- #              col.names = TRUE)
+ZL_DF <- read_csv("data/pm 201903_ZL11.txt") 
+ # ZL_DF <- subset(ZL_Dataset, select = -c(3,4,5,10,13,14,16,21,22,23,25,27,28,34,35,36,36,37)) %>%
+ #   filter(EVENT_C %in% c('EQMT','EQOF')) %>%
+ #   filter(LENGTH_Q %in% c(20,40,45))%>%
+ #   filter(Terminal %in% c('V48_1','V48_4','V48_5'))
+ # 
+ #  write.table(ZL_DF, file = "data/pm 201903_ZL11.txt", sep = ",",
+ #             row.names = FALSE,  col.names = TRUE, quote = FALSE)
 
  #write.csv(ZL_Dataset, file = "data/pm 201903_ZL.csv")
  
@@ -94,7 +95,7 @@ ZL_DF$EVENT_DT = ymd_hms(as.character(ZL_DF$EVENT_DT))
 
 agg_base <-  ZL_DF %>%
   group_by(SHIFT_D,EVENT_SHIFT_I,Terminal,MOVE_OP_C,CNTR_TYPE_C,EQUIPMENT_TYPE_C,LENGTH_Q,CNTR_ST_C) %>%
-  dplyr::summarise(N=n(),
+       summarise(N=length(SHIFT_D),
                    Avg_WAIT_TIME = mean(PM_WAIT_TIME_Q),
                    Total_WAIT_TIME = sum(PM_WAIT_TIME_Q),
                    Avg_TRAVEL_TIME = mean(PM_TRAVEL_TIME_Q), 
@@ -912,7 +913,7 @@ server <- function(input, output, session) {
     
     agg_Count <-  ZL_DF_longwait1 %>%
       group_by(SHIFT_D) %>%
-      dplyr::summarise(longwait_No =n()
+      dplyr::summarise(longwait_No =length(SHIFT_D)
       )%>%
       ungroup()
     

@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Updated Project Proposal"]},{"type":"character","attributes":{},"value":["Prime Mover (PM) Productivity in Yard"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Li Zheng Long, Lim Kai Chin"]},{"type":"character","attributes":{},"value":["https://kaichinlim.netlify.app/"]}]}]},{"type":"character","attributes":{},"value":["04-25-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_float","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Updated Project Proposal"]},{"type":"character","attributes":{},"value":["Prime Mover (PM) Productivity in Yard"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Li Zheng Long, Lim Kai Chin"]}]}]},{"type":"character","attributes":{},"value":["04-25-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_float","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2041,6 +2041,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2061,7 +2062,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Updated Project Proposal","description":"Prime Mover (PM) Productivity in Yard","authors":[{"author":"Li Zheng Long, Lim Kai Chin","authorURL":"https://kaichinlim.netlify.app/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-04-25T00:00:00.000+08:00","citationText":"Chin, 2021"}
+{"title":"Updated Project Proposal","description":"Prime Mover (PM) Productivity in Yard","authors":[{"author":"Li Zheng Long, Lim Kai Chin","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-04-25T00:00:00.000+08:00","citationText":"Chin, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2092,7 +2093,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-byline">
-  Li Zheng Long, Lim Kai Chin <a href="https://kaichinlim.netlify.app/" class="uri">https://kaichinlim.netlify.app/</a> 
+  Li Zheng Long, Lim Kai Chin  
   
 <br/>04-25-2021
 </div>
@@ -2110,10 +2111,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#data-source">Data Source</a></li>
 <li><a href="#application-libraries-packages">Application Libraries &amp; Packages</a></li>
 <li><a href="#task-breakdown">Task Breakdown</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#github-repository">Github Repository</a></li>
 </ul>
 </nav>
 </div>
+<p><a href="https://suspicious-roentgen-253ea8.netlify.app/posts/2021-04-25-visual-analytics-project/">submission post</a></p>
 <h2 id="introduction">Introduction</h2>
 <p>Maritime trade has been the backbone of international trade as they account for approximately 92% of world trade.<sup>1</sup> PSA Singapore handles about a fifth of the world’s transhipped containers as the world’s busiest transhipment port.<sup>2</sup> For more than four decades, PSA continuously developed and upgraded its container handling infrastructure, pioneered new systems and processes, and streamlined operations to meet the rapid growth in its container terminal business as part of the strive for operational excellence.<sup>3</sup></p>
 <p>Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a PM, which will then transport to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel.<sup>4</sup></p>
@@ -2154,10 +2156,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 <p><img src="barchart.png" width="500" /></p>
 <ol start="3" type="a">
-<li><p>Performance of type of containers (Dangerous Goods, Reefer, General Purpose) &amp; size of containers (20-footer, 40-footer, Oversized)</p></li>
-<li><p>Parallel Coordinates plots</p></li>
-</ol>
-<p><img src="parallel.png" width="500" /></p></li>
+<li>Performance of type of containers (Dangerous Goods, Reefer, General Purpose) &amp; size of containers (20-footer, 40-footer, Oversized)</li>
+</ol></li>
 <li><p>Confirmatory data analysis</p>
 <ol type="a">
 <li><p>Uncertainty analysis through calculation of median and confidence intervals of time spent based on types and sizes of containers, different terminals, Equipment type, Day/night shifts, different yard activities.</p></li>
@@ -2180,7 +2180,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><strong>EDA - Treemaps</strong>: To visualise the proportion of different types of parameters (container type, equipment type)</p>
 <p><strong>EDA - Bar Charts</strong>: To visualise the counts and activities happening in a day</p>
 <p><strong>EDA - Histogram</strong>: To visualise the distribution of waiting times and driving times of the activities</p>
-<p><strong>EDA - Parallel Coordinates</strong>: To visualise different patterns in the data</p>
 <p><strong>CDA - Violin / Box Plots</strong>: To visualise the confidence intervals and distribution</p>
 <p><strong>CDA - Scatter Plots </strong>: To visualise the correlation levels</p>
 <p><strong>Quality Control - Pareto Chart</strong>: To identify the key contributors to waiting time</p>
@@ -2384,7 +2383,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </tbody>
 </table>
-<h2 id="references">References</h2>
+<h2 id="github-repository">Github Repository</h2>
+<p>The repository will be uploaded here. <a href="https://github.com/kaichin29/Project/tree/master/Project">Link</a> ## References</p>
 <p><sup>1</sup> <a href="https://royalsocietypublishing.org/doi/10.1098/rsos.200386" class="uri">https://royalsocietypublishing.org/doi/10.1098/rsos.200386</a></p>
 <p><sup>2</sup> <a href="https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/" class="uri">https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/</a></p>
 <p><sup>3</sup> <a href="https://www.globalpsa.com/psa-international/" class="uri">https://www.globalpsa.com/psa-international/</a></p>

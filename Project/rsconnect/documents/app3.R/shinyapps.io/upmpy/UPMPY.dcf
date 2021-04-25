@@ -1,0 +1,14 @@
+name: UPMPY
+title: UPMPY
+username:
+account: upmpy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4027829
+bundleId: 4517122
+url: https://upmpy.shinyapps.io/UPMPY/
+when: 1619369807.57299
+lastSyncTime: 1619369807.57299
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ~$er Guide.docx|~WRL2518.tmp|barchart1.png|data/pm 201903_ZL11.txt|data/pm_201903.txt|data/PM_AGG.csv|hist1.png|hist2.png|hist3.png|User Guide.docx|violin1.png|violin2.png|www/Glossary.PNG

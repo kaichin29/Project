@@ -27,6 +27,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [User Guide](./User Guide.pdf)
 
-[Shiny](https://upmpy.shinyapps.io/UPMPY/)
+[Shiny](https://upmpy.shinyapps.io/UPMPY/) --- data is greatly reduced due to out of memory in shinyapps.io
 
 [Github Repository](https://github.com/kaichin29/Project/tree/master/Project)

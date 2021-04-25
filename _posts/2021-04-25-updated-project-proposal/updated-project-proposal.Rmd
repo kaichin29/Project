@@ -19,6 +19,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+[submission post](https://suspicious-roentgen-253ea8.netlify.app/posts/2021-04-25-visual-analytics-project/)
 
 ## Introduction 
 
