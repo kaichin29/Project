@@ -83,20 +83,21 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 # Exploratory Data Analysis (EDA)
 ![](barchart1.png){width=680px}
 
-**Interactive bar chart** allows changing of chart components, main, fill, & colour variable, grouping facet.
+**Interactive bar chart** allows changing of chart components, main x-axis variable, colour fill variable, and its grouping facet. This interactive chart enables managers to discover new insights through reactive visualisations of existing data that allows them to compare visually differences between categories..  
 
 ![](hist1.png){width=680px}
 
-**Interactive histogram** helps display of distributions for PM Wait time and Travel time.
+**Interactive histogram** helps display of distributions for PM Wait time and Travel time. Additional reference lines built into the chart enable managers to set thresholds and identify outliers or other areas of concern derived from the continuous variables. 
 
 # Confirmatory Data Analysis (CDA)
 ![](scatter1.png){width=400}
 
-**Scatter plot** allows for exploring correlation between PM Wait Time and Travel Time
+**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. 
 
 ![](violin1.png){width=400}
 
-**Box-violin plot** showcases and compares data distribution between variables
+**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. The aggregated data can be faceted by different categories, helping users to identify differences across multiple categories at once. 
+
 
 
 # Quality Control Analysis 
