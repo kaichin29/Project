@@ -26,13 +26,13 @@ classoption:
 # sample citing Lorem ipsum dolor sit[@meier2012] 
 ```
 # I. Introduction 
-Maritime trade has been the backbone of international trade since the beginning of time. Today, maritime trade accounts for approximately 92% of world trade ([Xu,et al,2020](https://royalsocietypublishing.org/doi/10.1098/rsos.200386)). Singapore’s strategic location and political stability has allowed Singapore to command a strategic position as a maritime hub in the global arena. 
+Maritime trade has been the backbone of international trade since the beginning of time. Today, maritime trade accounts for approximately 92% of world trade [@Xu2020]. Singapore’s strategic location and political stability has allowed Singapore to command a strategic position as a maritime hub in the global arena. 
 
 **PSA Singapore**
-As the world’s busiest trans-shipment port, PSA Singapore handles about a fifth of the world’s transhipped containers ([Saini,2018](https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/)). As of 2019, the port attracts 130,000 vessel calls on average a year, while the maritime industry accounts for 7% of Singapore’s GDP and 170,000 jobs, and this figure is set to grow.([Turner,2019](https://www.ship-technology.com/features/why-is-singapore-port-so-successful/)).
+As the world’s busiest trans-shipment port, PSA Singapore handles about a fifth of the world’s transhipped containers [@saini2018]. As of 2019, the port attracts 130,000 vessel calls on average a year, while the maritime industry accounts for 7% of Singapore’s GDP and 170,000 jobs, and this figure is set to grow.[@turner].
 
 **Port Operations** 
-Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a prime mover (PM), which then transports the container to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel([Ku, 2018](https://www.scs.org.sg/articles/how-arti-cial-intelligence-can-make-our-port-smarter)).
+Upon a vessel’s arrival at a berth in the container terminal, containers are discharged from and loaded onto it. A typical discharging operation starts with a quay crane picking up a container from the vessel and placing it onto a prime mover (PM), which then transports the container to a storage yard. At the yard, a yard crane picks up the container from the PM and shifts it to a designated spot. Loading operations involve the transporting of containers in the opposite direction, from the yard to the vessel[@ku2018].
 
 **PM Productivity** is defined as the sum of the total number of containers handled divided by the total hours. The following are the key terms used by PSA to define PM productivity. 
 $$ Productivity = Total Containers Handled / Total Time $$
@@ -217,30 +217,53 @@ once GPS or IoT sensor data can be captured, additional functions can be added, 
 
 ---
 references:
-- id: meier2012
-  title: Professional Android 4 Application Development
+- id: Xu2020
+  title: Estimating international trade status of countries from global liner shipping networks
   author: 
-  - family: Meier
-    given: Reto
-  type: book
-  publisher: John Wiley & Sons, Inc.
+  - family: Xu
+    given: Mengqiao
+  - family: Pan
+    given: Qian
+  - family: Xia
+    given: Haoxiang	
+  - family: Masuda
+    given: Naoki		
+  type: articles
+  URL: https://royalsocietypublishing.org/doi/10.1098/rsos.200386
+  publisher: The Royal Society
   issued:
-    year: 2012
-    month: 5
-- id: fenner2012a
-  title: One-click science marketing
-  author:
-  - family: Fenner
-    given: Martin
-  container-title: Nature Materials
-  volume: 11
-  URL: 'https://doi.org/10.1038/nmat3283'
-  DOI: 10.1038/nmat3283
-  issue: 4
-  publisher: Nature Publishing Group
-  page: 261-263
-  type: article-journal
+    year: 2020
+    month: 10
+- id: saini2018
+  title: The Busiest Ports in the World and How they Handle Operations – Part II (Singapore)
+  author: 
+  - family: Saini
+    given: Priyanka Ann 
+  type: articles
+  URL: https://seanews.co.uk/features/the-busiest-ports-in-the-world-and-how-they-handle-operations-part-ii-singapore/
+  publisher: seanews
   issued:
-    year: 2012
-    month: 3
+    year: 2018
+    month: 11
+- id: ku2018
+  title: HOW ARTIFICIAL INTELLIGENCE CAN MAKE OUR PORT SMARTER
+  author: 
+  - family: Ku
+    given: Liang Ping 
+  type: articles
+  URL: https://www.scs.org.sg/articles/how-arti-cial-intelligence-can-make-our-port-smarter
+  publisher: Singapore Computer Society
+  issued:
+    year: 2018
+- id: turner
+  title: Destination Singapore, behind the rise of the world’s top shipping centre
+  author: 
+  - family: Turner
+    given: Julian 
+  type: articles
+  URL: https://www.ship-technology.com/features/why-is-singapore-port-so-successful/
+  publisher: ShipTechnology
+  issued:
+    year: 2019
+    month: 10
 ---
