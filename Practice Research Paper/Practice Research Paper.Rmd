@@ -93,9 +93,10 @@ Development of the application was done on Shiny, an R package used to build int
 The design of the Shiny application flows according to business requirements. 
 i) **Home - **A brief overview of the project, key definitions and a basic user guide. This explains the motivations and gives context to the application. A detailed user guide is also appended here.
 ii) **Exploratory Data Analysis - **This provides a high-level understanding for PM operations and the various parameters involved. 
-iii) **Confirmatory Data Analysis - **This provides statistically-supported charts and graphs for more in-depth hypothesis testing. 
-iv) **Pareto Charts - **This provides detail for the key contributors of waiting time and travel time, enabling users to ask the correct questions. 
-v) **Control Charts - **This allows the user to identify key outliers that can then be targeted offline.  
+iii) **Confirmatory Data Analysis - **This provides statistically-supported charts and graphs for more in-depth hypothesis testing.
+iV) **Cause and Effect Diagram -**This provides visual representation of the factors/causes to the low PM Productivity.
+v) **Pareto Charts - **This provides detail for the key contributors of waiting time and travel time, enabling users to ask the correct questions. 
+vi) **Control Charts - **This allows the user to identify key outliers that can then be targeted offline.  
 
 ## Analysis Techniques 
 
@@ -129,26 +130,35 @@ A boxplot is able to display the data using its mean, upper and lower quartiles.
 
 Although **ggplot2** is able to create a box-violin plot, **ggbetweenstats** from the ggstatsplot package was used instead as it includes additional statistical testing using various tests. It has a built-in statistical test to check if the continuous variable varies across different categories. Only significant differences between distributions are shown as the "only significant" argument was parsed when creating the chart.
 
+### Cause and effect Diagram
+
+Cause and effect Diagram, also known as Ishikawa/fishbone Diagram aims to present visually and logically, to identify many potential causes/factors to a specific problem.
+
+**SixSigma** is used to create the cause and effect diagram to display on R shiny. 
+
 ### Pareto Chart
 
-A pareto chart is one of the key tools used in quality management and six sigma methodologies. The chart displays both bars and a line graph with values represented in decreasing order by bars, and the cumulative total is represented by the line. 
+A Pareto chart is one of the key tools used in quality management and six sigma methodologies. The chart displays both bars and a line graph with values represented in decreasing order by bars, and the cumulative total is represented by the line. 
+
+ggplot's **stat_pareto()** is used for comprehensive static details, while **qichart2** wrapped in **Plotly** provides the faceted and interactive capability for depth analysis.
 
 ### Control Chart
 
-The control chart enables users visualise the mean, upper limit, and lower limit over time. By comparing current data to control lines, users can visualise whether current data is within expected limits or if there are anomalies that need to be investigated.
+The Control chart enables users visualise the mean, upper limit, and lower limit over time. By comparing current data to control lines, users can visualise whether current data is within expected limits or if there are anomalies that need to be investigated. 
 
+**qicharts2** is chosen over qcc and ggQC for ease to use and charts aesthetics to generate the different types of control charts. It is then integrated into **ggplot** and **plotly** for interactivity. 
 
 # V. Demonstration 
 
 The final interactive plots in the Shiny application can help to identify a wide range of insights. 
 
-By using the bar chart, we can see that Terminal 4 is consistently processing more containers, both for 20 footers and 40 footers. Terminal 9 is processing the least, followed by Terminal 7. This may mean that Terminal 4 is the most heavily utilised or the most well developed terminal, which resulted in it being used the most. This may in turn lead to increased waiting time. Managment can perhaps think of ways to reduce the load on Terminal 4, potentially moving some volume to Terminal 7. 
+By using the bar chart, we can see that Terminal V48_4 is consistently processing more containers, both for 20 footers and 40 footers. Terminal V48_9 is processing the least, followed by Terminal V48_7. This may mean that Terminal V48_4 is the most heavily utilised or the most well developed terminal, which resulted in it being used the most. This may in turn lead to increased waiting time. Managment can perhaps think of ways to reduce the load on Terminal V48_4, potentially moving some volume to Terminal V48_7. 
 
 However, this is against the backdrop of the port being moved to Tuas, as such, the lower utilised terminals may be because of it being downsized or undergoing construction.   
 
 ![](barchart1.png)
 
-Next, we look at using histograms for insights. Terminal 8 has a very long tail, which means that there are many records of PMs waiting for a long time. The red reference line is set at 15 minutes, which means that there are a significant number of PMs being stuck beyond 15 minutes. The tails of the distributiosn for the other terminals are much shorter. Exploring why Terminal 8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.  
+Next, we look at using histograms for insights. Terminal V48_8 has a very long tail, which means that there are many records of PMs waiting for a long time. The red reference line is set at 15 minutes, which means that there are a significant number of PMs being stuck beyond 15 minutes. The tails of the distributiosn for the other terminals are much shorter. Exploring why Terminal V48_8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.  
 
 ![](hist1.png)
 
@@ -166,7 +176,8 @@ By further faceting them using Terminal ID, we can see that there are significan
 
 ![](violin2.png)
 
-
+Cause and effect Diagram helps operation managers to identify potential factors/causes to an overall effect of low productivity logically and visually. 
+ ![](fishbone.PNG)
 
 On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    
  ![](pareto1.PNG)
