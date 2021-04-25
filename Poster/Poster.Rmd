@@ -81,56 +81,46 @@ p{
 * 4. Analysis and Insights
 
 
-# Analysis and Insights
-### 1. EDA
+# Exploratory Data Analysis (EDA)
 ![](barchart1.png){width=680px}
 
-Interactive bar chart allows changing of chart components, main, fill, & colour variable, grouping facet.
+**Interactive bar chart** allows changing of chart components, main, fill, & colour variable, grouping facet.
 
 ![](hist1.png){width=680px}
 
-Interactive histogram helps display of distributions for PM Wait time and Travel time.
+**Interactive histogram** helps display of distributions for PM Wait time and Travel time.
 
-### 2. CDA
+# Confirmatory Data Analysis (CDA)
 ![](scatter1.png){width=400}
 
-Scatter plot allows for exploring correlation between PM Wait Time and Travel Time
+**Scatter plot** allows for exploring correlation between PM Wait Time and Travel Time
 
 ![](violin1.png){width=400}
-Box-violin plot showcases and compares data distribution between variables
+**Box-violin plot** showcases and compares data distribution between variables
 
 
-### 3. Quality Control Analysis 
-* Cause and effect Diagram
+# Quality Control Analysis 
 
 <center>
 ![](fishbone.PNG){width=50%}
 </center>
-Cause and effect Diagram AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.
+**Cause and effect Diagram**
+AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.
 
-* Pareto Chart & Control Chart
+![](pareto1.PNG){width=100%}
 
-![](pareto1.PNG){width=50%}![](cc2.PNG){width=50%}
+**Pareto and Control charts** are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
-Pareto and Control charts are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
+![](cc2.PNG){width=50%}![](cc3.PNG){width=50%}
 Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
 
 
-### 4. Insights
 
-![](hist1.png)
-
-Terminal V48_8 has a very long tail, with a significant number of PMs waiting past 15 minutes. Need to explore why Terminal V48_8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.  
-
-
-![](hist2.png)
-
-Tuesdays, Wednesday, and Thursday have seen significantly longer tails without any significant volume increases. Need to explore what is the root cause.
 
 # Future Work 
-* Implement automated check sheet to flag occurrence of long waiting or traveling time event.
-* Take advantage of AGV implementation in new port to implement new IoT & GPS sensor data to improve data accuracy. 
+* Implement check sheet to record actual causes when long waiting or traveling time event as input for process improvement. 
+* Extend Visual Analytic technique to future terminals' Automate guided Vehicle(AGV) with inbuilt with IoT & GPS sensors to improve data accuracy, processes and productivity. 
 * Conduct workshops with key stakeholders to improve application and expand functionality
   + Add data upload capability
   + Introduce linear regression function with additional data from new equipment
@@ -139,4 +129,4 @@ Tuesdays, Wednesday, and Thursday have seen significantly longer tails without a
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 
-# References
+
