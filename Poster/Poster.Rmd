@@ -84,11 +84,13 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 # Confirmatory Data Analysis (CDA)
 ![](scatter1.png){width=400}
 
-**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. 
+**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be faceted using different categories, helping users to identify differences across multiple categories. 
 
 ![](violin1.png){width=400}
 
-**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. 
+**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing.
+
+
 
 
 # Quality Control Analysis 
@@ -113,7 +115,7 @@ Using a variety type of control charts with control limits of 3 standard deviati
 # Future Work 
 * Implement check sheet to record actual causes when long waiting or traveling time event as input for process improvement. 
 * Extend Visual Analytic technique to future terminals' Automate guided Vehicle(AGV) with inbuilt with IoT & GPS sensors to improve data accuracy, processes and productivity. 
-* Conduct workshops with key stakeholders to improve application and expand functionality
+* Improve application and expand functionality
   + Add data upload capability
   + Introduce linear regression function with additional data from new equipment
 
