@@ -50,14 +50,14 @@ padding: 0cm;
 width: 23.39in;
 height: calc(33.11in * 0.15);
 overflow: hidden;
-background-color: #0b4545;
+background-color: #102c72;
 border: 0 solid #0b4545;
 }
 .logo_left {
 float: left;
 width: 10%;
 height: 100%;
-background-color: #0b4545;
+background-color: #102c72;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -66,7 +66,7 @@ justify-content: center;
 float: right;
 width: 10%;
 height: 100%;
-background-color: #0b4545;
+background-color: #102c72;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -119,9 +119,9 @@ column-rule-width: 1mm;
 -webkit-column-rule-style: dashed;
 -moz-column-rule-style: dashed;
 column-rule-style: dashed;
--webkit-column-rule-color: #0b4545;
--moz-column-rule-color: #0b4545;
-column-rule-color: #0b4545;
+-webkit-column-rule-color: #102c72;
+-moz-column-rule-color: #102c72;
+column-rule-color: #102c72;
 column-gap: 1em;
 padding-left: 0.5em;
 padding-right: 0.5em;
@@ -171,8 +171,8 @@ margin-bottom: 0;
 text-align: center;
 color: #FFFFFF;
 font-size: 32pt;
-border: 2mm solid #0b4545;
-background-color: #0b4545;
+border: 2mm solid #102c72;
+background-color: #102c72;
 border-radius: 4mm 0mm;
 margin-top: 2mm;
 margin-bottom: 2mm;
@@ -225,7 +225,7 @@ code {
 font-size: 1em;
 font-family: monospace;
 background-color: #00808024;
-color: #0b4545;
+color: #102c72;
 padding: 1.2mm;
 border-radius: 2mm;
 }
@@ -279,6 +279,7 @@ font-size: 20pt;
 <div class="title_container">
 <!-- Left Logo  -->
 <div class="logo_left">
+<img src= 'SMUlogo1.png' style="width: 80%">
 </div>
 <!-- Poster Title -->
 <div class= "poster_title">
@@ -288,6 +289,7 @@ font-size: 20pt;
 </div>
 <!-- Right Logo  -->
 <div class="logo_right">
+<img src=PMlogo1.png style="width: 80%">
 </div>
 </div>
 
@@ -297,28 +299,71 @@ font-size: 20pt;
 <h1>Introduction</h1>
 </div>
 <div id="motivation-and-objectives" class="section level1">
-<h1>Motivation and objectives</h1>
-<p>Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes contributing to the PM productivity.</p>
+<h1>Motivation and Objectives</h1>
+<ul>
+<li><p>Motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data.</p></li>
+<li><p>To enable operation managers the ability to monitor,drill down and identify key attributes and continuous improvement to processes contributing to the PM productivity.</p></li>
+</ul>
+<div id="design-principles" class="section level3">
+<h3>Design Principles</h3>
+<ul>
+<li>Reproducibility</li>
+<li>Interactivity</li>
+<li>Simplicity</li>
+</ul>
+<p>“overview first, zoom and filter into details,” bouncing back and forth, here and there, with ease and without interrupting their train of thought.</p>
+</div>
 </div>
 <div id="approach" class="section level1">
 <h1>Approach</h1>
-<p>Approach - A description of the techniques or algorithms you used to solve the problem.
-Datawrangling
-Data Transformation
-Data exploration</p>
-<p>Results - Screenshots and a working demo of the system you built.
-# EDA</p>
+<ul>
+<li>Datawrangling</li>
+<li><ol style="list-style-type: decimal">
+<li>Exploratory Data Analysis(EDA)</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Confirmatory Data Analysis(CDA)</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Quality Control Analysis</li>
+</ol>
+<ul>
+<li>Cause and effect Diagram</li>
+<li>Pareto Analysis</li>
+<li>Control Chart Analysis</li>
+</ul></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Analysis and Insights</li>
+</ol></li>
+</ul>
 </div>
-<div id="cda" class="section level1">
-<h1>CDA</h1>
+<div id="analysis-and-insights" class="section level1">
+<h1>Analysis and Insights</h1>
+<p>Results - Screenshots and a working demo of the system you built.</p>
+<div id="eda" class="section level3">
+<h3>1. EDA</h3>
 </div>
-<div id="quality-improvement" class="section level1">
-<h1>Quality Improvement</h1>
+<div id="cda" class="section level3">
+<h3>2. CDA</h3>
+</div>
+<div id="quality-control-analysis" class="section level3">
+<h3>3. Quality Control Analysis</h3>
+<ul>
+<li>Cause and effect Diagram</li>
+</ul>
+<p>Cause and effect Diagram or Ishikawa/fishbone Diagram helps managers to identify potential factors causing an overall effect of low productivity.
+<img src="fishbone.PNG" style="width:80.0%" /></p>
+</div>
 <div id="pareto-chart" class="section level2">
 <h2>Pareto Chart</h2>
+<p>Using Pareto Chart to determine and focus effort on the major contributors of PM operation time spent hence affecting the overall PM productivity.</p>
 </div>
 <div id="control-chart" class="section level2">
 <h2>Control Chart</h2>
+<p>Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. Furthermore, the data obtained from the process can also be applied to predict future performances of the process.</p>
+<div id="insights" class="section level3">
+<h3>4. Insights</h3>
+</div>
 </div>
 </div>
 <div id="future-work" class="section level1">
