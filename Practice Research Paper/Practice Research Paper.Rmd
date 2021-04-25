@@ -49,7 +49,7 @@ $$Total Time = Sum (Est.Travel Time + Est.Wait Time$$ $$ + Unproductive Time + N
 **Estimated Wait Time** is Total Time minus the summation of Est. Travel Time, Non-Work Time and Unproductive Time.   
 
 
-In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units([Leow, 2021](https://www.businesstimes.com.sg/transport/port-of-singapore-container-throughput-dips-09-in-2020)).  There are more than ninety thousand PM yard operations daily on a average based the sample Data. With the amount of transactions and connectivity, even a slight improvement in productivity can bring about large savings to the organisation, and the opportunity to increase output, thus providing growth to the organization.
+In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units[@Leow2021].  There are more than ninety thousand PM yard operations daily on a average based the sample Data. With the amount of transactions and connectivity, even a slight improvement in productivity can bring about large savings to the organisation, and the opportunity to increase output, thus providing growth to the organization.
 
 
 # II. Motivation and objectives
@@ -64,7 +64,7 @@ Currently, PM operation's performances are tracked using Operation Indicators su
 
 Over the years, operational excellence have drive much improvements to various operation functions such as resource, yard and berth planning which has increased the PM productivity. However, daily operation managers are still largely relying on static excel reports, and in more recent years, using Data Visualizations tools such as Qlikview and Power Bi to perform their day to day analytic task on pre-summarized performance figures. Thus, it is difficult to drill down and pinpoint issues, and certainly laborious to monitor outcome of implemented process improvements.    
 
-Other previous external studies on PM operation efficiency typically focus on crane productivity by work schedule([Li,Wu,Petering,Goh,Souza, 2006](https://www.pomsmeetings.org/confpapers/005/005-0094.doc)), and resource planning & deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.([Eindhoven University of Technology, 2010](https://www.win.tue.nl/oowi/final%20project/archive/KoenStaats.pdf)). 
+Other previous external studies on PM operation efficiency typically focus on crane productivity by work schedule[@li2006], and resource planning & deployment to find the optimal number of PMs and trucks (haulier) to reduce average PM waiting time.[@adan2010]. 
 
 The first study conducted in 2006 only discusses crane productivity and not PM productivity. Additionally, the study is way overdue. The second study by Eindhoven University of Technology in 2010 was conducted in a sandbox environment to find the optimal number of PM per equipment in a single process flow, thus totally ignoring the complexities of live transactions and connectivity of PM operation. 
 
@@ -266,4 +266,45 @@ references:
   issued:
     year: 2019
     month: 10
+- id: Leow2021
+  title: Port of Singapore container throughput dips 0.9% in 2020
+  author: 
+  - family: LEOW
+    given: ANNABETH
+  type: articles
+  URL: https://www.businesstimes.com.sg/transport/port-of-singapore-container-throughput-dips-09-in-2020
+  publisher: The Business Times
+  issued:
+    year: 2021
+    month: 1
+
+- id: li2006
+  title: An Efficient Continuous-time Model for Container Yard Crane Work 
+  author: 
+  - family: Li
+    given: Wenkai
+  - family: Wu
+    given: Yong
+  - family: Petering
+    given: Matthew E.H.
+  - family: Goh
+    given: Mark
+  - family: De Souza
+    given: 	Robert
+  type: articles
+  URL: https://www.pomsmeetings.org/confpapers/005/005-0094.doc
+  publisher: The Logistics Institute—Asia Pacific National University of Singapore
+  issued:
+    year: 2006
+
+- id: adan2010
+  title: Truck and Prime Mover Queuing at Gantry Crane
+  author: 
+  - family: Adan
+    given: Ivo J.B.F
+  type: articles
+  URL: https://www.win.tue.nl/oowi/final%20project/archive/KoenStaats.pdf
+  publisher: Eindhoven University of Technology
+  issued:
+    year: 2010
 ---
