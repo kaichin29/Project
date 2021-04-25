@@ -18,6 +18,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
 [Proposal](https://suspicious-roentgen-253ea8.netlify.app/posts/2021-04-25-updated-project-proposal/)
 
 [Poster](./Poster.pdf)
