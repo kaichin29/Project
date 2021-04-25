@@ -1,8 +1,6 @@
 ---
 title: "Understanding Prime Mover(PM) Productivity in Yard"
-author: 
-  - Li Zhenglong, Singapore Management University
-  - Lim Kai Chin, Singapore Management University
+author: Li Zhenglong, Lim Kai Chin
 
 abstract: |
   The study objective is to seek insight from Prime Mover (PM) Operations from port operations to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.
@@ -56,7 +54,7 @@ In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units
 
 # II. Motivation and objectives
 
-Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes contributing to the PM productivity.
+Our research and development effort were motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data. The project aims to enable operation managers the ability to monitor,drill down and identify key attributes and processes contributing to the PM productivity.
 
 
 
@@ -97,9 +95,9 @@ The Data visualization in these four components are synchronized through a set o
 
 It is important to note that whilst the control chart can identify non-random variation, it cannot identify its root cause. The analysis can only show us that PM waiting or traveling time have been reduced or stabilized after an implemented change. However, it cannot be established as the cause of the change.
 
-To implement Check Sheet as part of the data collection plan to record cause of long waiting or travelling time events, contributing majority of lower productivity. This will be used to analyze further with pareto and control chart on the specific category. 
+To implement Check Sheet as part of the data collection plan so as to record down when occurrence of long waiting or traveling time events happens. This will be used to analyze further in detail with Pareto and control chart on the specific targeted category. 
 
-The PM waiting time and traveling time are estimated base on distance travelled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the **EDA, CDA**, Pareto and Control charts to analyze the stability of current and future processes. 
+The PM waiting time and traveling time are estimated base on distance traveled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the **EDA, CDA**, Pareto and Control charts to analyze key attributes and the stability of current and future processes. 
 
 # VIII. References to be update
 

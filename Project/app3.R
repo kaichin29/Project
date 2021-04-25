@@ -78,16 +78,16 @@ agg_base <-  ZL_DF %>%
 effect<-"Less Productivity"
 
 #Causes
-causes.head<-c("Measurement", "Material", "Methods", "Environment", "Manpower", "Equipment")
+causes.head<-c("Measurement", "Procedures/Plans", "Methods", "Environment", "Personnel", "Equipment")
 
 #Individual Causes
 causes<-vector(mode = "list", length = length(causes.head))
-causes[1]<-list(c("Lab error", "Contamination"))
-causes[2]<-list(c("Raw Material", "Additive"))
-causes[3]<-list(c("Sampling", "Analytical Procedure"))
-causes[4]<-list(c("Rust near sample point"))
-causes[5]<-list(c("Poor analyst","No guidance"))
-causes[6]<-list(c("Leakage", "breakdown"))
+causes[1]<-list(c("Data error","KPI Definition" ))
+causes[2]<-list(c("Roster/Schedule", "Logistic","Deployment","Compliance"))
+causes[3]<-list(c("Sampling", "Analytical Procedure","Data Collection"))
+causes[4]<-list(c("Traffic", "Weather","Seasonality"))
+causes[5]<-list(c("Shifts","Training","Operators","Incentives"))
+causes[6]<-list(c("Leakage", "Breakdown","Maintenance"))
 
 
 
