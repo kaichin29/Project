@@ -164,25 +164,29 @@ Using a violin plot, we can see that there are significant differences between t
 ![](violin1.png)
 By further faceting them using Terminal ID, we can see that there are significant differences in the means across terminals. Further in depth analysis needs to be done to identify the root cause for the differences across terminals, as there is significant area for improvement. 
 
-![](violin1.png)
+![](violin2.png)
 
 
 
 On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    
-<!-- ![](.PNG){width=80%} -->
+ ![](pareto1.PNG)
 
 Despite close to 70% of the total number of events are Ship Ops(O), Ship Ops only contributed to approximately 40% of the waiting time >= 30 minutes. We can see the priority given to Ship Ops events which are related to loading and discharging from customer's vessels to be on time for their next port of destination. 
-<!-- ![](.PNG){width=80%} -->
+ ![](pareto2.PNG)
 
-While there are 46% of total PM events deployed to RTG yard cranes, 70% of the long traveling time (>= 30min) are contributed by deployment to RTG yard cranes. Further investigation and analysis are required to validate the causes such as due to longer planned travel routes or heavy traffic.
-<!-- ![](.PNG){width=80%} -->
+While there are 46% of total PM events deployed to RTG yard cranes, 70% of the long traveling time (>= 30min) are contributed by deployment to RTG yard cranes. Further investigation and analysis are required to validate the causes (e.g longer planned travel routes or heavy traffic).
+ ![](pareto3.PNG)
 
-Focusing on Operation type, we observed  Ship Ops events have tighter upper and lower control limits, better stability, and lower waiting time compared to the other Operation types. Although there are small shifts from the average, the possible common causes could be due to different shifts or the way the data are being subgrouped. Inter-terminals ( I ) event has the widest control limit from 7 to 10 minutes making it less consistent and predictable.
-<!-- ![](.PNG){width=80%} -->
+Focusing on Operation type using xbar chart, we observed  Ship Ops events have tighter upper and lower control limits, better stability, and lower waiting time compared to the other Operation types. Although there are small shifts from the average, the possible common causes could be due to different shifts or the way the data are being subgrouped. Inter-terminals ( I ) event has the widest control limit from 7 to 10 minutes making it less consistent and predictable.
+ ![](cc1.PNG)
 
 From the I-chart, Operation no 53 is observed to have an unusual large shift from average with 34 min waiting time. Further investigation is required to find out reason of this special cause.
-<!-- ![](.PNG){width=80%} -->
+ ![](cc2.PNG)
 
+Using the C-chart, We can observe an overall shift from higher to lowers PM counts with waiting time >= 30mins. The P-chart shows us that despite having over a thousand occurrences of waiting time >= 30mins, the proportion of such cases remain approximately 2% of all Ship Ops events. 
+
+ ![](cc3.PNG)
+ 
 # VI. Discussion 
 
 
