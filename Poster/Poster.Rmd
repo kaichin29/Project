@@ -85,19 +85,12 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 # Confirmatory Data Analysis (CDA)
 ![](scatter1.png){width=400}
-<<<<<<< HEAD
-**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. ![](violin1.png){width=400}
-**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. The aggregated data can be faceted by different categories, helping users to identify differences across multiple categories at once. 
-
-=======
 
 **Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. 
 
 ![](violin1.png){width=400}
 
 **Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. 
->>>>>>> 7bf7eafc402e6c98cfa1ca13f8a6e2176db3475c
-
 
 # Quality Control Analysis 
 <center>
