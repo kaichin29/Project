@@ -26,7 +26,7 @@ logoleft_name: SMUlogo1.png
 output: 
   posterdown::posterdown_html:
     self_contained: false
-bibliography: packages.bib
+  bibliography: packages.bib
 
 
 ---
@@ -48,6 +48,8 @@ p{
 }
 
 ```
+
+
 # Introduction
 Maritime trade is the backbone of international trade. Today, maritime trade accounts for approximately 92% of world trade. PSA Singapore handles about a fifth of the world’s transhipped containers.In 2021, PSA Singapore handled a total 36.9 million twenty-foot equivalent units, with more than 90k PM yard operations daily. With the amount of transactions, even a slight improvement in productivity can bring about large savings.
 
@@ -92,22 +94,16 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 
 
+</br>
 
 # Quality Control Analysis 
-
 <center>
 ![](fishbone.PNG){width=50%}
 </center>
 **Cause and effect Diagram**
-AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.
+AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.![](pareto1.PNG){width=100%}
 
-![](pareto1.PNG){width=100%}
-
-**Pareto and Control charts** are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
-
-
-![](cc2.PNG){width=50%}![](cc3.PNG){width=50%}
-Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
+**Pareto and Control charts** are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.![](cc2.PNG){width=50%}![](cc3.PNG){width=50%}Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
 
 
 
