@@ -88,8 +88,7 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 ![](violin1.png){width=400}
 
-**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. The aggregated data can be faceted by different categories, helping users to identify differences across multiple categories at once. 
-
+**Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. 
 
 
 # Quality Control Analysis 
@@ -122,4 +121,7 @@ Using a variety type of control charts with control limits of 3 standard deviati
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 
-
+```{r echo=FALSE, eval=FALSE}
+library(pagedown)
+pagedown::chrome_print("Poster.html")
+```
