@@ -1,5 +1,5 @@
 ---
-title: Understanding Prime Mover(PM) Productivity in Yard
+title: Understanding Prime Mover(PM) Productivity in Yard (UPMPY)
 author:
   - name: Li Zhenglong
   - name: Lim Kai Chin
@@ -89,7 +89,7 @@ Interactive bar chart allows changing of chart components, main, fill, & colour 
 
 ![](hist1.png){width=680px}
 
-Interactive histogram helps display of distributions for PM wait time and travel time.
+Interactive histogram helps display of distributions for PM Wait time and Travel time.
 
 ### 2. CDA
 ![](scatter1.png){width=400}
@@ -103,36 +103,16 @@ Box-violin plot showcases and compares data distribution between variables
 ### 3. Quality Control Analysis 
 * Cause and effect Diagram
 
-Cause and effect Diagram or Ishikawa/fishbone Diagram helps managers to identify potential factors causing an overall effect of low productivity.
-![](fishbone.PNG){width=80%}
-```{R echo= FALSE, warning = FALSE}
-library("SixSigma")
-#Effect
-effect<-"Less Productivity"
+<center>
+![](fishbone.PNG){width=50%}
+</center>
+Cause and effect Diagram AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.
 
-#Causes
-causes.head<-c("Measurement", "Procedures/Plans", "Methods", "Environment", "Personnel", "Equipment")
+* Pareto Chart & Control Chart
 
-#Individual Causes
-causes<-vector(mode = "list", length = length(causes.head))
-causes[1]<-list(c("Data error","KPI Definition" ))
-causes[2]<-list(c("Roster/Schedule", "Logistic","Deployment","Compliance"))
-causes[3]<-list(c("Sampling", "Analytical Procedure","Data Collection"))
-causes[4]<-list(c("Traffic", "Weather","Seasonality"))
-causes[5]<-list(c("Shifts","Training","Operators","Incentives"))
-causes[6]<-list(c("Leakage", "Breakdown","Maintenance"))
+![](pareto1.PNG){width=50%}![](cc2.PNG){width=50%}
 
-   #   ss.ceDiag(effect,causes.head,causes,sub="",ss.col = c("","red"))
-
-```
-
-## Pareto Chart
-
-Using Pareto Chart to determine and focus effort on the major contributors of PM operation time spent hence affecting the overall PM productivity.
-
-
-
-## Control Chart
+Pareto and Control charts are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
 Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
 
