@@ -81,9 +81,7 @@ This study seeks to create an R Shiny app that allows for users to input paramet
 
       c) Performance of type of containers (Dangerous Goods, Reefer, General Purpose) & size of containers (20-footer, 40-footer, Oversized)  
       
-      d) Parallel Coordinates plots 
-      
-      ![](parallel.png){ width=500px}
+
 
 
 
@@ -119,8 +117,6 @@ The Shiny app will be designed in this manner:
 **EDA - Bar Charts**: To visualise the counts and activities happening in a day
 
 **EDA - Histogram**: To visualise the distribution of waiting times and driving times of the activities
-
-**EDA - Parallel Coordinates**: To visualise different patterns in the data
 
 **CDA - Violin / Box Plots**: To visualise the confidence intervals and distribution
 
