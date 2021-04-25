@@ -82,11 +82,11 @@ By using a variety type of control charts with control limits of 3 standard devi
 The Data visualization in these four components are synchronized through a set of common data filters that allows manipulation of data visual and coordination of interaction between the different views. The linked data presentation enables the user to maintain the filter selection integrity without having to reapply the settings each time when switching to another view. The mouse hover tooltip provides on-demand details without having too much information cluttered on the data visual. These allow users to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
 
 
-### Data preparation
+## Data preparation
 
 The raw data is extracted from PSA's operational database. Data from March 2019 was extracted and annoymised using JMP Pro 15. The data was then imported into R and further data cleaning was carried out using R. Columns not relevant to analysis were removed. The remaining columns were aggregated for waiting time, travel time, unproductive time, and non work time, being grouped by length of container, move ops status, terminal ID, container type, container empty/full status, shift type, hour, day, and date. These variables were then factorised to ensure that they were considered properly as categorical variables instead of continuous variables.  
 
-### Shiny Architecture
+## Shiny Architecture
 
 Development of the application was done on Shiny, an R package used to build interactive web apps. Shiny allows for interactivity as it is able to capture input from users and utilise R code to return output back to the user. Input values can be changed at any time, and the output changes accordingly. Shiny is also able to use the multitude of R packages found on R-cran, which supplements the basic R functions and improves the functionality of the Shiny app. 
 
@@ -96,6 +96,47 @@ ii) **Exploratory Data Analysis - **This provides a high-level understanding for
 iii) **Confirmatory Data Analysis - **This provides statistically-supported charts and graphs for more in-depth hypothesis testing. 
 iv) **Pareto Charts - **This provides detail for the key contributors of waiting time and travel time, enabling users to ask the correct questions. 
 v) **Control Charts - **This allows the user to identify key outliers that can then be targeted offline.  
+
+## Analysis Techniques 
+
+### Treemap 
+
+A treemap is a type of graphic that aims to show part-whole relationship hierarchically. The size and colour intensity of the boxes determine the scale of the operation. In this case, the number of records are mapped to the size, while the sum of total time spent is mapped to the colour. The grouping variables are shift and day-of-the week for the primary variable, with day-of-the-week and hour of the day being the secondary variable. This helps to visualise the operational scale and volume from a high level perspective. 
+
+**d3treeR** is used to build the treemap in the application, as it allows for interactivity with tooltips and allows the user to drill down into sub-categories by selecting the boxes. 
+
+### Bar Chart
+
+A bar chart is used to visualise proportions across categories by varying the length of the bar. This chart is used to for comparing different number of records across different categories. The primary category used for the x-axis are the variables mentioned above. The parameters built in the application allow the user to change the structure and make up of the bar charts. Users are able to change the grouping variable, stacking method, and y-axis scale. This allows users to see the same data from different angles. 
+
+**ggplot2** is used to create the bar chart as it is flexible and allows for faceting by groups. The resultant ggplot2 graph is parsed into **plotly** which allows for interactivity with tooltips. This helps to remove text elements from the bar charts, which tend to clutter the plot as more categories are added into the visualisation from grouping.  
+
+### Histogram
+
+A histogram is used to display continuous variables. Each bar groups the continuous variables (i.e., waiting time or travel time) into a range. The taller the bar, the more data records are inside the range. A histogram can display the underlying distribution of the dataset. A similar approach to the bar graph is taken, where parameters allow users to modify the structure of the histogram. 
+
+**ggplot2** is used to create the histogram due to the reasons highlighted above.
+
+### Scatter Plot
+
+A scatter plot displays points to represent values for two different numeric variables (i.e., waiting time and travel time). The position of each plot on the x- and y-axes represent the relationship between both variables. This enables the user to see the correlation between the two continuous variables. 
+
+Although **ggplot2** is able to create a scatter plot, **ggscatterstats** from the ggstatsplot package was used instead as it includes additional statistical testing using various tests. Only the non-parametric test was used in this case. The rho value represents the Spearman's rank correlation coefficient, which denotes the level of correlation between both values. This plot was not parsed into plotly as the statistical testing output would be lost. 
+
+### Box-violin Plot
+
+A boxplot is able to display the data using its mean, upper and lower quartiles. A violin plot displays the entire distribution of the data using a kernel density plot. A box-violin plot combines these two components to give the user the full view of the data distribution.
+
+Although **ggplot2** is able to create a box-violin plot, **ggbetweenstats** from the ggstatsplot package was used instead as it includes additional statistical testing using various tests. It has a built-in statistical test to check if the continuous variable varies across different categories. Only significant differences between distributions are shown as the "only significant" argument was parsed when creating the chart.
+
+### Pareto Chart
+
+A pareto chart is a chart that displays both bars and a line graph. The values are represented in decreasing order by bars, and the cumulative total is represented by the line. 
+
+### Control Chart
+
+The control chart enables users visualise the mean, upper limit, and lower limit over time. By comparing current data to control lines, users can visualise whether current data is within expected limits or if there are anomalies that need to be investigated.
+
 
 # V. Demonstration - findings
 
