@@ -247,7 +247,7 @@ body <- dashboardBody(
                               h4("User Guide"),
                               p("Please use the variables in the side bar to change the plot arguments. Data can be filtered using the various checkboxes and dropdown lists in the main panel. "),
                               br(),
-                              p("Please refer to the user guide for more details on how to use the Shiny application", a("Link", href="file://blabla.html")), 
+                              p("Please refer to the user guide for more details on how to use the Shiny application", a("Link", href="https://github.com/kaichin29/Project/blob/master/Project/User%20Guide.pdf")), 
                               em("Please note that due to the size of the data set, some graphs will take time to load.", style = "font-si9pt"),
                               em("Click link for full user guide",  style = "font-si9pt")
                      )
