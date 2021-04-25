@@ -1180,7 +1180,7 @@ server <- function(input, output, session) {
       
         ggplotly(ggp_I, tooltip=c("text2","text1"))  %>% add_annotations(
         x=input$Last_N,
-        y=mean(DF_I$lcl)*1.01,
+        y=mean(DF_I$lcl)*1.1,
         xref = "x",
         yref = "y",
         text = paste("LCL=",round(mean(DF_I$lcl), 2)),
@@ -1189,7 +1189,7 @@ server <- function(input, output, session) {
 
       )%>% add_annotations(
         x=input$Last_N,
-        y=mean(DF_I$ucl*1.01),
+        y=mean(DF_I$ucl*1.1),
         xref = "x",
         yref = "y",
         text = paste("UCL=",round(mean(DF_I$ucl), 2)),
@@ -1198,7 +1198,7 @@ server <- function(input, output, session) {
 
       )%>% add_annotations(
         x=input$Last_N,
-        y=mean(DF_I$cl)*1.01,
+        y=mean(DF_I$cl)*1.1,
         xref = "x",
         yref = "y",
         text = paste("CL=",round(mean(DF_I$cl), 2)),

@@ -138,10 +138,27 @@ A pareto chart is a chart that displays both bars and a line graph. The values a
 The control chart enables users visualise the mean, upper limit, and lower limit over time. By comparing current data to control lines, users can visualise whether current data is within expected limits or if there are anomalies that need to be investigated.
 
 
-# V. Demonstration - findings
+# V. Demonstration - use case
 
 
 # VI. Discussion 
+
+What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
+
+<!-- ![](.PNG){width=80%} -->
+On average, PM drivers spent more than 50% (8 minutes) of their time waiting, and 28% (4.2 minutes) traveling when transporting containers from point to point in the yard.    
+
+<!-- ![](.PNG){width=80%} -->
+Despite close to 70% of the total number of events are Ship Ops(O), Ship Ops only contributed to approximately 40% of the waiting time >= 30 minutes. We can see the priority given to Ship Ops events which are related to loading and discharging from customer's vessels to be on time for their departure. 
+
+<!-- ![](.PNG){width=80%} -->
+While there are 46% of total PM events deployed to RTG yard cranes, 70% of the long traveling time (>= 30min) are contributed by deployment to RTG yard cranes. Further investigation and analysis are required to validate the causes, which could be due to longer planned travel routes or heavy traffic.
+
+<!-- ![](.PNG){width=80%} -->
+Focusing on Operation type, we observed  Ship Ops events have tighter upper and lower control limits, better stability, and lower waiting time compared to the other Operation types. Although there are small shifts from the average, the possible causes could be due to different shifts or the way the data are being subgrouped. Inter-terminals ( I ) event has the widest control limit from 7 to 10 minutes making it less consistent and predictable.
+
+<!-- ![](.PNG){width=80%} -->
+From the I-chart, Operation no 53 is observed to have an unusual large shift from average with 34 min waiting time. Further investigation is required to find out reason of this special cause.
 
 
 
