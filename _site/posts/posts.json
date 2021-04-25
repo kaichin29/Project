@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/2021-04-25-visual-analytics-project/",
-    "title": "Visual Analytics Project",
-    "description": "Prime Mover (PM) Productivity in Yard",
-    "author": [
-      {
-        "name": "Li Zheng Long, Lim Kai Chin",
-        "url": {}
-      }
-    ],
-    "date": "2021-04-25",
-    "categories": [],
-    "contents": "\r\nProposal\r\nPoster\r\nPractice-Research-Paper\r\nUser Guide\r\nShiny — data is greatly reduced due to out of memory in shinyapps.io\r\nGithub Repository\r\n\r\n\r\n\r\n",
-    "preview": {},
-    "last_modified": "2021-04-26T02:27:25+08:00",
-    "input_file": "visual-analytics-project.utf8.md"
-  },
-  {
     "path": "posts/2021-04-25-updated-project-proposal/",
     "title": "Updated Project Proposal",
     "description": "Prime Mover (PM) Productivity in Yard",
@@ -32,6 +15,23 @@
     "preview": "posts/2021-04-25-updated-project-proposal/CurrentViz1.png",
     "last_modified": "2021-04-26T02:29:13+08:00",
     "input_file": "updated-project-proposal.utf8.md"
+  },
+  {
+    "path": "posts/2021-04-25-visual-analytics-project/",
+    "title": "Visual Analytics Project",
+    "description": "Prime Mover (PM) Productivity in Yard",
+    "author": [
+      {
+        "name": "Li Zheng Long, Lim Kai Chin",
+        "url": {}
+      }
+    ],
+    "date": "2021-04-25",
+    "categories": [],
+    "contents": "\r\nProposal\r\nPoster\r\nPractice-Research-Paper\r\nUser Guide\r\nShiny — data is greatly reduced due to out of memory in shinyapps.io. full dataset refer to github/elearn\r\nGithub Repository\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-04-26T02:34:35+08:00",
+    "input_file": "visual-analytics-project.utf8.md"
   },
   {
     "path": "posts/2021-02-25-proposal/",
