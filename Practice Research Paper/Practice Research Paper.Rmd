@@ -1,5 +1,5 @@
 ---
-title: "Understanding Prime Mover(PM) Productivity in Yard (UPMPY)"
+title: "Understanding Prime Mover Productivity in Yard (UPMPY)"
 author: Li Zhenglong, Lim Kai Chin
 
 abstract: |
@@ -214,7 +214,7 @@ The PM waiting time and traveling time are estimated base on distance traveled m
 
 once GPS or IoT sensor data can be captured, additional functions can be added, including linear regression to predict wait time given certain variables, which will help managers plan their resources better. Apart from additional analysis being built into the application, more functions can be added. The application currently has a fixed dataset of 1 month. Future iterations of the application will include a data upload functionality to enable data refresh capability. This ensures that users can operate the application and refresh the dataset without external help, which will be key for continued utilisation of the application. Workshops and brainstorming sessions will be conducted with supervisors and managers of PM operations to identify lacking functions, and to ensure that the managers involved become key stakeholders in developing this application.    
 
-# VIII. References to be update
+# VIII. References
 
 ---
 references:
