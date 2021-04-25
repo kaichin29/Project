@@ -1,5 +1,5 @@
 ---
-title: Understanding Prime Mover(PM) Productivity in Yard (UPMPY)
+title: Understanding Prime Mover Productivity in Yard (UPMPY)
 author:
   - name: Li Zhenglong
   - name: Lim Kai Chin
@@ -57,33 +57,19 @@ Containers are discharged from and loaded onto a vessel once berthed. A typical 
 
 # Motivation and Objectives
 * Motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data.
+
 * To enable operation managers the ability to monitor,drill down and identify key attributes and continuous improvement to processes contributing to the PM productivity.
 
 ### Design Principles
-* Reproducibility
-* Interactivity
-* Simplicity
 
-“overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
+
+Data visualizations are synchronized through a set of common data filters that allows manipulation and coordination of interaction between the different views. 
+
+This allows analysis to be conducted starting from overview, zoom and filter into details, bouncing back and forth, with ease and without interrupting our train of thought.  
 
 # Approach
 
-* Data Wrangling
-* 1. Exploratory Data Analysis(EDA)
-  + Treemap
-  + Bar Chart
-  + Histogram   
-  
-* 2. Confirmatory Data Analysis(CDA)
-  + Scatter Plot
-  + Box-violin Plot  
-
-* 3. Quality Control Analysis 
-  + Cause and effect Diagram
-  + Pareto Analysis
-  + Control Chart Analysis  
-
-* 4. Analysis and Insights
+![](approach.png){width=100%}
 
 
 # Exploratory Data Analysis (EDA)
