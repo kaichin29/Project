@@ -17,6 +17,23 @@
     "input_file": "updated-project-proposal.utf8.md"
   },
   {
+    "path": "posts/2021-04-25-visual-analytics-project/",
+    "title": "Visual Analytics Project",
+    "description": "Prime Mover (PM) Productivity in Yard",
+    "author": [
+      {
+        "name": "Li Zheng Long, Lim Kai Chin",
+        "url": "https://kaichinlim.netlify.app/"
+      }
+    ],
+    "date": "2021-04-25",
+    "categories": [],
+    "contents": "\r\nProposal\r\nPoster\r\nPractice-Research-Paper\r\nUser Guide\r\nShiny\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-04-25T23:24:54+08:00",
+    "input_file": "visual-analytics-project.utf8.md"
+  },
+  {
     "path": "posts/2021-02-25-proposal/",
     "title": "Project Proposal",
     "description": "Prime Mover (PM) Waiting Time in Yard",

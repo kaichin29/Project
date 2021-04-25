@@ -1,0 +1,31 @@
+---
+title: "Visual Analytics Project"
+description: |
+  Prime Mover (PM) Productivity in Yard 
+author:
+  - name: Li Zheng Long, Lim Kai Chin 
+    url: https://kaichinlim.netlify.app/
+date: 04-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    toc_depth: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+[Proposal](https://suspicious-roentgen-253ea8.netlify.app/posts/2021-04-25-updated-project-proposal/)
+
+[Poster](./Poster.pdf)
+
+[Practice-Research-Paper](./Practice-Research-Paper.pdf)
+
+[User Guide](./User Guide.pdf)
+
+[Shiny](https://upmpy.shinyapps.io/UPMPY/)
+
+[Github Repository](https://github.com/kaichin29/Project/tree/master/Project)
