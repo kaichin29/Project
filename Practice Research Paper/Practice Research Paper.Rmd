@@ -71,8 +71,9 @@ The first study conducted in 2006 only discusses crane productivity and not PM p
 
 # IV. Design Framework
 
-EDA
-CDA
+Exploratory data analysis (EDA) with treemaps, bar charts, and histograms are used to give users an overview of PM operations. Treemaps are used for a quick glance at PM operations, so as to quickly visualise any anomalies. This function is envisioned to be used only for high-level visualisation and not for detailed analysis. Bar charts and histograms are used to visualise the distributions and identify any major flags that can then be drilled down further, either with the other facets of the application, or taken offline for more in-depth deep dives into the root causes. Bar charts and histograms are chosen as they are simple to understand without significant statistical knowledge. A key aspect for the EDA plots is interactivity. Considering that it is an exploratory phase, all parameters of the dataset were included as possible to help the user discover findings.  
+
+Confirmatory data analysis (CDA) with scatter plots and box-violin plots are used to definitively confirm hypotheses from the user. Scatter plots help to visualise any form of correlation between travel time and waiting time, and identify any segments that require additional root cause analysis. Users can also compare the correlation line across different categories of operations.
 
 Pareto and control charts are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
 
@@ -81,10 +82,22 @@ By using a variety type of control charts with control limits of 3 standard devi
 The Data visualization in these four components are synchronized through a set of common data filters that allows manipulation of data visual and coordination of interaction between the different views. The linked data presentation enables the user to maintain the filter selection integrity without having to reapply the settings each time when switching to another view. The mouse hover tooltip provides on-demand details without having too much information cluttered on the data visual. These allow users to follow the flow of “overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought. 
 
 
+### Data preparation
 
+The raw data is extracted from PSA's operational database. Data from March 2019 was extracted and annoymised using JMP Pro 15. The data was then imported into R and further data cleaning was carried out using R. Columns not relevant to analysis were removed. The remaining columns were aggregated for waiting time, travel time, unproductive time, and non work time, being grouped by length of container, move ops status, terminal ID, container type, container empty/full status, shift type, hour, day, and date. These variables were then factorised to ensure that they were considered properly as categorical variables instead of continuous variables.  
+
+### Shiny Architecture
+
+Development of the application was done on Shiny, an R package used to build interactive web apps. Shiny allows for interactivity as it is able to capture input from users and utilise R code to return output back to the user. Input values can be changed at any time, and the output changes accordingly. Shiny is also able to use the multitude of R packages found on R-cran, which supplements the basic R functions and improves the functionality of the Shiny app. 
+
+The design of the Shiny application flows according to business requirements. 
+i) **Home - **A brief overview of the project, key definitions and a basic user guide. This explains the motivations and gives context to the application. A detailed user guide is also appended here.
+ii) **Exploratory Data Analysis - **This provides a high-level understanding for PM operations and the various parameters involved. 
+iii) **Confirmatory Data Analysis - **This provides statistically-supported charts and graphs for more in-depth hypothesis testing. 
+iv) **Pareto Charts - **This provides detail for the key contributors of waiting time and travel time, enabling users to ask the correct questions. 
+v) **Control Charts - **This allows the user to identify key outliers that can then be targeted offline.  
 
 # V. Demonstration - findings
-
 
 
 # VI. Discussion 
@@ -99,12 +112,14 @@ To implement Check Sheet as part of the data collection plan so as to record dow
 
 The PM waiting time and traveling time are estimated base on distance traveled minus non-work time and unproductive time. The accuracy can be improved if the data set captures the actual traveling time and waiting time using GPS or IoT sensor data. In near future, the Tuas terminals Automated Guided Vehicles (AGV) will replace a majority of the current traditional human-driven Prime Movers to be the new norm. Hence, using a similar approach to what we are currently doing, making use of the **EDA, CDA**, Pareto and Control charts to analyze key attributes and the stability of current and future processes. 
 
+Apart from additional analysis being built into the application, more functions can be added. The application currently has a fixed dataset of 1 month. Future iterations of the application will include a data upload functionality to enable data refresh capability. This ensures that users can operate the application and refresh the dataset without external help, which will be key for continued utilisation of the application. Workshops and brainstorming sessions will be conducted with supervisors and managers of PM operations to identify lacking functions, and to ensure that the managers involved become key stakeholders in developing this application.    
+
 # VIII. References to be update
 
 ---
 references:
 - id: meier2012
-  title: Professinal Android 4 Application Development
+  title: Professional Android 4 Application Development
   author: 
   - family: Meier
     given: Reto
