@@ -92,8 +92,7 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 **Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. 
 
-</br>
-
+</br></br>
 # Quality Control Analysis 
 <center>
 ![](fishbone.PNG){width=50%}
