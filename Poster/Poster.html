@@ -21,7 +21,7 @@ Google fonts api stuff
 
 <title>Understanding Prime Mover(PM) Productivity in Yard</title>
 
-<script src="Poster_files/header-attrs-2.7/header-attrs.js"></script>
+<script src="Poster_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -295,14 +295,24 @@ font-size: 20pt;
 
 <div class='poster_body_wrap'>
 <div class='poster_body'>
+<style type="text/css">
+p{
+  caption
+  margin-top: 0;
+  margin-bottom: 0;
+  
+  line-height: normal;
+}
+
+</style>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 </div>
 <div id="motivation-and-objectives" class="section level1">
 <h1>Motivation and Objectives</h1>
 <ul>
-<li><p>Motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data.</p></li>
-<li><p>To enable operation managers the ability to monitor,drill down and identify key attributes and continuous improvement to processes contributing to the PM productivity.</p></li>
+<li>Motivated by the general lack of effective and easy to use web-enabled data visualization tool to conduct data analysis on PM operation data.</li>
+<li>To enable operation managers the ability to monitor,drill down and identify key attributes and continuous improvement to processes contributing to the PM productivity.</li>
 </ul>
 <div id="design-principles" class="section level3">
 <h3>Design Principles</h3>
@@ -311,19 +321,28 @@ font-size: 20pt;
 <li>Interactivity</li>
 <li>Simplicity</li>
 </ul>
-<p>“overview first, zoom and filter into details,” bouncing back and forth, here and there, with ease and without interrupting their train of thought.</p>
+<p>“overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought.</p>
 </div>
 </div>
 <div id="approach" class="section level1">
 <h1>Approach</h1>
 <ul>
-<li>Datawrangling</li>
+<li>Data Wrangling</li>
 <li><ol style="list-style-type: decimal">
 <li>Exploratory Data Analysis(EDA)</li>
-</ol></li>
+</ol>
+<ul>
+<li>Treemap</li>
+<li>Bar Chart</li>
+<li>Histogram</li>
+</ul></li>
 <li><ol start="2" style="list-style-type: decimal">
 <li>Confirmatory Data Analysis(CDA)</li>
-</ol></li>
+</ol>
+<ul>
+<li>Scatter Plot</li>
+<li>Box-violin Plot</li>
+</ul></li>
 <li><ol start="3" style="list-style-type: decimal">
 <li>Quality Control Analysis</li>
 </ol>
@@ -339,12 +358,19 @@ font-size: 20pt;
 </div>
 <div id="analysis-and-insights" class="section level1">
 <h1>Analysis and Insights</h1>
-<p>Results - Screenshots and a working demo of the system you built.</p>
 <div id="eda" class="section level3">
 <h3>1. EDA</h3>
+<p><img src="barchart1.png" width="680" /></p>
+<p>Interactive bar chart allows changing of chart components, main, fill, &amp; colour variable, grouping facet.</p>
+<p><img src="hist1.png" width="680" /></p>
+<p>Interactive histogram helps display of distributions for PM wait time and travel time.</p>
 </div>
 <div id="cda" class="section level3">
 <h3>2. CDA</h3>
+<p><img src="scatter1.png" width="400" />
+Scatter plot allows for exploring correlation between PM Wait Time and Travel Time</p>
+<p><img src="violin1.png" width="400" />
+Box-violin plot showcases and compares data distribution between variables</p>
 </div>
 <div id="quality-control-analysis" class="section level3">
 <h3>3. Quality Control Analysis</h3>
@@ -353,6 +379,7 @@ font-size: 20pt;
 </ul>
 <p>Cause and effect Diagram or Ishikawa/fishbone Diagram helps managers to identify potential factors causing an overall effect of low productivity.
 <img src="fishbone.PNG" style="width:80.0%" /></p>
+<pre><code>## Error in get(genname, envir = envir) : object &#39;testthat_print&#39; not found</code></pre>
 </div>
 <div id="pareto-chart" class="section level2">
 <h2>Pareto Chart</h2>
@@ -368,7 +395,22 @@ font-size: 20pt;
 </div>
 <div id="future-work" class="section level1">
 <h1>Future Work</h1>
-<p>An explanation of how the work could be extended.</p>
+<ul>
+<li>Implement automated check sheet to flag occurrence of long waiting or traveling time event.
+<ul>
+<li>Enable easy tracking for such events for detailed analysis</li>
+</ul></li>
+<li>Take advantage of AGV implementation in new port to implement new IoT &amp; GPS sensor data to improve data accuracy.
+<ul>
+<li>Refresh dataset and refresh models using new equipment</li>
+</ul></li>
+<li>Conduct workshops with key stakeholders to improve application and expand functionality
+<ul>
+<li>Add data upload capability</li>
+<li>Introduce linear regression function with additional data from new equipment</li>
+<li>Requirement sourcing with key account holders</li>
+</ul></li>
+</ul>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
