@@ -3,7 +3,8 @@ title: "Understanding Prime Mover(PM) Productivity in Yard (UPMPY)"
 author: Li Zhenglong, Lim Kai Chin
 
 abstract: |
-  The study objective is to seek insight from Prime Mover (PM) Operations from port operations to identify common characteristics exhibited by PM with high and low waiting times, through understanding of PM events and operational data. This, in turn, enables us to pinpoint and identify correlated attributes and embark on further study to improve the overall productivity of PM operations and resource utilisation through active targeting of activities contributing to the PM waiting time.
+  The study objective is to seek insight and create an application using Shiny for the R programming language to enable managers to improve Prime Mover (PM) operations. This is done through helping managers obtain in-depth understanding of PM characteristics, Terminal, time of day, and movement status using exploratory data analysis. Confirmatory data analysis is carried out to understand correlations and differences in the distribution. Following this, quality control, using pareto and control charts, takes center stage to identify the main contributors to poor productivity. All of this is presented using a R Shiny app, which enables interactivity, where users are able to input controls and output is reflected in real-time. 
+  
 output:
   pdf_document: default
   rticles::acm_article: default
