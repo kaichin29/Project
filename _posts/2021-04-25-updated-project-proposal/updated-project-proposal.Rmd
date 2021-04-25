@@ -4,7 +4,7 @@ description: |
   Prime Mover (PM) Productivity in Yard 
 author:
   - name: Li Zheng Long, Lim Kai Chin 
-    url: https://kaichinlim.netlify.app/
+    
 date: 04-25-2021
 output:
   distill::distill_article:
