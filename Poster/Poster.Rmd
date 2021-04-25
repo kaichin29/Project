@@ -30,13 +30,7 @@ output:
 
 
 ---
-\documentclass[11pt]{article}
-\usepackage{leading}
-\usepackage{blindtext}
-\begin{document}
-\leading{18pt}
-\textbf{10.95\,pt text on 18\,pt leading}: \blindtext
-\end{document}
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
@@ -91,30 +85,19 @@ This allows analysis to be conducted starting from overview, zoom and filter int
 
 # Confirmatory Data Analysis (CDA)
 ![](scatter1.png){width=400}
-
-**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. 
-
-![](violin1.png){width=400}
-
+**Scatter plot** allows for exploring correlations between PM Wait Time and Travel Time, helping to identify mutual impacts on each other. These continuous variables can also be compared using different categories, delivering greater insight. ![](violin1.png){width=400}
 **Box-violin plot** showcases and compares data distribution between variables, helping to identify key differences between the multiple variables within the dataset through statistical testing. The aggregated data can be faceted by different categories, helping users to identify differences across multiple categories at once. 
 
 
 
 # Quality Control Analysis 
-
 <center>
 ![](fishbone.PNG){width=50%}
 </center>
 **Cause and effect Diagram**
-AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.
+AKA Ishikawa/fishbone Diagram helps operation managers to identify potential factors/causes to the overall effect of low productivity visually and logically.![](pareto1.PNG){width=100%}
 
-![](pareto1.PNG){width=100%}
-
-**Pareto and Control charts** are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.
-
-
-![](cc2.PNG){width=50%}![](cc3.PNG){width=50%}
-Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
+**Pareto and Control charts** are used together to help tunnel down into the operation process and to find the root cause of productivity problems. The Pareto chart helps to identify and focus effort on the top portion of the causes to resolve the key contributors of the problem.![](cc2.PNG){width=50%}![](cc3.PNG){width=50%}Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.
 
 
 
