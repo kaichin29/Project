@@ -21,7 +21,7 @@ Google fonts api stuff
 
 <title>Understanding Prime Mover(PM) Productivity in Yard</title>
 
-<script src="Poster_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="Poster_files/header-attrs-2.7/header-attrs.js"></script>
 
 
 
@@ -321,7 +321,7 @@ p{
 <li>Interactivity</li>
 <li>Simplicity</li>
 </ul>
-<p>“overview first, zoom and filter into details”, bouncing back and forth, here and there, with ease and without interrupting their train of thought.</p>
+<p>“overview first, zoom and filter into details,” bouncing back and forth, here and there, with ease and without interrupting their train of thought.</p>
 </div>
 </div>
 <div id="approach" class="section level1">
@@ -379,7 +379,6 @@ Box-violin plot showcases and compares data distribution between variables</p>
 </ul>
 <p>Cause and effect Diagram or Ishikawa/fishbone Diagram helps managers to identify potential factors causing an overall effect of low productivity.
 <img src="fishbone.PNG" style="width:80.0%" /></p>
-<pre><code>## Error in get(genname, envir = envir) : object &#39;testthat_print&#39; not found</code></pre>
 </div>
 <div id="pareto-chart" class="section level2">
 <h2>Pareto Chart</h2>
@@ -390,6 +389,11 @@ Box-violin plot showcases and compares data distribution between variables</p>
 <p>Using a variety type of control charts with control limits of 3 standard deviation, we can study the stability of the current process, analyze and make improvements, and monitor the results of the newly implemented process. The data obtained from the process can also be applied to predict future performances.</p>
 <div id="insights" class="section level3">
 <h3>4. Insights</h3>
+<p>Next, we look at using histograms for insights. Terminal V48_8 has a very long tail, which means that there are many records of PMs waiting for a long time. The red reference line is set at 15 minutes, which means that there are a significant number of PMs being stuck beyond 15 minutes. The tails of the distributiosn for the other terminals are much shorter. Exploring why Terminal V48_8 is performing significantly worse than the other terminals would be a key takeaway that operation managers can explore further on.</p>
+<p><img src="hist1.png" /></p>
+<p>Considering the day of the week aspect, Tuesdays, Wednesday, and Thursday have seen significantly longer tails as compared to the other days of the week. This may be due to volume fluctuations, considering that the 3 days mentioned have greater volumes compared to the other days. Potentially, a larger volume to handle will contribute more to the waiting time. However, looking at the bar charts, only Friday sees a significant drop in volume. More has to be done to explore why the tail of the waiting time distribution extends so much during Tuesdays, Wednesdays and Thursdays.</p>
+<p><img src="hist3.png" /></p>
+<p><img src="hist2.png" /></p>
 </div>
 </div>
 </div>
